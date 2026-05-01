@@ -3,7 +3,7 @@
 This tutorial focuses on *how Git actually works under the hood* and the commands you will use in real workflows. It avoids basic setup (you can find instructions about it [here](Git.md)) and instead emphasizes mental models, history manipulation, and collaboration patterns.
 
 > [!NOTE]
-> You should try the commands from this tutorial outside any git repository, including this one. For example go `cd ..; mkdir -p not_repo; cd not_repo`.
+> You should try the commands from this tutorial outside any git repository, including this one. For example go `cd ../..; mkdir -p not_repo; cd not_repo`.
 
 ---
 

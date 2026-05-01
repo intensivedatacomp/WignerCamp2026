@@ -69,8 +69,17 @@ To build the LaTeX documents with `CMake`, you need to have `cmake`, `pdflatex`,
 For example, on Ubuntu/Debian:
 ```bash
 sudo apt update
-sudo apt install cmake texlive-latex-base texlive-latex-recommended
-sudo apt install texlive-bibtex-extra texlive-fonts-recommended
+sudo apt install cmake
+
+sudo pat install
+    texlive-latex-base \
+    texlive-latex-recommended \
+    texlive-latex-extra \
+    texlive-bibtex-extra \
+    texlive-fonts-recommended \
+    texlive-fonts-extra \
+    dvipng \
+    cm-super
 ```
 
 - `cmake` — the build system.

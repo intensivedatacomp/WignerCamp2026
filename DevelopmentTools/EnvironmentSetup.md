@@ -5,8 +5,10 @@ This guide provides step-by-step instructions for installing and configuring the
 * Conda (free distribution)
 * Git + GitHub
 * Vim
-* Docker (optional)
+* WSL
 * LaTeX (optional)
+* Docker (optional)
+* cmake (optional)
 
 We cover both **Ubuntu (Linux)** and **Windows** systems, including **WSL (Windows Subsystem for Linux)**.
 
@@ -165,7 +167,103 @@ vim
 
 ---
 
-# 5. Docker
+# 5. Windows Subsystem for Linux (WSL)
+
+WSL allows running a Linux environment inside Windows.
+
+## 🔹 Install WSL
+
+Open PowerShell as Administrator:
+
+```powershell
+wsl --install
+```
+
+Reboot when prompted.
+
+---
+
+## 🔹 Install Ubuntu in WSL
+
+```powershell
+wsl --install -d Ubuntu
+```
+
+Launch Ubuntu and create a user.
+
+---
+
+## 🔹 Use WSL
+
+You can now use Linux commands:
+
+```bash
+sudo apt update
+sudo apt install git vim
+```
+
+### Access Windows Files
+
+```bash
+cd /mnt/c/Users/YourName
+```
+
+---
+
+## 🔹 When to Use WSL vs Native Windows
+
+| Task        | Recommended |
+| ----------- | ----------- |
+| Development | WSL         |
+| GUI tools   | Windows     |
+| Docker      | WSL backend |
+
+---
+
+# 6. LaTeX
+
+We recommend **TeX Live**.
+
+## 🔹 Ubuntu
+
+```bash
+sudo apt install texlive-full
+sudo apt install
+    texlive-latex-base \
+    texlive-latex-recommended \
+    texlive-latex-extra \
+    texlive-bibtex-extra \
+    texlive-fonts-recommended \
+    texlive-fonts-extra \
+    dvipng \
+    cm-super
+```
+
+### Test
+
+```bash
+pdflatex --version
+```
+
+---
+
+## 🔹 Windows
+
+Install **MiKTeX**:
+[https://miktex.org/download](https://miktex.org/download)
+
+### Notes
+
+* Enable “install missing packages on-the-fly”
+
+### Test
+
+```powershell
+pdflatex --version
+```
+---
+
+# 7. Docker
 
 ## 🔹 Ubuntu
 
@@ -221,106 +319,166 @@ Install **Docker Desktop**:
 docker run hello-world
 ```
 
+Add the following section to your setup guide:
+
 ---
 
-# 6. LaTeX
+# 8. CMake (Build System Generator)
 
-We recommend **TeX Live**.
+CMake is used to configure and generate build systems (e.g., Makefiles, Ninja) for C/C++ projects.
+
+---
 
 ## 🔹 Ubuntu
 
-```bash
-sudo apt install texlive-full
-sudo apt install
-    texlive-latex-base \
-    texlive-latex-recommended \
-    texlive-latex-extra \
-    texlive-bibtex-extra \
-    texlive-fonts-recommended \
-    texlive-fonts-extra \
-    dvipng \
-    cm-super
-```
-
-### Test
-
-```bash
-pdflatex --version
-```
-
----
-
-## 🔹 Windows
-
-Install **MiKTeX**:
-[https://miktex.org/download](https://miktex.org/download)
-
-### Notes
-
-* Enable “install missing packages on-the-fly”
-
-### Test
-
-```powershell
-pdflatex --version
-```
-
----
-
-# 7. Windows Subsystem for Linux (WSL)
-
-WSL allows running a Linux environment inside Windows.
-
-## 🔹 Install WSL
-
-Open PowerShell as Administrator:
-
-```powershell
-wsl --install
-```
-
-Reboot when prompted.
-
----
-
-## 🔹 Install Ubuntu in WSL
-
-```powershell
-wsl --install -d Ubuntu
-```
-
-Launch Ubuntu and create a user.
-
----
-
-## 🔹 Use WSL
-
-You can now use Linux commands:
+### Install
 
 ```bash
 sudo apt update
-sudo apt install git vim
+sudo apt install cmake
 ```
 
-### Access Windows Files
+### Verify
 
 ```bash
-cd /mnt/c/Users/YourName
+cmake --version
+```
+
+### Optional (Recommended for newer versions)
+
+Ubuntu repositories can lag behind. To install a newer version:
+
+```bash
+sudo apt remove cmake
+wget https://github.com/Kitware/CMake/releases/latest/download/cmake-linux-x86_64.sh
+chmod +x cmake-linux-x86_64.sh
+./cmake-linux-x86_64.sh --skip-license --prefix=$HOME/.local
+```
+
+Add to PATH if needed:
+
+```bash
+echo 'export PATH=$HOME/.local/bin:$PATH' >> ~/.bashrc
+source ~/.bashrc
 ```
 
 ---
 
-## 🔹 When to Use WSL vs Native Windows
+## 🔹 Windows (Native)
 
-| Task        | Recommended |
-| ----------- | ----------- |
-| Development | WSL         |
-| GUI tools   | Windows     |
-| Docker      | WSL backend |
+### Install
+
+Download installer from:
+[https://cmake.org/download/](https://cmake.org/download/)
+
+Run the `.msi` installer and select:
+
+* ✔ “Add CMake to the system PATH for all users”
 
 ---
 
-# 8. General Troubleshooting
+### Verify (Command Prompt / PowerShell)
+
+```powershell
+cmake --version
+```
+
+---
+
+## 🔹 Windows (WSL)
+
+Inside WSL (Ubuntu):
+
+```bash
+sudo apt update
+sudo apt install cmake
+```
+
+---
+
+## 🔹 Basic Usage Example
+
+```bash
+mkdir build
+cd build
+cmake ..
+make
+```
+
+---
+
+## 🔹 Common Issues
+
+### `cmake: command not found`
+
+* Ensure installation completed
+* Check PATH:
+
+  ```bash
+  echo $PATH
+  ```
+
+---
+
+### Wrong CMake Version
+
+* Happens on Ubuntu LTS
+* Solution: install from Kitware release (see above)
+
+---
+
+### Compiler Not Found
+
+Error like:
+
+```
+No CMAKE_CXX_COMPILER could be found
+```
+
+Install build tools:
+
+```bash
+sudo apt install build-essential
+```
+
+---
+
+### Windows: Spaces in Paths
+
+Avoid project paths like:
+
+```
+C:\Users\Your Name\project
+```
+
+Prefer:
+
+```
+C:\dev\project
+```
+
+---
+
+## 🔹 Recommendation
+
+* Use **CMake + Ninja** for faster builds:
+
+  ```bash
+  sudo apt install ninja-build
+  cmake -G Ninja ..
+  ninja
+  ```
+
+* Keep builds **out-of-source** (`build/` directory)
+
+---
+
+This completes the required toolchain for C/C++ and hybrid Python/C++ projects used in the summer school.
+
+
+---
+
+# 9. General Troubleshooting
 
 ### PATH Issues
 
@@ -346,7 +504,7 @@ ping github.com
 
 ---
 
-# 9. Final Verification Checklist
+# 10. Final Verification Checklist
 
 Run these commands:
 
@@ -356,6 +514,7 @@ git --version
 vim --version
 docker --version
 pdflatex --version
+cmake --version
 ```
 
 ---

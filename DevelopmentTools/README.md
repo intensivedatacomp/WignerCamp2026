@@ -6,6 +6,18 @@ This directory contains beginner-friendly guides designed to help new users beco
 
 ## 📁 Contents
 
+### 🛠️ [EnvironmentSetup.md](EnvironmentSetup.md)
+
+Instructions on how to set up your local environment for the Summer School:
+
+- Conda (free distribution)
+- Git + GitHub
+- Vim
+- WSL
+- LaTeX (optional)
+- Docker (optional)
+- cmake (optional)
+
 ### 📘 [TerminalBasics.md](TerminalBasics.md)
 
 A practical introduction to using the **Linux terminal**. Topics include:

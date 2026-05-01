@@ -13,7 +13,9 @@ This year 2 different projects are offered to students:
 
 ---
 
-## 📦 Cloning repository
+## 📦 Setup + cloning repository
+
+First the development environment has to be set up for the Summer School, you can find instructions to do that at [EnvironmentSetup.md](DevelopmentTools/EnvironmentSetup.md).
 
 You can clone this repository using:
 
@@ -28,11 +30,18 @@ You should get familiar with the folders in this repository in the following ord
 
 #### General introduction
 - [DevelopmentTools](DevelopmentTools): Basic introduction to linux terminal, vim, and git.
-- Basic programming (numpy, pandas, matplotlib, torch)
+- Basic programming (numpy, pandas, matplotlib, torch).
 
 #### Edge detection materials
+- Introduction to the project for the summer school.
 - Convolution
 - Introduction to the method
+
+#### Anomaly detection
+- Introduction to the project for the summer school.
+- Mathematical introduction: matrix multiplication, very short introduction to eigenvectors.
+- Introduction to `altx`.
+- Classical signal processing: find peaks, bayesian hyperparameter optimization.
 
 ---
 
@@ -44,11 +53,11 @@ TODO: Update table
 
 ## 🐍 Creating the Conda Environment
 
-To run the Python scripts, create a new Conda environment named `ALTenv`:
+To run the Python scripts, create a new Conda environment named `WignerCampEnv`:
 
 ```bash
-conda create -n ALTenv python=3.11 -y
-conda activate ALTenv
+conda create -n WignerCampEnv python=3.14 -y
+conda activate WignerCampEnv
 ```
 
 Then install the required packages:
@@ -64,28 +73,7 @@ pip install pytest
 ## 📄 Building LaTeX Documents
 
 ### 🔧 Installing Dependencies on Linux
-To build the LaTeX documents with `CMake`, you need to have `cmake`, `pdflatex`, and `bibtex` installed. On most Linux distributions you can install them with your package manager.
-
-For example, on Ubuntu/Debian:
-```bash
-sudo apt update
-sudo apt install cmake
-
-sudo pat install
-    texlive-latex-base \
-    texlive-latex-recommended \
-    texlive-latex-extra \
-    texlive-bibtex-extra \
-    texlive-fonts-recommended \
-    texlive-fonts-extra \
-    dvipng \
-    cm-super
-```
-
-- `cmake` — the build system.
-- `pdflatex` — provided by texlive-latex-base (compiles .tex to .pdf).
-- `bibtex` — provided by texlive-bibtex-extra (manages references).
-- `texlive-latex-recommended` and `texlive-fonts-recommended` — recommended LaTeX packages and fonts used by many templates.
+To build the LaTeX documents with `CMake`, you need to have `cmake`, `pdflatex`, and `bibtex` installed. On most Linux distributions you can install them with your package manager. For a complete installation guide for the Summer School see: [EnvironmentSetup.md](DevelopmentTools/EnvironmentSetup.md).
 
 ### 🔧 Compiling LaTeX Documents
 

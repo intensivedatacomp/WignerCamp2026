@@ -70,6 +70,21 @@ conda --version
 * PATH not updated → restart terminal
 * Antivirus blocking installer → temporarily disable
 
+### Installing needed packages
+
+You can create a virtual environment with:
+```bash
+conda create -n WignerCampEnv python=3.14 -y
+conda activate WignerCampEnv
+```
+
+The following packages will be needed for the Summer School:
+```bash
+pip install numpy matplotlib pandas scipy
+pip install torch torchvision torchaudio
+pip install pytest
+```
+
 ---
 
 # 2. Git

@@ -18,3 +18,7 @@ build/
 *.fls
 *.fdb_latexmk
 *.synctex.gz
+
+# Programming example outputs
+BasicProgramming/output.csv
+BasicProgramming/high_salary.csv

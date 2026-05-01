@@ -30,7 +30,7 @@ You should get familiar with the folders in this repository in the following ord
 
 #### General introduction
 - [DevelopmentTools](DevelopmentTools): Basic introduction to linux terminal, vim, and git.
-- Basic programming (numpy, pandas, matplotlib, torch).
+- [BasicProgramming](BasicProgramming): python, numpy, pandas, matplotlib, torch.
 
 #### Edge detection materials
 - Introduction to the project for the summer school.

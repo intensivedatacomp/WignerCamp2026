@@ -22,3 +22,19 @@ build/
 # Programming example outputs
 BasicProgramming/output.csv
 BasicProgramming/high_salary.csv
+
+# Vim files
+*.swp
+.jukit
+
+# Converted notebooks
+BasicProgramming/matplotlib_basics_solutions.py
+BasicProgramming/matplotlib_basics.py
+BasicProgramming/pandas_basics_solutions.py
+BasicProgramming/pandas_basics.py
+BasicProgramming/numpy_basics_solutions.py
+BasicProgramming/numpy_basics.py
+BasicProgramming/python_basics.py
+BasicProgramming/python_basics_solutions.py
+BasicProgramming/pytorch_basics_solutions.py
+BasicProgramming/pytorch_basics.py

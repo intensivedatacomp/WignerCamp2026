@@ -51,11 +51,11 @@
 \setbeamercolor{title}{fg=blue}
 \setbeamercolor{structure}{fg=blue}
 
-\title{\textcolor{blue}{Introduction to Programming for AI}}
+\title{\textcolor{blue}{Introduction to Programming}}
 \subtitle{\textcolor{blue}{Wigner Summer Camp \\ Data and Compute Intensive Sciences Research Group}}
-\author{\textcolor{blue}{Balázs, Paszkál, Vince, Levente, Antal \\ Éva, Hajni}}
+\author{\textcolor{blue}{Balázs, Paszkál, Vince, Levente, Bence, Antal \\ Éva, Hajni}}
 
-\date{\textcolor{blue}{7-11 July 2025}}
+\date{\textcolor{blue}{6--10 July 2026}}
 
 % Footline with slide number
 \setbeamertemplate{footline}
@@ -101,182 +101,167 @@
 	
 	\begin{frame}[fragile]{Why Python for AI?}
 	    \begin{itemize}
-			\item \textbf{Readability:} Simple syntax similar to pseudocode
-			\item \textbf{Ecosystem:} Rich collection of libraries for scientific computing
-			\item \textbf{Community:} Large user base and extensive documentation
-			\item \textbf{Flexibility:} Supports both prototyping and production
+			\item \textbf{Readability:} Simple syntax similar to pseudocode.
+			\item \textbf{Ecosystem:} Rich collection of libraries for scientific computing.
+			\item \textbf{Community:} Large user base and extensive documentation.
+			\item \textbf{Flexibility:} Supports both prototyping and production.
 		\end{itemize}
 	
-		\begin{example}[Simple Python Example]
+		\begin{example}[Simple Python]
 			\begin{lstlisting}
-				# Calculate factorial
-				def factorial(n):
-				return 1 if n == 0 else n * factorial(n-1)
+# Calculate factorial
+def factorial(n):
+return 1 if n == 0 else n * factorial(n-1)
 			\end{lstlisting}
 		\end{example}
 	\end{frame}
 	
 	\begin{frame}[fragile]{Python Basics}
-		Core concepts you'll learn:
+		Core concepts you'll learn about:
 		\begin{itemize}
-			\item Variables and data types (int, float, str, bool)
-			\item Control flow (if-else, for/while loops)
-			\item Functions and lambda expressions
-			\item Lists, tuples, dictionaries, sets
-			\item Object-oriented programming basics
+			\item Variables and data types (int, float, str, bool).
+			\item Control flow (if-else, for/while loops).
+			\item Functions and lambda expressions.
+			\item Lists, tuples, dictionaries, sets.
+			\item Object-oriented programming basics.
 		\end{itemize}
 		
-		\begin{example}[List Comprehension Example]
+		\begin{example}[List Comprehension]
 			\begin{lstlisting}
-				squares = [x**2 for x in range(10)]
+squares = [x**2 for x in range(10)]
 			\end{lstlisting}
 		\end{example}
 	\end{frame}
 	
 	\begin{frame}[fragile]{NumPy: Numerical Computing}
 		\begin{itemize}
-			\item \textbf{What:} Fundamental package for scientific computing
-			\item \textbf{Why:} Efficient array operations and linear algebra
+			\item \textbf{What:} Fundamental package for scientific computing.
+			\item \textbf{Why:} Efficient array operations and linear algebra.
 			\item \textbf{Key features:}
 			\begin{itemize}
-				\item N-dimensional array object
-				\item Broadcasting functions
-				\item Linear algebra, Fourier transform, random number capabilities
+				\item N-dimensional array object.
+				\item Broadcasting functions.
+				\item Linear algebra, Fourier transform, random number capabilities.
 			\end{itemize}
 		\end{itemize}
 		
 		\begin{example}[NumPy array]
 			\begin{lstlisting}
-				import numpy as np
-				a = np.array([[1, 2], [3, 4]])
-				b = np.ones((2,2))
-				c = a + b  # Element-wise addition
+import numpy as np
+a = np.array([[1, 2], [3, 4]])
+b = np.ones((2,2))
+c = a + b  # Element-wise addition
 			\end{lstlisting}
 		\end{example}
 	\end{frame}
 	
 	\begin{frame}[fragile]{pandas: Data Analysis}
 		\begin{itemize}
-			\item \textbf{What:} Powerful data manipulation library
-			\item \textbf{Why:} Essential for data cleaning and preprocessing
+			\item \textbf{What:} Powerful data manipulation library.
+			\item \textbf{Why:} Essential for data cleaning and preprocessing.
 			\item \textbf{Key features:}
 			\begin{itemize}
-				\item DataFrame object (like Excel tables)
-				\item Handling missing data
-				\item Merging and joining datasets
-				\item Time series functionality
+				\item DataFrame object (like Excel tables).
+				\item Handling missing data.
+				\item Merging and joining datasets.
+				\item Time series functionality.
 			\end{itemize}
 		\end{itemize}
 		
 		\begin{example}[pandas DataFrame]
 			\begin{lstlisting}
-				import pandas as pd
-				data = {'Name': ['Alice', 'Bob'], 'Age': [25, 30]}
-				df = pd.DataFrame(data)
+import pandas as pd
+data = {'Name': ['Alice', 'Bob'], 'Age': [25, 30]}
+df = pd.DataFrame(data)
 			\end{lstlisting}
 		\end{example}
 	\end{frame}
 	
 	\begin{frame}[fragile]{matplotlib: Data Visualization}
 		\begin{itemize}
-			\item \textbf{What:} Comprehensive 2D plotting library
-			\item \textbf{Why:} Visualize data and model results
+			\item \textbf{What:} Comprehensive 2D plotting library.
+			\item \textbf{Why:} Visualize data and model results.
 			\item \textbf{Key features:}
 			\begin{itemize}
-				\item Publication-quality figures
-				\item Various plot types (line, bar, scatter, histogram)
-				\item Customizable styling
+				\item Publication-quality figures.
+				\item Various plot types (line, bar, scatter, histogram).
+				\item Customizable styling.
 			\end{itemize}
 		\end{itemize}
 		
 		\begin{example}[Simple plot]
 			\begin{lstlisting}
-				import matplotlib.pyplot as plt
-				plt.plot([1, 2, 3], [1, 4, 9])
-				plt.xlabel('X axis')
-				plt.ylabel('Y axis')
+import matplotlib.pyplot as plt
+plt.plot([1, 2, 3], [1, 4, 9])
+plt.xlabel('X axis')
+plt.ylabel('Y axis')
 			\end{lstlisting}
 		\end{example}
 	\end{frame}
 	
 	\begin{frame}[fragile]{PyTorch: Deep Learning}
 		\begin{itemize}
-			\item \textbf{What:} Open-source machine learning library
-			\item \textbf{Why:} Flexible architecture for research and production
+			\item \textbf{What:} Open-source machine learning library.
+			\item \textbf{Why:} Flexible architecture for research and production.
 			\item \textbf{Key features:}
 			\begin{itemize}
-				\item Tensor computation with GPU acceleration
-				\item Automatic differentiation
-				\item Neural network building blocks
+				\item Tensor computation with GPU acceleration.
+				\item Automatic differentiation.
+				\item Neural network building blocks.
 			\end{itemize}
 		\end{itemize}
 		
 		\begin{example}[Simple tensor operation]
 			\begin{lstlisting}
-				import torch
-				x = torch.tensor([[1, 2], [3, 4.]])
-				y = torch.matmul(x, x)  # Matrix multiplication
+import torch
+x = torch.tensor([[1, 2], [3, 4.]])
+y = torch.matmul(x, x)  # Matrix multiplication
 			\end{lstlisting}
 		\end{example}
 	\end{frame}
 	
 	\begin{frame}{How These Tools Work Together}
 		\begin{center}
-			\begin{tikzpicture}[node distance=2cm]
-				\node (python) [draw, fill=blue!20, text width=2cm, align=center] {Python\\Core};
-				\node (numpy) [draw, fill=blue!20, text width=2cm, align=center, right of=python, xshift=2cm] {NumPy\\Math Operations};
-				\node (pandas) [draw, fill=blue!20, text width=2cm, align=center, below of=python, yshift=-1cm] {pandas\\Data Handling};
-				\node (matplotlib) [draw, fill=blue!20, text width=2cm, align=center, below of=numpy, yshift=-1cm] {matplotlib\\Visualization};
-				\node (pytorch) [draw, fill=blue!20, text width=2cm, align=center, below of=matplotlib, yshift=-1cm] {PyTorch\\AI Models};
+			\begin{tikzpicture}[
+				node distance=2cm,
+				box/.style={draw, fill=blue!20, text width=2cm, minimum height=1.5cm, align=center}
+				]
+				\node (python) [box] {Python\\Core};
+				\node (numpy) [box, right of=python, xshift=2cm] {NumPy\\Math Operations};
+				\node (pandas) [box, below of=python, yshift=-1cm] {pandas\\Data Handling};
+				\node (matplotlib) [box, below of=numpy, yshift=-1cm] {matplotlib\\Visualization};
+				\node (pytorch) [box, below of=matplotlib, yshift=-1cm] {PyTorch\\AI Models};
 				
-				\draw [->] (python) -- (numpy);
-				\draw [->] (python) -- (pandas);
-				\draw [->] (numpy) -- (matplotlib);
-				\draw [->] (pandas) -- (matplotlib);
-				\draw [->] (numpy) -- (pytorch);
+				\draw [->, thick] (python) -- (numpy);
+				\draw [->, thick] (python) -- (pandas);
+				\draw [->, thick] (numpy) -- (matplotlib);
+				\draw [->, thick] (pandas) -- (matplotlib);
+				\draw [->, thick] (numpy) -- (pytorch);
 			\end{tikzpicture}
 		\end{center}
 	\end{frame}
 	
 	\begin{frame}[fragile]{Practical Workflow Example}
 		\begin{enumerate}
-			\item Load and clean data with pandas
-			\item Perform numerical operations with NumPy
-			\item Visualize results with matplotlib
-			\item Build and train models with PyTorch
-			\item Analyze results and iterate
+			\item Load and clean data with pandas.
+			\item Perform numerical operations with NumPy.
+			\item Visualize results with matplotlib.
+			\item Build and train models with PyTorch.
+			\item Analyze results and iterate.
 		\end{enumerate}
 		
 		\begin{example}[AI workflow]
 			\begin{lstlisting}
-				# 1. Load data
-				data = pd.read_csv('dataset.csv')
-				
-				# 2. Preprocess
-				X = data[['feature1', 'feature2']].values
-				y = data['target'].values
-				
-				# 3. Build model
-				model = torch.nn.Linear(2, 1)
+# 1. Load data
+data = pd.read_csv('dataset.csv')
+
+# 2. Preprocess
+X = data[['feature1', 'feature2']].values
+y = data['target'].values
+
+# 3. Build model
+model = torch.nn.Linear(2, 1)
 			\end{lstlisting}
 		\end{example}
 	\end{frame}
-	
-	\begin{frame}{Getting Started}
-		\begin{itemize}
-			\item Install Python (recommend Anaconda distribution)
-			\item Jupyter Notebook for interactive coding
-			\item Course materials available on GitHub
-			\item Exercises with solutions for practice
-		\end{itemize}
-		
-		\begin{block}{Next Steps}
-			\begin{itemize}
-				\item Start with python\_basics.ipynb
-				\item Progress through each module
-				\item Ask questions and experiment!
-			\end{itemize}
-		\end{block}
-	\end{frame}
-	
 \end{document}

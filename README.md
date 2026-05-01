@@ -80,7 +80,7 @@ To build the LaTeX documents with `CMake`, you need to have `cmake`, `pdflatex`,
 Some folders contain `.tex` slides or documents. To compile all LaTeX files using `CMake`:
 
 ```bash
-mkdir build
+mkdir -p build
 cd build
 cmake ..
 cmake --build . -j4

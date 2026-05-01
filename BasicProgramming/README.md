@@ -4,6 +4,8 @@ This folder provides a self-contained, beginner-friendly introduction to the ess
 
 ## 📚 Contents
 
+During the processing ot these documents, we are suggesting the use of our [bacis-programming.pdf](basic-programming.pdf) presentation which covers the mentioned topics and provides a foundation for working with these notebooks listed below. For reaching the source file of the presentation, [basic-programming.tex](basic-programming.tex).
+
 | Notebook                                | Description                                           | Solution File                                      |
 |----------------------------------------|-------------------------------------------------------|----------------------------------------------------|
 | [python_basics.ipynb](python_basics.ipynb)             | Core Python syntax and programming concepts           | [python_basics_solutions.ipynb](python_basics_solutions.ipynb)             |
@@ -19,12 +21,8 @@ This folder provides a self-contained, beginner-friendly introduction to the ess
 
 ## 🚀 How to Use
 
-1. Open the `.ipynb` files in Jupyter Lab, Jupyter Notebook, or VS Code.
+1. Open the `.ipynb` files in Jupyter Lab, Jupyter Notebook, VS Code, or Google Colaboratory.
 2. Follow along the explanations and complete the exercises.
 3. Check your work using the corresponding `_solutions.ipynb` files.
 
 These materials are ideal for those who are new to scientific programming and aim to gain practical experience with the tools used throughout the camp and modern computational research in general.
-
----
-
-© 2025 Wigner Research Centre for Physics – Data and Compute Intensive Sciences Group

@@ -7,7 +7,7 @@ This year 2 different projects are offered to students:
     - Using a special convolution the relevant edges can be found on an image.
     - At the camp there will be several opportunities: applying the method to a video, investigating scale dependence of the method, or applying it to live video from a robot.
 - Anomaly detection:
-    - The research groups's novel method [altx](https://github.com/dcintlab/altx) has been demonstrated as effective in time-series data classification, now we would like to apply ot to anomaly detection.
+    - The research groups's novel method [altx](https://github.com/dcintlab/altx) has been demonstrated as effective in time-series data classification, now we would like to apply it to anomaly detection.
     - The special focus will be on classical signal processing methods which are able to find peaks in the data.
     - Also classical hyperparameter optimizations such as bayesian hyperparameter optimization will be used to optimize the hyperparameters of the method.
 

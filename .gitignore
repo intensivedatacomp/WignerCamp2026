@@ -4,6 +4,9 @@ build/
 build
 .DS_Store
 
+# Vscode files
+.vscode
+
 # LaTeX temporary files
 *.aux
 *.nav

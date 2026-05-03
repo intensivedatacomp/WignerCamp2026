@@ -80,9 +80,7 @@ conda activate WignerCampEnv
 
 The following packages will be needed for the Summer School:
 ```bash
-pip install numpy matplotlib pandas scipy
-pip install torch torchvision torchaudio
-pip install pytest
+pip install -r ../requirements.txt
 ```
 
 ---

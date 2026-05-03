@@ -63,9 +63,7 @@ conda activate WignerCampEnv
 Then install the required packages:
 
 ```bash
-pip install numpy matplotlib pandas scipy
-pip install torch torchvision torchaudio
-pip install pytest
+pip install -r requirements.txt
 ```
 
 ---

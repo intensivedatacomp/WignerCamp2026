@@ -34,8 +34,8 @@ You should get familiar with the folders in this repository in the following ord
 
 #### Edge detection materials
 - Introduction to the project for the summer school.
-- Convolution
-- Introduction to the method
+- [EdgeDetectionConvolution](EdgeDetectionConvolution): introduction to convolution.
+- Introduction to the method.
 
 #### Anomaly detection
 - Introduction to the project for the summer school.

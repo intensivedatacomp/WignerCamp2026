@@ -75,14 +75,14 @@ pip install pytest
 ### 🔧 Installing Dependencies on Linux
 To build the LaTeX documents with `CMake`, you need to have `cmake`, `pdflatex`, and `bibtex` installed. On most Linux distributions you can install them with your package manager. For a complete installation guide for the Summer School see: [EnvironmentSetup.md](DevelopmentTools/EnvironmentSetup.md).
 
-### 🔧 Compiling LaTeX Documents
+### 🔧 Compiling LaTeX Documents and jupyter notebook presentations
 
 Some folders contain `.tex` slides or documents. To compile all LaTeX files using `CMake`:
 
 ```bash
 mkdir -p build
 cd build
-cmake ..
+cmake -DBUILD_DOCS=ON -DBUILD_NOTEBOOKS=ON ..
 cmake --build . -j4
 cd -
 ```

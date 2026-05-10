@@ -259,6 +259,8 @@ After reset HEAD~2:
                  (main, HEAD)
 ```
 
+The `~n` refers to `n` commits behind. For example `HEAD~3` means 3 commits behind where `HEAD` is. 
+
 | Mode | Command | Your changes from C and D |
 |---|---|---|
 | **Soft** | `git reset --soft HEAD~2` | Still staged (in your backpack) |
@@ -486,7 +488,11 @@ cat config.txt
 ```
 You will see the `<<<<<<<` / `=======` / `>>>>>>>` markers.
 
-**Step 4 — Resolve it** by opening `config.txt` in any text editor and replacing the entire conflict section with your desired result. For example:
+**Step 4 — Resolve it** by opening `config.txt` in any text editor and replacing the entire conflict section with your desired result.
+
+In vim using the [fugitive](https://github.com/tpope/vim-fugitive) extension the merge can be resolved with the `:Gvdiffsplit!` command.
+
+For example:
 ```
 color: purple
 font: Arial
@@ -671,10 +677,9 @@ The two commits became one.
 Every commit lives in Git's database. But a commit is only **reachable** if you can get to it by following pointers: starting from a branch or tag, following parent links backward.
 
 ```
-            (these are orphaned — no branch points here)
 A ──► B ──► C ──► D
-                   ▲
-                 (main)
+      |           ▲
+      |           (main)
       |
       └──► X ──► Y    ← no branch or tag points here; X and Y are unreachable
 ```
@@ -778,8 +783,8 @@ Unlike a branch, a tag does not move when you make new commits.
 
 ```
 A ──► B ──► C ──► D ──► E
-      ▲             ▲
-   (v0.1)         (v1.0)   ← tags stay permanently fixed
+      ▲           ▲
+      (v0.1)      (v1.0)   ← tags stay permanently fixed
 ```
 
 ---

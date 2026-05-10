@@ -73,11 +73,36 @@ pip install -r requirements.txt
 ### 🔧 Installing Dependencies on Linux
 To build the LaTeX documents with `CMake`, you need to have `cmake`, `pdflatex`, and `bibtex` installed. On most Linux distributions you can install them with your package manager. For a complete installation guide for the Summer School see: [EnvironmentSetup.md](DevelopmentTools/EnvironmentSetup.md).
 
+### 🔧 Using Docker image to compile latex
+
+You can get a prepared docker image by, see [github/halmosb/docker-builder](https://github.com/halmosb/docker-builder):
+```bash
+cd ..
+git clone git@github.com:halmosb/docker-builder.git
+cd docker-builder
+git checkout v0.3.3
+pip install -e .
+docker-builder --no-root --latex
+sudo docker build -f generated/Dockerfile.3.14.cpu -t python:3.14-cpu-no-root-latex .
+cd ../WignerCamp2026
+```
+
+You can run the docker image with:
+```bash
+sudo docker run -it --rm \
+  -v $(pwd):/workspace \
+  --user root \
+  -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix \
+  python:3.14-cpu-no-root-latex
+```
+
+
 ### 🔧 Compiling LaTeX Documents and jupyter notebook presentations
 
 Some folders contain `.tex` slides or documents. To compile all LaTeX files using `CMake`:
 
 ```bash
+rm -rf build
 mkdir -p build
 cd build
 cmake -DBUILD_DOCS=ON -DBUILD_NOTEBOOKS=ON ..

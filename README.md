@@ -39,7 +39,7 @@ You should get familiar with the folders in this repository in the following ord
 
 #### Anomaly detection
 - Introduction to the project for the summer school.
-- Mathematical introduction: matrix multiplication, very short introduction to eigenvectors.
+- [AnomalyDetectionMathematics](AnomalyDetectionMathematics): matrix multiplication, eigendecomposition.
 - Introduction to `altx`.
 - Classical signal processing: find peaks, bayesian hyperparameter optimization.
 

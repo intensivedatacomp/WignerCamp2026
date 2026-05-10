@@ -23,6 +23,9 @@ build
 *.fdb_latexmk
 *.synctex.gz
 
+# Git tutorial
+DevelopmentTools/git_exercises
+
 # Programming example outputs
 BasicProgramming/output.csv
 BasicProgramming/high_salary.csv

@@ -344,8 +344,76 @@
   transformed to?
 \end{frame}
 
-\begin{frame}{Transformation examples - solutions}
-    ...
+\begin{frame}{Transformation Examples -- Solution 1}
+  The stretching matrix \(S = \begin{bmatrix} 2 & 0 \\ 0 & 2 \end{bmatrix}\) scales every vector by a factor of \(2\).
+  \begin{itemize}
+    \item For \(\vec{e}_1 = \begin{bmatrix} 1 \\ 0 \end{bmatrix}\):
+    \begin{equation}
+      S\vec{e}_1 = \begin{bmatrix} 2 & 0 \\ 0 & 2 \end{bmatrix}\begin{bmatrix} 1 \\ 0 \end{bmatrix} = \begin{bmatrix} 2 \\ 0 \end{bmatrix} = 2\vec{e}_1.
+    \end{equation}
+    \item For \(\vec{e}_2 = \begin{bmatrix} 0 \\ 1 \end{bmatrix}\):
+    \begin{equation}
+      S\vec{e}_2 = \begin{bmatrix} 2 & 0 \\ 0 & 2 \end{bmatrix}\begin{bmatrix} 0 \\ 1 \end{bmatrix} = \begin{bmatrix} 0 \\ 2 \end{bmatrix} = 2\vec{e}_2.
+    \end{equation}
+    \item For \(\vec{d} = \begin{bmatrix} 1 \\ 1 \end{bmatrix}\):
+    \begin{equation}
+      S\vec{d} = \begin{bmatrix} 2 & 0 \\ 0 & 2 \end{bmatrix}\begin{bmatrix} 1 \\ 1 \end{bmatrix} = \begin{bmatrix} 2 \\ 2 \end{bmatrix} = 2\vec{d}.
+    \end{equation}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Transformation Examples -- Solution 2}
+  The rotation matrix \(R = \begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix}\) rotates every vector by \(90^\circ\) counterclockwise.
+  \begin{itemize}
+    \item For \(\vec{e}_1 = \begin{bmatrix} 1 \\ 0 \end{bmatrix}\):
+    \begin{equation}
+      R\vec{e}_1 = \begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix}\begin{bmatrix} 1 \\ 0 \end{bmatrix} = \begin{bmatrix} 0 \\ 1 \end{bmatrix} = \vec{e}_2.
+    \end{equation}
+    \item For \(\vec{e}_2 = \begin{bmatrix} 0 \\ 1 \end{bmatrix}\):
+    \begin{equation}
+      R\vec{e}_2 = \begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix}\begin{bmatrix} 0 \\ 1 \end{bmatrix} = \begin{bmatrix} -1 \\ 0 \end{bmatrix} = -\vec{e}_1.
+    \end{equation}
+    \item For \(\vec{d} = \begin{bmatrix} 1 \\ 1 \end{bmatrix}\):
+    \begin{equation}
+      R\vec{d} = \begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix}\begin{bmatrix} 1 \\ 1 \end{bmatrix} = \begin{bmatrix} -1 \\ 1 \end{bmatrix}.
+    \end{equation}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Transformation Examples -- Solution 3}
+  The reflection matrix \(F = \begin{bmatrix} 1 & 0 \\ 0 & -1 \end{bmatrix}\) flips the sign of the \(y\)-component.
+  \begin{itemize}
+    \item For \(\vec{e}_1 = \begin{bmatrix} 1 \\ 0 \end{bmatrix}\):
+    \begin{equation}
+      F\vec{e}_1 = \begin{bmatrix} 1 & 0 \\ 0 & -1 \end{bmatrix}\begin{bmatrix} 1 \\ 0 \end{bmatrix} = \begin{bmatrix} 1 \\ 0 \end{bmatrix} = \vec{e}_1.
+    \end{equation}
+    \item For \(\vec{e}_2 = \begin{bmatrix} 0 \\ 1 \end{bmatrix}\):
+    \begin{equation}
+      F\vec{e}_2 = \begin{bmatrix} 1 & 0 \\ 0 & -1 \end{bmatrix}\begin{bmatrix} 0 \\ 1 \end{bmatrix} = \begin{bmatrix} 0 \\ -1 \end{bmatrix} = -\vec{e}_2.
+    \end{equation}
+    \item For \(\vec{d} = \begin{bmatrix} 1 \\ 1 \end{bmatrix}\):
+    \begin{equation}
+      F\vec{d} = \begin{bmatrix} 1 & 0 \\ 0 & -1 \end{bmatrix}\begin{bmatrix} 1 \\ 1 \end{bmatrix} = \begin{bmatrix} 1 \\ -1 \end{bmatrix}.
+    \end{equation}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Transformation Examples -- Solution 4}
+  The projection matrix \(P = \begin{bmatrix} 1 & 0 \\ 0 & 0 \end{bmatrix}\) sets the \(y\)-component to zero.
+  \begin{itemize}
+    \item For \(\vec{e}_1 = \begin{bmatrix} 1 \\ 0 \end{bmatrix}\):
+    \begin{equation}
+      P\vec{e}_1 = \begin{bmatrix} 1 & 0 \\ 0 & 0 \end{bmatrix}\begin{bmatrix} 1 \\ 0 \end{bmatrix} = \begin{bmatrix} 1 \\ 0 \end{bmatrix} = \vec{e}_1.
+    \end{equation}
+    \item For \(\vec{e}_2 = \begin{bmatrix} 0 \\ 1 \end{bmatrix}\):
+    \begin{equation}
+      P\vec{e}_2 = \begin{bmatrix} 1 & 0 \\ 0 & 0 \end{bmatrix}\begin{bmatrix} 0 \\ 1 \end{bmatrix} = \begin{bmatrix} 0 \\ 0 \end{bmatrix} = \vec{0}.
+    \end{equation}
+    \item For \(\vec{d} = \begin{bmatrix} 1 \\ 1 \end{bmatrix}\):
+    \begin{equation}
+      P\vec{d} = \begin{bmatrix} 1 & 0 \\ 0 & 0 \end{bmatrix}\begin{bmatrix} 1 \\ 1 \end{bmatrix} = \begin{bmatrix} 1 \\ 0 \end{bmatrix} = \vec{e}_1.
+    \end{equation}
+  \end{itemize}
 \end{frame}
 
 \section{Matrix-Matrix Multiplication}

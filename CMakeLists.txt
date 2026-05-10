@@ -3,3 +3,4 @@ project(WigneCamp2025)
 
 add_subdirectory(BasicProgramming)
 add_subdirectory(EdgeDetectionConvolution)
+add_subdirectory(AnomalyDetectionMathematics)

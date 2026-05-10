@@ -483,6 +483,91 @@
 
 
 
+\begin{frame}[fragile]{Eigenvalues with PyTorch}
+  \begin{itemize}
+    \item \texttt{torch.linalg.eigh()} computes eigenvalues and orthonormal eigenvectors of a real symmetric matrix.
+    \item Documentation: \href{https://pytorch.org/docs/stable/generated/torch.linalg.eigh.html}{\texttt{torch.linalg.eigh}}.
+    \item It returns a tuple \texttt{(eigenvalues, eigenvectors)}, where:
+    \begin{itemize}
+      \item \texttt{eigenvalues} is a 1D tensor sorted in ascending order,
+      \item each column of \texttt{eigenvectors} is the corresponding unit-length eigenvector.
+    \end{itemize}
+  \end{itemize}
+  \begin{lstlisting}
+import torch
+
+A = torch.tensor([[2., 1.],
+                  [1., 2.]])
+eigenvalues, eigenvectors = torch.linalg.eigh(A)
+# eigenvalues:  tensor([1., 3.])
+# eigenvectors: tensor([[-0.7071,  0.7071],
+#                       [ 0.7071,  0.7071]])
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Scaling Eigenvectors to Integer Form}
+  \begin{itemize}
+    \item \texttt{torch.linalg.eigh()} always returns \emph{unit} eigenvectors, i.e.\ eigenvectors with norm \(1\).
+    \item The integer eigenvectors of \(A = \begin{bmatrix}2 & 1 \\ 1 & 2\end{bmatrix}\) are \(\begin{bmatrix}1 \\ -1\end{bmatrix}\) and \(\begin{bmatrix}1 \\ 1\end{bmatrix}\), each with norm \(\sqrt{2}\).
+    \item Multiply the unit eigenvectors by \(\sqrt{2}\) to recover the integer form.
+  \end{itemize}
+  \begin{lstlisting}
+integer_eigvecs = eigenvectors * np.sqrt(2)
+# tensor([[-1.,  1.],
+#         [ 1.,  1.]])  (each column is one eigenvector)
+  \end{lstlisting}
+  \begin{itemize}
+    \item In general, to recover an integer eigenvector \(\vec{w}\), multiply the corresponding unit eigenvector by \(\|\vec{w}\|\).
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{PyTorch Eigendecomposition -- Exercise}
+  Use \texttt{torch.linalg.eigh()} to find the eigenvalues and eigenvectors of
+  \begin{equation}
+    A = \begin{bmatrix} 3 & 1 \\ 1 & 3 \end{bmatrix}.
+  \end{equation}
+  \begin{itemize}
+    \item What are the eigenvalues?
+    \item Scale the returned unit eigenvectors to their integer form using the technique from the previous slide.
+    \item What are the integer eigenvectors?
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{PyTorch Eigendecomposition -- Solution (1/2)}
+  \begin{lstlisting}
+import torch
+
+A = torch.tensor([[3., 1.],
+                  [1., 3.]])
+eigenvalues, eigenvectors = torch.linalg.eigh(A)
+# eigenvalues:  tensor([2., 4.])
+# eigenvectors: tensor([[-0.7071,  0.7071],
+#                       [ 0.7071,  0.7071]])
+
+integer_eigvecs = eigenvectors * np.sqrt(2)
+# tensor([[-1.,  1.],
+#         [ 1.,  1.]])
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}{PyTorch Eigendecomposition -- Solution (2/2)}
+  \begin{itemize}
+    \item The eigenvalues are \(\lambda_1 = 2\) and \(\lambda_2 = 4\).
+    \item The integer eigenvectors, obtained by multiplying the unit eigenvectors by \(\sqrt{2}\), are:
+    \begin{equation}
+      \vec{v}_1 = \begin{bmatrix} -1 \\ 1 \end{bmatrix} \text{ for } \lambda_1 = 2, \qquad
+      \vec{v}_2 = \begin{bmatrix} 1 \\ 1 \end{bmatrix} \text{ for } \lambda_2 = 4.
+    \end{equation}
+    \item Verification of the eigenvalue equation \(A\vec{v} = \lambda\vec{v}\):
+    \begin{equation}
+      \begin{bmatrix} 3 & 1 \\ 1 & 3 \end{bmatrix}\begin{bmatrix} -1 \\ 1 \end{bmatrix}
+      = \begin{bmatrix} -2 \\ 2 \end{bmatrix} = 2\begin{bmatrix} -1 \\ 1 \end{bmatrix}, \quad
+      \begin{bmatrix} 3 & 1 \\ 1 & 3 \end{bmatrix}\begin{bmatrix} 1 \\ 1 \end{bmatrix}
+      = \begin{bmatrix} 4 \\ 4 \end{bmatrix} = 4\begin{bmatrix} 1 \\ 1 \end{bmatrix}.
+    \end{equation}
+  \end{itemize}
+\end{frame}
+
 \begin{frame}{Revision}
 In this presentation you learned about:
     \begin{itemize}
@@ -491,8 +576,9 @@ In this presentation you learned about:
         \item Dot products.
         \item Vector-Matrix and Matrix-Matrix multiplication.
         \item Eigendecomposition.
+        \item Computing eigenvalues and eigenvectors with PyTorch.
     \end{itemize}
-    
+
 \end{frame}
 
 \end{document}

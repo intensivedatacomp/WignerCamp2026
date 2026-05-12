@@ -267,6 +267,7 @@ You enter *detached HEAD* state when you check out a specific commit hash instea
 
 ```bash
 git checkout a1b2c3d    # checkout a commit, not a branch
+                        # Note: a1b2c3d is just an example hash, will be different for your repo.
 ```
 
 Now HEAD points directly to a commit, not to any branch:
@@ -529,7 +530,7 @@ color: red
 Create a directory `ex3a_fast_forward`, initialize it with `git init -b main`, and bring it to the following state:
 
 - **`main` branch** — two commits:
-  1. (`"Initial app"`) `app.py` printing `"Hello, world!"`
+  1. (`"Initial app"`) `app.py` printing `"#Hello, world!"`
   2. (`"Add startup message"`) `app.py` extended with `print("App has started.")`
 - **`add-greeting` branch** — forked from `main`'s second commit, with two more commits:
   1. (`"Add greet function"`) `greet.py` with a `greet(name)` function
@@ -657,6 +658,16 @@ cd ex3b_conflict
 git lga
 cat config.txt
 ```
+
+Let's see the other branch:
+```bash
+git switch theme-red
+cat config.txt
+git lga
+git switch main
+git lga
+```
+
 The file shows `color: green` on main. The other branch changed it to `color: red`.
 
 **Step 2 — Attempt the merge:**

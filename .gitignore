@@ -24,7 +24,7 @@ build
 *.synctex.gz
 
 # Git tutorial
-DevelopmentTools/git_exercises
+git_exercises
 
 # Programming example outputs
 BasicProgramming/output.csv

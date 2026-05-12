@@ -40,15 +40,19 @@ Imagine writing an essay at school:
 
 The key insight: **nothing goes from your desk into the submitted version automatically**. You must first *pack it* (stage it), then *hand it in* (commit it).
 
+### Why is the staging area needed?
+
+Imagine that you are a scientist working on a small problem. Since it is just a small problem it involves changing ~50 files over completely different parts of the code (main code, tests, documentation, ...). So, if you want to show a clean history of the work, you have to option to only commit a subset of the changed files using the staging area.
+
 ---
 
 ## 1.2 Visual Model
 
 ```
-┌──────────────────┐   git add    ┌───────────────┐   git commit   ┌──────────┐
-│ Working Directory│ ──────────►  │  Staging Area │ ─────────────► │   HEAD   │
-│  (your desk)     │              │  (your bag)   │                │ (history)│
-└──────────────────┘              └───────────────┘                └──────────┘
+┌──────────────────┐   git add    ┌───────────────┐   git commit   ┌───────────┐
+│ Working Directory│ ──────────►  │  Staging Area │ ─────────────► │   HEAD    │
+│    (your desk)   │              │   (your bag)  │                │ (history) │
+└──────────────────┘              └───────────────┘                └───────────┘
 
    git restore <file>             git restore --staged <file>
    ◄── undo edit ──               ◄──── move back to desk ────
@@ -64,7 +68,7 @@ The key insight: **nothing goes from your desk into the submitted version automa
 | `git commit` | Everything staged | Staging Area → HEAD |
 | `git restore --staged <file>` | Unstage a file | Staging Area → Working Directory |
 | `git restore <file>` | Discard edits | HEAD → Working Directory (⚠️ loses changes!) |
-| `git reset --hard` | Discard everything | HEAD → both Staging Area and Working Directory |
+| `git reset --hard` | Discard everything | HEAD → both Staging Area and Working Directory. This is one of the few commands which deletes changes!|
 
 ---
 
@@ -103,10 +107,10 @@ git reset --hard
 
 ## Exercise 1 — Exploring the Three Trees
 
-Create a directory `ex1_three_trees` with a repository in the following state:
+Create a directory `ex1_three_trees`, initialize it as a Git repository with `git init -b main`, and bring it to the following state:
 
-- **Commit 1** — `readme.txt` containing `"Welcome to my project."`
-- **Commit 2** — `notes.txt` containing `"Remember to study Git!"`
+- **Commit 1** (`"Initial commit: add readme"`) — `readme.txt` containing `"Welcome to my project."`
+- **Commit 2** (`"Add notes file"`) — `notes.txt` containing `"Remember to study Git!"`
 - **Working directory** — `readme.txt` has a second line `"This line was added but NOT staged yet."` added but *not* staged
 - **Untracked file** — `scratch.txt` containing `"I am an untracked file."`
 
@@ -313,15 +317,15 @@ The `~n` refers to `n` commits behind. For example `HEAD~3` means 3 commits behi
 
 ## Exercise 2 — Exploring Branches and HEAD
 
-Create a directory `ex2_branches` with a repository in the following state:
+Create a directory `ex2_branches`, initialize it with `git init -b main`, and bring it to the following state:
 
 - **`main` branch** — three commits:
-  1. `story.txt` with Chapter 1
-  2. `story.txt` extended with Chapter 2
-  3. `foreword.txt` added after branching (this creates the divergence)
+  1. (`"Add chapter 1"`) `story.txt` with `"Chapter 1: The beginning."`
+  2. (`"Add chapter 2"`) `story.txt` extended with `"Chapter 2: Things get interesting."`
+  3. (`"Add foreword on main (diverges from feature)"`) `foreword.txt` added *after* branching (this creates the divergence)
 - **`feature-ending` branch** — forked after commit 2, with two more commits:
-  1. `story.txt` extended with Chapter 3
-  2. `epilogue.txt` added
+  1. (`"Add chapter 3 on feature branch"`) `story.txt` extended with `"Chapter 3: The epic ending."`
+  2. (`"Add epilogue on feature branch"`) `epilogue.txt` with `"And they lived happily ever after."`
 - You should be on `main` when you start the exercise
 
 <details>
@@ -522,10 +526,14 @@ color: red
 
 ## Exercise 3a — Fast-Forward Merge
 
-Create a directory `ex3a_fast_forward` with a repository in the following state:
+Create a directory `ex3a_fast_forward`, initialize it with `git init -b main`, and bring it to the following state:
 
-- **`main` branch** — two commits: initial `app.py` and a second commit adding a startup message
-- **`add-greeting` branch** — forked from `main`'s second commit, with two more commits: adding `greet()` and then `farewell()` to `greet.py`
+- **`main` branch** — two commits:
+  1. (`"Initial app"`) `app.py` printing `"Hello, world!"`
+  2. (`"Add startup message"`) `app.py` extended with `print("App has started.")`
+- **`add-greeting` branch** — forked from `main`'s second commit, with two more commits:
+  1. (`"Add greet function"`) `greet.py` with a `greet(name)` function
+  2. (`"Add farewell function"`) `greet.py` extended with a `farewell(name)` function
 - `main` received **no new commits** after branching, so a fast-forward merge is possible
 - You should be on `main` when you start the exercise
 
@@ -596,11 +604,11 @@ Both labels now point at the same commit. The history is a straight line.
 
 ## Exercise 3b — Handling a Merge Conflict
 
-Create a directory `ex3b_conflict` with a repository in the following state:
+Create a directory `ex3b_conflict`, initialize it with `git init -b main`, and bring it to the following state:
 
-- **Common ancestor commit** on `main` — `config.txt` with `color: blue`
-- **`theme-red` branch** — one commit changing `color` to `red`
-- **`main` branch** — one commit (after branching) changing `color` to `green`
+- **Common ancestor commit** (`"Add config file (common ancestor)"`) on `main` — `config.txt` with `color: blue`, `font: Arial`, `size: 12`
+- **`theme-red` branch** — one commit (`"Change color to red"`) changing `color` to `red`
+- **`main` branch** — one commit after branching (`"Change color to green"`) changing `color` to `green`
 - Both branches modified the **same line**, guaranteeing a conflict
 - You should be on `main` when you start the exercise
 
@@ -798,15 +806,15 @@ Save and close the editor. Git will then ask you to write a combined commit mess
 
 ## Exercise 4 — Rebasing a Feature Branch
 
-Create a directory `ex4_rebase` with a repository in the following state:
+Create a directory `ex4_rebase`, initialize it with `git init -b main`, and bring it to the following state:
 
 - **`main` branch** — three commits in this order:
-  1. `main.py` — `"# Main entry point"` (commit A)
-  2. `utils.py` — `"# Shared utilities"` (commit B)
-  3. `config.py` — `DEBUG = True` and `VERSION = '1.0'` (commit C, added *after* branching)
+  1. (`"A: Add main module"`) `main.py` with `"# Main entry point"` (commit A)
+  2. (`"B: Add utils module"`) `utils.py` with `"# Shared utilities"` (commit B)
+  3. (`"C: Add config module"`) `config.py` with `DEBUG = True` and `VERSION = '1.0'` (commit C, added *after* branching)
 - **`feature-logger` branch** — forked after commit B, with two commits:
-  1. `logger.py` with a `log()` function (commit D)
-  2. `logger.py` extended with an `error()` function (commit E)
+  1. (`"D: Add basic logger"`) `logger.py` with a `log()` function (commit D)
+  2. (`"E: Add error-level logging"`) `logger.py` extended with an `error()` function (commit E)
 - You should be on `feature-logger` when you start the exercise
 
 <details>
@@ -963,13 +971,13 @@ git reset --hard <hash>
 
 ## Exercise 5 — Recovering from a Hard Reset
 
-Create a directory `ex5_reflog` with a repository in the following state:
+Create a directory `ex5_reflog`, initialize it with `git init -b main`, and bring it to the following state:
 
 - **Four commits on `main`**, in order:
-  1. `data.txt` with `"Line 1: Important data"`
-  2. `data.txt` extended with `"Line 2: More important data"`
-  3. `data.txt` extended with `"Line 3: Critical information!"`
-  4. `notes.txt` with `"Remember to check the logs."`
+  1. (`"Add data file"`) `data.txt` with `"Line 1: Important data"`
+  2. (`"Add line 2"`) `data.txt` extended with `"Line 2: More important data"`
+  3. (`"Add line 3 — critical!"`) `data.txt` extended with `"Line 3: Critical information!"`
+  4. (`"Add notes file"`) `notes.txt` with `"Remember to check the logs."`
 
 <details>
 <summary>Setup: terminal commands</summary>
@@ -1100,12 +1108,12 @@ git push --tags
 
 ## Exercise 6 — Creating and Using Tags
 
-Create a directory `ex6_tags` with a repository in the following state:
+Create a directory `ex6_tags`, initialize it with `git init -b main`, and bring it to the following state:
 
 - **Three commits on `main`**, each representing a release:
-  1. `app.py` — version `0.1.0`, alpha release
-  2. `app.py` — version `0.2.0`, beta release with a `new_feature()` stub
-  3. `app.py` — version `1.0.0`, stable release adding a `stable_api()` stub
+  1. (`"Alpha release 0.1.0"`) `app.py` with `VERSION = "0.1.0"` and an alpha print
+  2. (`"Beta release 0.2.0 — add new feature"`) `app.py` updated to `VERSION = "0.2.0"` with a `new_feature()` stub
+  3. (`"Stable release v1.0.0"`) `app.py` updated to `VERSION = "1.0.0"` with a `stable_api()` stub added
 
 <details>
 <summary>Setup: terminal commands</summary>

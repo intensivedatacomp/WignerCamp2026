@@ -3,11 +3,24 @@
 This tutorial builds on the basics covered in [Git.md](Git.md) and explores *how Git actually works under the hood*. By the end you will understand why Git behaves the way it does, how to fix common mistakes, and how to use powerful features like branching strategies, rebasing, and tags.
 
 > [!NOTE]
-> Every section has a **hands-on exercise**. Before starting, run the helper script once to create all the practice repos:
+> Every section has a **hands-on exercise**. Each exercise begins with a description of the repository state you need to create, followed by a hidden **Setup** section containing the exact terminal commands to reach that state. First, create a working directory for all exercises:
 > ```bash
-> python setup_git_exercises.py
+> mkdir git_exercises
+> cd git_exercises
 > ```
-> This creates a `git_exercises/` folder in your current directory. Each exercise has its own subfolder. You can also set up individual exercises with e.g. `python setup_git_exercises.py 1 2`.
+> Set up each exercise repository just before starting that exercise by expanding its **Setup** section.
+
+---
+
+# 0. Setting Up the `git lga` Alias
+
+Before starting any exercise, register this alias once:
+
+```bash
+git config --global alias.lga "log --all --graph --decorate --oneline"
+```
+
+From now on, `git lga` is a shorthand for `git log --all --graph --decorate --oneline`, which prints a compact, decorated graph of every branch at once. All exercises use this alias instead of plain `git log`.
 
 ---
 
@@ -90,10 +103,36 @@ git reset --hard
 
 ## Exercise 1 — Exploring the Three Trees
 
-The setup script created a small repo at `git_exercises/ex1_three_trees/`. It has two committed files and one file that was deliberately left in a modified-but-not-staged state.
+Create a directory `ex1_three_trees` with a repository in the following state:
+
+- **Commit 1** — `readme.txt` containing `"Welcome to my project."`
+- **Commit 2** — `notes.txt` containing `"Remember to study Git!"`
+- **Working directory** — `readme.txt` has a second line `"This line was added but NOT staged yet."` added but *not* staged
+- **Untracked file** — `scratch.txt` containing `"I am an untracked file."`
+
+<details>
+<summary>Setup: terminal commands</summary>
+
+Run these commands from your `git_exercises/` directory:
 
 ```bash
-cd git_exercises/ex1_three_trees
+mkdir ex1_three_trees
+cd ex1_three_trees
+git init -b main
+echo "Welcome to my project." > readme.txt
+git add readme.txt
+git commit -m "Initial commit: add readme"
+echo "Remember to study Git!" > notes.txt
+git add notes.txt
+git commit -m "Add notes file"
+printf "Welcome to my project.\nThis line was added but NOT staged yet.\n" > readme.txt
+echo "I am an untracked file." > scratch.txt
+```
+
+</details>
+
+```bash
+cd ex1_three_trees
 ```
 
 **Step 1 — See the current state of all three trees:**
@@ -138,7 +177,7 @@ git status               # it moved back to untracked
 
 **Step 7 — Check the full commit history:**
 ```bash
-git log --oneline
+git lga
 ```
 
 ---
@@ -274,13 +313,61 @@ The `~n` refers to `n` commits behind. For example `HEAD~3` means 3 commits behi
 
 ## Exercise 2 — Exploring Branches and HEAD
 
+Create a directory `ex2_branches` with a repository in the following state:
+
+- **`main` branch** — three commits:
+  1. `story.txt` with Chapter 1
+  2. `story.txt` extended with Chapter 2
+  3. `foreword.txt` added after branching (this creates the divergence)
+- **`feature-ending` branch** — forked after commit 2, with two more commits:
+  1. `story.txt` extended with Chapter 3
+  2. `epilogue.txt` added
+- You should be on `main` when you start the exercise
+
+<details>
+<summary>Setup: terminal commands</summary>
+
+Run these commands from your `git_exercises/` directory:
+
 ```bash
-cd git_exercises/ex2_branches
+mkdir ex2_branches
+cd ex2_branches
+git init -b main
+echo "Chapter 1: The beginning." > story.txt
+git add story.txt
+git commit -m "Add chapter 1"
+cat > story.txt << 'EOF'
+Chapter 1: The beginning.
+Chapter 2: Things get interesting.
+EOF
+git add story.txt
+git commit -m "Add chapter 2"
+git switch -c feature-ending
+cat > story.txt << 'EOF'
+Chapter 1: The beginning.
+Chapter 2: Things get interesting.
+Chapter 3: The epic ending.
+EOF
+git add story.txt
+git commit -m "Add chapter 3 on feature branch"
+echo "And they lived happily ever after." > epilogue.txt
+git add epilogue.txt
+git commit -m "Add epilogue on feature branch"
+git switch main
+echo "A note from the author." > foreword.txt
+git add foreword.txt
+git commit -m "Add foreword on main (diverges from feature)"
+```
+
+</details>
+
+```bash
+cd ex2_branches
 ```
 
 **Step 1 — Visualize the branch structure:**
 ```bash
-git log --all --graph --oneline
+git lga
 ```
 You should see two branches: `main` and `feature-ending`. They share a common root but diverge.
 
@@ -293,7 +380,7 @@ The `*` marks your current branch.
 **Step 3 — Switch to the feature branch:**
 ```bash
 git switch feature-ending
-git log --oneline
+git lga
 ```
 Notice that `foreword.txt` (added on `main`) is gone from your working directory — you are now looking at the feature branch's snapshot.
 
@@ -307,7 +394,7 @@ ls
 **Step 5 — Create a new branch from main:**
 ```bash
 git switch -c experiment
-git log --oneline
+git lga
 ```
 `experiment` starts at the same commit as `main`.
 
@@ -316,7 +403,7 @@ git log --oneline
 echo "An experimental idea." > idea.txt
 git add idea.txt
 git commit -m "Add experimental idea"
-git log --all --graph --oneline
+git lga
 ```
 Now `experiment` is one commit ahead of `main`.
 
@@ -435,13 +522,61 @@ color: red
 
 ## Exercise 3a — Fast-Forward Merge
 
+Create a directory `ex3a_fast_forward` with a repository in the following state:
+
+- **`main` branch** — two commits: initial `app.py` and a second commit adding a startup message
+- **`add-greeting` branch** — forked from `main`'s second commit, with two more commits: adding `greet()` and then `farewell()` to `greet.py`
+- `main` received **no new commits** after branching, so a fast-forward merge is possible
+- You should be on `main` when you start the exercise
+
+<details>
+<summary>Setup: terminal commands</summary>
+
+Run these commands from your `git_exercises/` directory:
+
 ```bash
-cd git_exercises/ex3a_fast_forward
+mkdir ex3a_fast_forward
+cd ex3a_fast_forward
+git init -b main
+cat > app.py << 'EOF'
+print("Hello, world!")
+EOF
+git add app.py
+git commit -m "Initial app"
+cat > app.py << 'EOF'
+print("Hello, world!")
+print("App has started.")
+EOF
+git add app.py
+git commit -m "Add startup message"
+git switch -c add-greeting
+cat > greet.py << 'EOF'
+def greet(name):
+    print(f'Hello, {name}!')
+EOF
+git add greet.py
+git commit -m "Add greet function"
+cat > greet.py << 'EOF'
+def greet(name):
+    print(f'Hello, {name}!')
+
+def farewell(name):
+    print(f'Goodbye, {name}!')
+EOF
+git add greet.py
+git commit -m "Add farewell function"
+git switch main
+```
+
+</details>
+
+```bash
+cd ex3a_fast_forward
 ```
 
 **Step 1 — See the current situation:**
 ```bash
-git log --all --graph --oneline
+git lga
 ```
 `main` is two commits behind `add-greeting`. There is no divergence.
 
@@ -453,7 +588,7 @@ Notice the output says *"Fast-forward"*. No merge commit was created.
 
 **Step 3 — Confirm the result:**
 ```bash
-git log --all --graph --oneline
+git lga
 ```
 Both labels now point at the same commit. The history is a straight line.
 
@@ -461,13 +596,57 @@ Both labels now point at the same commit. The history is a straight line.
 
 ## Exercise 3b — Handling a Merge Conflict
 
+Create a directory `ex3b_conflict` with a repository in the following state:
+
+- **Common ancestor commit** on `main` — `config.txt` with `color: blue`
+- **`theme-red` branch** — one commit changing `color` to `red`
+- **`main` branch** — one commit (after branching) changing `color` to `green`
+- Both branches modified the **same line**, guaranteeing a conflict
+- You should be on `main` when you start the exercise
+
+<details>
+<summary>Setup: terminal commands</summary>
+
+Run these commands from your `git_exercises/` directory:
+
 ```bash
-cd git_exercises/ex3b_conflict
+mkdir ex3b_conflict
+cd ex3b_conflict
+git init -b main
+cat > config.txt << 'EOF'
+color: blue
+font: Arial
+size: 12
+EOF
+git add config.txt
+git commit -m "Add config file (common ancestor)"
+git switch -c theme-red
+cat > config.txt << 'EOF'
+color: red
+font: Arial
+size: 12
+EOF
+git add config.txt
+git commit -m "Change color to red"
+git switch main
+cat > config.txt << 'EOF'
+color: green
+font: Arial
+size: 12
+EOF
+git add config.txt
+git commit -m "Change color to green"
+```
+
+</details>
+
+```bash
+cd ex3b_conflict
 ```
 
 **Step 1 — See what happened:**
 ```bash
-git log --all --graph --oneline
+git lga
 cat config.txt
 ```
 The file shows `color: green` on main. The other branch changed it to `color: red`.
@@ -503,7 +682,7 @@ size: 12
 ```bash
 git add config.txt
 git commit -m "Resolve color conflict: chose purple"
-git log --all --graph --oneline
+git lga
 ```
 
 ---
@@ -619,13 +798,67 @@ Save and close the editor. Git will then ask you to write a combined commit mess
 
 ## Exercise 4 — Rebasing a Feature Branch
 
+Create a directory `ex4_rebase` with a repository in the following state:
+
+- **`main` branch** — three commits in this order:
+  1. `main.py` — `"# Main entry point"` (commit A)
+  2. `utils.py` — `"# Shared utilities"` (commit B)
+  3. `config.py` — `DEBUG = True` and `VERSION = '1.0'` (commit C, added *after* branching)
+- **`feature-logger` branch** — forked after commit B, with two commits:
+  1. `logger.py` with a `log()` function (commit D)
+  2. `logger.py` extended with an `error()` function (commit E)
+- You should be on `feature-logger` when you start the exercise
+
+<details>
+<summary>Setup: terminal commands</summary>
+
+Run these commands from your `git_exercises/` directory:
+
 ```bash
-cd git_exercises/ex4_rebase
+mkdir ex4_rebase
+cd ex4_rebase
+git init -b main
+echo "# Main entry point" > main.py
+git add main.py
+git commit -m "A: Add main module"
+echo "# Shared utilities" > utils.py
+git add utils.py
+git commit -m "B: Add utils module"
+git switch -c feature-logger
+cat > logger.py << 'EOF'
+def log(msg):
+    print(f'[LOG] {msg}')
+EOF
+git add logger.py
+git commit -m "D: Add basic logger"
+cat > logger.py << 'EOF'
+def log(msg):
+    print(f'[LOG] {msg}')
+
+def error(msg):
+    print(f'[ERROR] {msg}')
+EOF
+git add logger.py
+git commit -m "E: Add error-level logging"
+git switch main
+cat > config.py << 'EOF'
+DEBUG = True
+VERSION = '1.0'
+EOF
+git add config.py
+git commit -m "C: Add config module"
+git switch feature-logger
+```
+
+</details>
+
+```bash
+cd ex4_rebase
 ```
 
 **Step 1 — Understand the starting situation:**
 ```bash
-git log --all --graph --oneline
+git lga
 ```
 You are on `feature-logger`. It branched off after commit B. Main has since added commit C. The histories have diverged.
 
@@ -637,7 +870,7 @@ Watch the output: Git replays each commit. No conflicts should occur here.
 
 **Step 3 — Inspect the result:**
 ```bash
-git log --all --graph --oneline
+git lga
 ```
 The history is now a straight line: A → B → C → D' → E'. The feature branch sits cleanly on top of main's latest commit.
 
@@ -664,7 +897,7 @@ squash  <hash>  E: Add error-level logging
 Save and close. Git will ask for a combined message — write something like `Add logger with basic and error levels`, then save.
 
 ```bash
-git log --oneline
+git lga
 ```
 The two commits became one.
 
@@ -730,20 +963,53 @@ git reset --hard <hash>
 
 ## Exercise 5 — Recovering from a Hard Reset
 
+Create a directory `ex5_reflog` with a repository in the following state:
+
+- **Four commits on `main`**, in order:
+  1. `data.txt` with `"Line 1: Important data"`
+  2. `data.txt` extended with `"Line 2: More important data"`
+  3. `data.txt` extended with `"Line 3: Critical information!"`
+  4. `notes.txt` with `"Remember to check the logs."`
+
+<details>
+<summary>Setup: terminal commands</summary>
+
+Run these commands from your `git_exercises/` directory:
+
 ```bash
-cd git_exercises/ex5_reflog
+mkdir ex5_reflog
+cd ex5_reflog
+git init -b main
+echo "Line 1: Important data" > data.txt
+git add data.txt
+git commit -m "Add data file"
+printf "Line 1: Important data\nLine 2: More important data\n" > data.txt
+git add data.txt
+git commit -m "Add line 2"
+printf "Line 1: Important data\nLine 2: More important data\nLine 3: Critical information!\n" > data.txt
+git add data.txt
+git commit -m "Add line 3 — critical!"
+echo "Remember to check the logs." > notes.txt
+git add notes.txt
+git commit -m "Add notes file"
+```
+
+</details>
+
+```bash
+cd ex5_reflog
 ```
 
 **Step 1 — See the full history:**
 ```bash
-git log --oneline
+git lga
 ```
 There are 4 commits. Note the hashes — especially the top one (most recent).
 
 **Step 2 — Simulate accidentally losing 2 commits:**
 ```bash
 git reset --hard HEAD~2
-git log --oneline
+git lga
 ```
 Only 2 commits remain. The last two are "gone".
 
@@ -756,7 +1022,7 @@ Look for the entry that says `commit: Add notes file` — that is the most recen
 **Step 4 — Recover by resetting to the old commit:**
 ```bash
 git reset --hard <hash-from-reflog>
-git log --oneline
+git lga
 ```
 All 4 commits are back!
 
@@ -767,7 +1033,7 @@ git reset --hard HEAD~2
 
 # Recover into a new branch instead
 git branch rescue HEAD@{1}
-git log --all --graph --oneline
+git lga
 ```
 Now `main` is at 2 commits and `rescue` points at the 4-commit version. You can compare them or merge `rescue` into `main`.
 
@@ -834,13 +1100,60 @@ git push --tags
 
 ## Exercise 6 — Creating and Using Tags
 
+Create a directory `ex6_tags` with a repository in the following state:
+
+- **Three commits on `main`**, each representing a release:
+  1. `app.py` — version `0.1.0`, alpha release
+  2. `app.py` — version `0.2.0`, beta release with a `new_feature()` stub
+  3. `app.py` — version `1.0.0`, stable release adding a `stable_api()` stub
+
+<details>
+<summary>Setup: terminal commands</summary>
+
+Run these commands from your `git_exercises/` directory:
+
 ```bash
-cd git_exercises/ex6_tags
+mkdir ex6_tags
+cd ex6_tags
+git init -b main
+cat > app.py << 'EOF'
+VERSION = "0.1.0"
+print("App v0.1.0 — alpha")
+EOF
+git add app.py
+git commit -m "Alpha release 0.1.0"
+cat > app.py << 'EOF'
+VERSION = "0.2.0"
+print("App v0.2.0")
+
+def new_feature():
+    pass
+EOF
+git add app.py
+git commit -m "Beta release 0.2.0 — add new feature"
+cat > app.py << 'EOF'
+VERSION = "1.0.0"
+print("App v1.0.0 — stable")
+
+def new_feature():
+    pass
+
+def stable_api():
+    pass
+EOF
+git add app.py
+git commit -m "Stable release v1.0.0"
+```
+
+</details>
+
+```bash
+cd ex6_tags
 ```
 
 **Step 1 — See the three commits:**
 ```bash
-git log --oneline
+git lga
 ```
 Three commits represent three releases: 0.1.0, 0.2.0, and 1.0.0.
 
@@ -851,8 +1164,8 @@ git tag -a v1.0.0 -m "First stable release"
 
 **Step 3 — Tag the two earlier commits with lightweight tags:**
 ```bash
-# Find the hash of the first commit (it's listed last in git log)
-git log --oneline
+# Find the hash of the first commit (it's listed last in git lga)
+git lga
 
 # Tag using the hash (replace <hash1> and <hash2> with actual values)
 git tag v0.1.0 <hash-of-first-commit>

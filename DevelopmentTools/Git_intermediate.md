@@ -424,7 +424,7 @@ git status
 git switch main
 git branch -d experiment
 ```
-The `experiment` branch still lacks a commit (you reset it), so `-d` will warn you. Use `-D` to force-delete it.
+The soft reset moved `experiment`'s pointer back to the same commit as `main`, so the branch has no unique commits. `git branch -d` succeeds silently because there is nothing unmerged to warn about.
 
 ---
 

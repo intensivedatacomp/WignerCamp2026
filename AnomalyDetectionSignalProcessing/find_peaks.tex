@@ -1,0 +1,525 @@
+\documentclass{beamer}
+\usefonttheme{serif}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{colortbl}
+\usepackage{multirow,tabularx}
+\usepackage{tikz}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=blue,      
+    urlcolor=blue,
+    pdftitle={Find peaks},
+    pdfpagemode=FullScreen,
+    }
+\usepackage{physics}
+\usepackage{siunitx}
+
+% Code listing
+\usepackage{listings}
+\usepackage{xcolor}
+
+% Define Python syntax highlighting
+\lstdefinelanguage{python}{
+    morekeywords={if, else, for, while, def, return, import, print, lambda,
+                  in, True, False, and, or, not, try, except, class, from,
+                  None, as, with},
+    morecomment=[l]{\#},
+    morestring=[b]",
+    morestring=[b]',
+    sensitive=true
+}
+
+% Define listing style
+\lstset{
+    language=python,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue}\bfseries,
+    commentstyle=\color{gray},
+    stringstyle=\color{red},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    stepnumber=1,
+    numbersep=5pt,
+    breaklines=true,
+    breakatwhitespace=true,
+    frame=single,
+    backgroundcolor=\color{lightgray!20},
+    tabsize=2
+}
+
+\usepackage{amsthm}
+\usepackage{amsmath}
+
+% Redefine example environment with separate numbering
+\newtheorem{examplex}{Example}
+\renewenvironment{example}[1][]{%
+  \setbeamercolor{block title example}{use=structure,fg=white,bg=structure.fg!75!black}%
+  \setbeamercolor{block body example}{parent=normal text,use=block title,bg=block title.bg!10!bg}%
+  \begin{examplex}[#1]%
+}{%
+  \end{examplex}%
+}
+
+% Definition block formatting
+\setbeamertemplate{theorems}[numbered]
+\setbeamercolor{block title}{use=structure,fg=white,bg=structure.fg!75!black}
+\setbeamercolor{block body}{parent=normal text,use=block title,bg=block title.bg!10!bg}
+
+% Package for figure captions
+\usepackage[font=small,skip=2pt]{caption}
+\setlength{\belowcaptionskip}{-10pt}
+
+% Define blue color
+\definecolor{purple}{rgb}{0.3, 0.0, 0.557}
+\definecolor{blue}{rgb}{0.0234375, 0.11328125, 0.609375}
+
+\usepackage{multicol}
+\usepackage{wrapfig}
+
+% Use blue theme for the presentation
+\setbeamercolor{frametitle}{fg=blue}
+\setbeamercolor{title}{fg=blue}
+\setbeamercolor{structure}{fg=blue}
+
+\title{\textcolor{blue}{Classical Signal Processing: Finding Peaks}}
+\subtitle{\textcolor{blue}{Wigner Summer Camp \\ Data and Compute Intensive Sciences Research Group}}
+\author{\textcolor{blue}{Balázs, Paszkál, Vince, Levente, Bence, Antal \\ Éva, Hajni}}
+
+\date{\textcolor{blue}{6--10 July 2026}}
+
+% Redefine footline to show only the slide number on the bottom left in blue
+\setbeamertemplate{footline}
+{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=.1\paperwidth,ht=2.25ex,dp=1ex,left]{page number in head/foot}%
+    \hspace{1em} \textcolor{blue}{\insertframenumber}%
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+
+% Current section outline
+\AtBeginSection[ ]
+{
+\begin{frame}{Outline}
+    \tableofcontents[currentsection]
+\end{frame}
+}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+  \begin{columns}
+    \centering
+    \column{0.3\textwidth}
+    \column{0.3\textwidth}
+    \centering
+    \includegraphics[width=0.8\textwidth]{../img/logo.png}
+    \column{0.3\textwidth}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Contents}
+    \tableofcontents
+\end{frame}
+
+% ==============================================================
+\section{Peaks in Signals}
+
+\begin{frame}{What is a Peak?}
+  \begin{itemize}
+    \item A \textbf{peak} in a discrete signal \(x\) is an index \(p\) satisfying
+    \begin{equation}
+      x[p-1] < x[p] \quad \text{and} \quad x[p] > x[p+1].
+    \end{equation}
+    \item In other words, a peak is a \emph{strict local maximum}.
+    \item Peak finding is a fundamental step in many signal processing pipelines.
+    \item In anomaly detection, anomalies often manifest as unusually large or sharp peaks in a derived feature signal.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{scipy.signal.find\_peaks()}
+  \begin{lstlisting}
+from scipy.signal import find_peaks
+
+peaks, properties = find_peaks(x, # Data
+    height=None,       # filter by peak value
+    threshold=None,    # filter by drop to neighbors
+    distance=None,     # minimum separation
+    prominence=None,   # filter by prominence
+    width=None,        # filter by width
+    wlen=None,         # window for prominence/width
+    rel_height=0.5,    # level for width measurement
+    plateau_size=None  # filter by flat-top size
+)
+  \end{lstlisting}
+  \begin{itemize}
+    \item \texttt{peaks} is an array of indices of accepted peaks.
+    \item \texttt{properties} is a dictionary of computed peak attributes.
+    \item \href{https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.find_peaks.html}{Documentation}.
+  \end{itemize}
+\end{frame}
+
+% ==============================================================
+\section{Filtering by Value}
+
+\begin{frame}{The \texttt{height} Parameter}
+  \begin{itemize}
+    \item Filters peaks by the absolute value of the signal at the peak, \(x[p]\).
+    \item Accepts a scalar \(h\) (minimum height) or a pair \((h_{\min}, h_{\max})\):
+    \begin{equation}
+      h_{\min} \leq x[p] \leq h_{\max}.
+    \end{equation}
+    \item \texttt{None} in either position means that bound is not applied.
+    \item The accepted peak heights are stored in \texttt{properties['peak\_heights']}.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{The \texttt{height} Parameter -- Example}
+  \begin{example}[\texttt{height} filtering]
+    \begin{lstlisting}
+import numpy as np
+from scipy.signal import find_peaks
+
+x = np.array([1, 3, 1, 4, 1, 2, 1])
+# Peaks at indices 1 (value 3), 3 (value 4), 5 (value 2).
+
+peaks, _ = find_peaks(x, height=2.5)
+# peaks: array([1, 3])  -- values 3 and 4.
+
+peaks, _ = find_peaks(x, height=(2.0, 3.5))
+# peaks: array([1, 5])  -- values 3 and 2.
+    \end{lstlisting}
+  \end{example}
+\end{frame}
+
+\begin{frame}{The \texttt{threshold} Parameter}
+  \begin{itemize}
+    \item Filters peaks by the vertical drop to each of their two immediate neighbors.
+    \item For a peak at index \(p\), the left drop is \(x[p] - x[p-1]\) and the right drop is \(x[p] - x[p+1]\).
+    \item Both drops must independently satisfy the bounds \((t_{\min}, t_{\max})\):
+    \begin{equation}
+      t_{\min} \leq x[p] - x[p \pm 1] \leq t_{\max}.
+    \end{equation}
+    \item A large \(t_{\min}\) selects only sharp, isolated peaks.
+    \item The computed drops are stored in \texttt{properties['left\_thresholds']} and \texttt{properties['right\_thresholds']}.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{The \texttt{threshold} Parameter -- Example}
+  \begin{example}[\texttt{threshold} filtering]
+    \begin{lstlisting}
+x = np.array([0, 2, 1, 3, 0])
+# Peak at index 1 (value 2):
+#   left drop = 2 - 0 = 2,  right drop = 2 - 1 = 1.
+# Peak at index 3 (value 3):
+#   left drop = 3 - 1 = 2,  right drop = 3 - 0 = 3.
+
+peaks, _ = find_peaks(x, threshold=1.5)
+# Peak 1: right drop = 1 < 1.5  --> rejected.
+# Peak 3: both drops >= 1.5     --> accepted.
+# peaks: array([3]).
+    \end{lstlisting}
+  \end{example}
+\end{frame}
+
+% ==============================================================
+\section{Filtering by Distance}
+
+\begin{frame}{The \texttt{distance} Parameter}
+  \begin{itemize}
+    \item Requires that any two accepted peaks are separated by at least \(d\) samples:
+    \begin{equation}
+      |p_i - p_j| \geq d \quad \text{for all } i \neq j.
+    \end{equation}
+    \item When two peaks violate this constraint, the \emph{lower} peak is removed.
+    \item Prevents the detection of multiple closely spaced local maxima as separate events.
+    \item This is useful when the sampling rate is high relative to the expected event rate.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{The \texttt{distance} Parameter -- Example}
+  \begin{example}[\texttt{distance} filtering]
+    \begin{lstlisting}
+x = np.array([0, 3, 1, 4, 1, 3, 0])
+# Peaks at indices 1 (value 3), 3 (value 4), 5 (value 3).
+
+peaks, _ = find_peaks(x)
+# peaks: array([1, 3, 5]).
+
+peaks, _ = find_peaks(x, distance=3)
+# Indices 1 and 3 are 2 samples apart: peak 1 (lower) removed.
+# Indices 3 and 5 are 2 samples apart: peak 5 (lower) removed.
+# peaks: array([3]).
+    \end{lstlisting}
+  \end{example}
+\end{frame}
+
+% ==============================================================
+\section{Prominence}
+
+\begin{frame}{What is Prominence?}
+  \begin{itemize}
+    \item \textbf{Prominence} measures how much a peak stands out from its surrounding signal, independently of its absolute height.
+    \item For a peak at index \(p\), the prominence is computed as follows:
+    \begin{enumerate}
+      \item On each side of \(p\), extend outward until reaching a sample higher than \(x[p]\) or the signal boundary.
+      \item Find the minimum of \(x\) within each resulting interval.
+      \item The \textbf{base height} is the larger of these two minima.
+    \end{enumerate}
+    \item Prominence is then defined as
+    \begin{equation}
+      \text{prom}(p) = x[p] - \text{base}(p).
+    \end{equation}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Prominence -- Intuition}
+  \begin{itemize}
+    \item A peak sitting on a high plateau has low prominence even if its absolute value is large.
+    \item A peak rising from a deep valley has high prominence even if its absolute value is moderate.
+    \item Prominence is therefore robust to long-range baseline drifts in the signal.
+    \item The concept mirrors topographic prominence used for mountains:
+    \begin{itemize}
+      \item A mountain's prominence is the minimum altitude one must descend to reach any higher summit.
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{The \texttt{prominence} and \texttt{wlen} Parameters}
+  \begin{itemize}
+    \item \texttt{prominence}: a scalar or pair \((p_{\min}, p_{\max})\) that filters peaks by their prominence.
+    \item \texttt{wlen}: limits the search for the base height to a window of \texttt{wlen} samples centred on each peak, making the computation local and faster.
+    \item Computed prominences are stored in \texttt{properties['prominences']}.
+  \end{itemize}
+  \begin{example}[\texttt{prominence} filtering]
+    \begin{lstlisting}
+x = np.array([0, 1, 0, 5, 1, 4, 0])
+# Prominences: index 1 -> 1.0, index 3 -> 5.0, index 5 -> 3.0.
+
+peaks, props = find_peaks(x, prominence=2)
+# peaks: array([3, 5])
+# props['prominences']: array([5., 3.])
+    \end{lstlisting}
+  \end{example}
+\end{frame}
+
+% ==============================================================
+\section{Width}
+
+\begin{frame}{What is Width?}
+  \begin{itemize}
+    \item The \textbf{width} of a peak is the horizontal extent (in samples) of the peak at a reference height determined by \(\text{rel\_height}\).
+    \item The reference height for a peak at index \(p\) is
+    \begin{equation}
+      h_{\text{ref}}(p) = x[p] - \text{rel\_height} \times \text{prom}(p).
+    \end{equation}
+    \item The width is the distance between the two interpolated points where the signal crosses \(h_{\text{ref}}\) on each side of \(p\).
+    \item The default \(\text{rel\_height} = 0.5\) gives a half-prominence width, analogous to the full width at half maximum (FWHM).
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{The \texttt{width} and \texttt{rel\_height} Parameters}
+  \begin{itemize}
+    \item \texttt{width}: a scalar or pair \((w_{\min}, w_{\max})\) that filters peaks by their width in samples.
+    \item \texttt{rel\_height}: a value in \((0, 1]\) that sets the fractional prominence level at which the width is measured.
+    \item Computed widths are stored in \texttt{properties['widths']}.
+  \end{itemize}
+  \begin{example}[\texttt{width} and \texttt{rel\_height}]
+    \begin{lstlisting}
+x = np.array([0, 0, 5, 0, 0])
+# Single sharp peak at index 2, prominence = 5.
+
+peaks, props = find_peaks(x, width=0, rel_height=0.5)
+# h_ref = 5 - 0.5*5 = 2.5  -->  width ~ 1.0.
+
+peaks, props = find_peaks(x, width=0, rel_height=0.9)
+# h_ref = 5 - 0.9*5 = 0.5  -->  width ~ 1.8.
+    \end{lstlisting}
+  \end{example}
+\end{frame}
+
+% ==============================================================
+\section{Plateau Size and Combining Parameters}
+
+\begin{frame}[fragile]{The \texttt{plateau\_size} Parameter}
+  \begin{itemize}
+    \item Some peaks have a \textbf{flat top}: a consecutive run of equal-valued samples at the peak height.
+    \item The plateau size is the number of samples in this flat region.
+    \item A standard sharp peak has plateau size \(1\).
+    \item \texttt{plateau\_size}: a scalar or pair \((s_{\min}, s_{\max})\) that filters peaks by the size of their flat top.
+    \item Computed plateau sizes are stored in \texttt{properties['plateau\_sizes']}.
+  \end{itemize}
+  \begin{example}[\texttt{plateau\_size} filtering]
+    \begin{lstlisting}
+x = np.array([0, 2, 2, 2, 0, 3, 0])
+# Flat-top peak at indices 1-3 (plateau size 3).
+# Sharp peak at index 5 (plateau size 1).
+
+peaks, _ = find_peaks(x, plateau_size=2)
+# peaks: array([2])  -- only the flat-top peak passes.
+    \end{lstlisting}
+  \end{example}
+\end{frame}
+
+\begin{frame}[fragile]{Combining Multiple Parameters}
+  \begin{itemize}
+    \item All parameters can be combined in a single call.
+    \item Each parameter acts as an independent filter; a peak must satisfy all conditions simultaneously.
+  \end{itemize}
+  \begin{example}[Combined filtering]
+    \begin{lstlisting}
+import numpy as np
+from scipy.signal import find_peaks
+
+rng = np.random.default_rng(42)
+t = np.linspace(0, 10 * np.pi, 500)
+x = np.sin(t) + 0.3 * rng.standard_normal(500)
+
+peaks, props = find_peaks(
+    x,
+    height=0.5,      # peak must be above 0.5
+    distance=20,     # at least 20 samples apart
+    prominence=0.5,  # must stand out by 0.5
+    width=3          # at least 3 samples wide
+)
+    \end{lstlisting}
+  \end{example}
+\end{frame}
+
+\begin{frame}{Summary of Parameters}
+  \begin{center}
+  \begin{tabular}{lp{6.5cm}}
+    \hline
+    \textbf{Parameter} & \textbf{Description.} \\
+    \hline
+    \texttt{height}        & Bounds on the absolute peak value \(x[p]\). \\
+    \texttt{threshold}     & Bounds on the vertical drop to each immediate neighbor. \\
+    \texttt{distance}      & Minimum number of samples between any two peaks. \\
+    \texttt{prominence}    & Bounds on prominence (how much the peak stands out). \\
+    \texttt{wlen}          & Window size for local prominence and width computation. \\
+    \texttt{width}         & Bounds on peak width in samples. \\
+    \texttt{rel\_height}   & Fractional prominence level at which width is measured. \\
+    \texttt{plateau\_size} & Bounds on the size of the flat top of a peak. \\
+    \hline
+  \end{tabular}
+  \end{center}
+\end{frame}
+
+% ==============================================================
+\section{Exercises}
+
+\begin{frame}[fragile]{Exercise 1 -- Predict the Output}
+  Given the signal:
+  \begin{lstlisting}
+x = np.array([0, 1, 0, 3, 2, 4, 0, 2, 0])
+  \end{lstlisting}
+  The local maxima are at indices \(1, 3, 5, 7\) with values \(1, 3, 4, 2\) respectively.
+  \begin{enumerate}
+    \item[(a)] Without running code, which peaks survive \texttt{find\_peaks(x, height=2.5)}?
+    \item[(b)] Without running code, which peaks survive \texttt{find\_peaks(x, threshold=1.5)}?
+  \end{enumerate}
+  Verify your answers by running the code in Python.
+\end{frame}
+
+\begin{frame}{Exercise 1 -- Solution}
+  \textbf{(a)} \texttt{height=2.5} keeps peaks with \(x[p] \geq 2.5\):
+  \begin{itemize}
+    \item Index 1 (value \(1\)): \(1 < 2.5\) -- rejected.
+    \item Index 3 (value \(3\)): \(3 \geq 2.5\) -- accepted.
+    \item Index 5 (value \(4\)): \(4 \geq 2.5\) -- accepted.
+    \item Index 7 (value \(2\)): \(2 < 2.5\) -- rejected.
+  \end{itemize}
+  Answer: \texttt{peaks = array([3, 5])}.
+
+  \textbf{(b)} \texttt{threshold=1.5} requires both drops \(\geq 1.5\):
+  \begin{itemize}
+    \item Index 1: drops \(1, 1\) -- rejected (both \(< 1.5\)).
+    \item Index 3: drops \(3, 1\) -- rejected (right drop \(1 < 1.5\)).
+    \item Index 5: drops \(2, 4\) -- accepted.
+    \item Index 7: drops \(2, 2\) -- accepted.
+  \end{itemize}
+  Answer: \texttt{peaks = array([5, 7])}.
+\end{frame}
+
+\begin{frame}[fragile]{Exercise 2 -- Prominence by Hand}
+  Given the signal:
+  \begin{lstlisting}
+x = np.array([0, 4, 1, 3, 0])
+  \end{lstlisting}
+  The peaks are at index \(1\) (value \(4\)) and index \(3\) (value \(3\)).
+  \begin{enumerate}
+    \item[(a)] Compute the prominence of each peak by hand using the definition from the presentation.
+    \item[(b)] Which peaks survive \texttt{find\_peaks(x, prominence=2.5)}?
+    \item[(c)] Verify your answers by running \texttt{find\_peaks(x, prominence=0)}, which returns all peaks together with \texttt{properties['prominences']}.
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}{Exercise 2 -- Solution}
+  \textbf{(a)} Prominence of index \(1\) (value \(4\)):
+  \begin{itemize}
+    \item Left boundary: \(\min(x[0]) = 0.\)
+    \item No peak to the right exceeds \(4\), so right boundary: \(\min(x[2], x[3], x[4]) = 0.\)
+    \item \(\text{base} = \max(0,\, 0) = 0,\) so \(\text{prom}(1) = 4 - 0 = 4.\)
+  \end{itemize}
+  Prominence of index \(3\) (value \(3\)):
+  \begin{itemize}
+    \item Left: the higher peak at index \(1\) bounds the window. \(\min(x[2]) = 1.\)
+    \item Right boundary: \(\min(x[4]) = 0.\)
+    \item \(\text{base} = \max(1,\, 0) = 1,\) so \(\text{prom}(3) = 3 - 1 = 2.\)
+  \end{itemize}
+  \textbf{(b)} \texttt{prominence=2.5}: index \(1\) (\(\text{prom} = 4 \geq 2.5\)) survives; index \(3\) (\(\text{prom} = 2 < 2.5\)) does not.
+  Answer: \texttt{peaks = array([1])}.
+\end{frame}
+
+\begin{frame}[fragile]{Exercise 3 -- Choose the Right Parameters}
+  The signal below contains two large anomaly peaks at indices \(7\) and \(11\) and several smaller noise peaks:
+  \begin{lstlisting}
+x = np.array([0, 2, 0, 1, 0, 3, 0, 7, 0, 2, 0, 6, 0, 1, 0])
+  \end{lstlisting}
+  \begin{enumerate}
+    \item[(a)] Write a \texttt{find\_peaks} call using only the \texttt{height} parameter to detect only the anomalies at indices \(7\) and \(11\).
+    \item[(b)] Write a \texttt{find\_peaks} call using only the \texttt{prominence} parameter to detect only the anomalies.
+    \item[(c)] Verify that both calls return \texttt{peaks = array([7, 11])}.
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}[fragile]{Exercise 3 -- Solution}
+  Peak values at indices \(1, 3, 5, 7, 9, 11, 13\) are \(2, 1, 3, 7, 2, 6, 1\).
+
+  Prominences at the same indices are \(2, 1, 3, 7, 2, 6, 1\).
+
+  The largest noise peak (index \(5\)) has height \(3\) and prominence \(3\).
+  The anomalies (indices \(7\) and \(11\)) have height \(7, 6\) and prominence \(7, 6\).
+
+  \textbf{(a)} Any threshold strictly greater than \(3\) works for \texttt{height}:
+  \begin{lstlisting}
+peaks, _ = find_peaks(x, height=3.5)
+# peaks: array([7, 11]).
+  \end{lstlisting}
+  \textbf{(b)} Any threshold strictly greater than \(3\) works for \texttt{prominence}:
+  \begin{lstlisting}
+peaks, _ = find_peaks(x, prominence=3.5)
+# peaks: array([7, 11]).
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}{Revision}
+  In this presentation you learned about:
+  \begin{itemize}
+    \item What a peak is and why finding peaks matters for anomaly detection.
+    \item The \texttt{scipy.signal.find\_peaks} API and its return values.
+    \item Filtering by absolute peak value (\texttt{height}).
+    \item Filtering by sharpness relative to immediate neighbors (\texttt{threshold}).
+    \item Enforcing a minimum separation between peaks (\texttt{distance}).
+    \item What prominence measures and how to filter by it (\texttt{prominence}, \texttt{wlen}).
+    \item How peak width is defined and measured (\texttt{width}, \texttt{rel\_height}).
+    \item Handling flat-top peaks (\texttt{plateau\_size}).
+  \end{itemize}
+\end{frame}
+
+\end{document}

@@ -26,6 +26,9 @@ build
 # Git tutorial
 git_exercises
 
+# Claude
+CLAUDE.md
+
 # Programming example outputs
 BasicProgramming/output.csv
 BasicProgramming/high_salary.csv

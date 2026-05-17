@@ -41,7 +41,7 @@ You should get familiar with the folders in this repository in the following ord
 - Introduction to the project for the summer school.
 - [AnomalyDetectionMathematics](AnomalyDetectionMathematics): matrix multiplication, eigendecomposition.
 - Introduction to `altx`.
-- Classical signal processing: find peaks, bayesian hyperparameter optimization.
+- [AnomalyDetectionSignalProcessing](AnomalyDetectionSignalProcessing): finding peaks and bayesian hyperparameter optimization.
 
 ---
 

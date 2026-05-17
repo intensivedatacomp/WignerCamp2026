@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.10)
 
 option(BUILD_DOCS "Build LaTeX documentation" ON)
+option(BUILD_NOTEBOOKS "Build Jupyter notebook slides" ON)
 
 # --------------------------------------------------
 # LaTeX build
@@ -37,5 +38,35 @@ if(BUILD_DOCS)
         )
 
         add_custom_target(${BASENAME}_pdf ALL DEPENDS ${PDF_FILE})
+    endforeach()
+endif()
+
+# --------------------------------------------------
+# Jupyter notebook → slides (HTML)
+# --------------------------------------------------
+if(BUILD_NOTEBOOKS)
+    find_program(JUPYTER_EXECUTABLE jupyter REQUIRED)
+
+    file(GLOB NB_FILES CONFIGURE_DEPENDS "*_presentation.ipynb")
+
+    foreach(NB_FILE ${NB_FILES})
+        get_filename_component(BASENAME ${NB_FILE} NAME_WE)
+
+        # Output file (explicitly controlled)
+        set(HTML_FILE ${BASENAME}.html)
+
+        add_custom_command(
+            OUTPUT ${HTML_FILE}
+            COMMAND ${JUPYTER_EXECUTABLE} nbconvert
+                    --to slides
+                    --output ${BASENAME}
+                    ${NB_FILE}
+            WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+            DEPENDS ${NB_FILE}
+            COMMENT "Converting ${NB_FILE} → ${HTML_FILE} (slides)"
+            VERBATIM
+        )
+
+        add_custom_target(${BASENAME}_slides ALL DEPENDS ${HTML_FILE})
     endforeach()
 endif()

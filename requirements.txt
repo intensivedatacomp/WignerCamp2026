@@ -9,4 +9,4 @@ torchaudio
 pytest
 pre-commit
 pillow
-scikit-optimize
+optuna

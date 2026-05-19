@@ -42,6 +42,7 @@ You should get familiar with the folders in this repository in the following ord
 - [AnomalyDetectionMathematics](AnomalyDetectionMathematics): matrix multiplication, eigendecomposition.
 - Introduction to `altx`.
 - [AnomalyDetectionSignalProcessing](AnomalyDetectionSignalProcessing): finding peaks and bayesian hyperparameter optimization.
+- Anomaly detection with autoencoders. (?)
 
 ---
 
@@ -115,6 +116,7 @@ This will:
 - Compile all `.tex` files found in the subdirectories,
 - Automatically handle references (BibTeX if needed),
 - Clean up all temporary files including: `.aux`, `.log`, `.toc`, `.out`, `.bbl`, `.blg`, `.lof`, `.lot`, `.snm`, `.nav`, `.vrb`.
+- Compile the jupyter notebooks (whose name ends with `_presentation.ipynb`) to HTML presentations.
 
 ---
 

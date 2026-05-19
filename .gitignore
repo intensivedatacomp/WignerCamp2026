@@ -1,0 +1,50 @@
+**/__pycache__
+**/.pytest_cache
+build/
+build
+.DS_Store
+
+# Vscode files
+.vscode
+
+# LaTeX temporary files
+*.aux
+*.nav
+*.snm
+*.vrb
+*.bbl
+*.blg
+*.log
+*.out
+*.toc
+*.lof
+*.lot
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+
+# Git tutorial
+git_exercises
+
+# Claude
+CLAUDE.md
+
+# Programming example outputs
+BasicProgramming/output.csv
+BasicProgramming/high_salary.csv
+
+# Vim files
+*.swp
+.jukit
+
+# Converted notebooks
+BasicProgramming/matplotlib_basics_solutions.py
+BasicProgramming/matplotlib_basics.py
+BasicProgramming/pandas_basics_solutions.py
+BasicProgramming/pandas_basics.py
+BasicProgramming/numpy_basics_solutions.py
+BasicProgramming/numpy_basics.py
+BasicProgramming/python_basics.py
+BasicProgramming/python_basics_solutions.py
+BasicProgramming/pytorch_basics_solutions.py
+BasicProgramming/pytorch_basics.py

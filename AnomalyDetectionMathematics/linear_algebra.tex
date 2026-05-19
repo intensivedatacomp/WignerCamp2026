@@ -1,0 +1,592 @@
+
+\documentclass{beamer}
+\usefonttheme{serif} % default family is serif
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{colortbl}
+\usepackage{multirow,tabularx}
+\usepackage{tikz}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=blue,      
+    urlcolor=blue,
+    pdftitle={Linear algebra},
+    pdfpagemode=FullScreen,
+    }
+\usepackage{physics}
+\usepackage{siunitx}
+
+%% For the name of the chemical compounds
+%\usepackage{mhchem}
+
+% Code listing
+\usepackage{listings}
+\usepackage{xcolor}
+
+% Define Bash syntax highlighting
+\lstdefinelanguage{python}{
+  morekeywords={if, then, else, fi, for, while, do, done, exit, echo, function},
+  morecomment=[l]{\#},
+  morestring=[b]",
+  sensitive=true
+}
+
+% Define listing style
+\lstset{
+  language=python,
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{blue}\bfseries,
+  commentstyle=\color{gray},
+  stringstyle=\color{red},
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  stepnumber=1,
+  numbersep=5pt,
+  breaklines=true,
+  breakatwhitespace=true,
+  frame=single,
+  backgroundcolor=\color{lightgray!20},
+  tabsize=2
+}
+
+\usepackage{amsthm}
+\usepackage{amsmath}
+%\usepackage{multilined}
+
+%\usefonttheme{professionalfonts} % using non standard fonts for beamer
+%\usefonttheme{serif} % default family is serif
+%\usepackage{fontspec}
+%\setmainfont{Times New Roman}
+
+% Redefine example environment with separate numbering
+\newtheorem{examplex}{Example}
+\renewenvironment{example}[1][]{%
+  \setbeamercolor{block title example}{use=structure,fg=white,bg=structure.fg!75!black}%
+  \setbeamercolor{block body example}{parent=normal text,use=block title,bg=block title.bg!10!bg}%
+  \begin{examplex}[#1]%
+}{%
+  \end{examplex}%
+}
+% For legend of equations
+\newenvironment{conditions*}
+  {\par{\abovedisplayskip}\noindent
+   \tabularx{\columnwidth}{>{$}l<{$} @{\ : } >{\raggedright\arraybackslash}X}}
+  {\endtabularx\par\vspace{\belowdisplayskip}}
+
+% Definition block formatting remains the same
+\setbeamertemplate{theorems}[numbered]
+\setbeamercolor{block title}{use=structure,fg=white,bg=structure.fg!75!black}
+\setbeamercolor{block body}{parent=normal text,use=block title,bg=block title.bg!10!bg}
+
+% Package for figure captions
+\usepackage[font=small,skip=2pt]{caption}
+% Decrease space/padding after figure captions
+\setlength{\belowcaptionskip}{-10pt}
+
+% Define blue color
+\definecolor{purple}{rgb}{0.3, 0.0, 0.557}
+\definecolor{blue}{rgb}{0.0234375, 0.11328125, 0.609375}
+
+\usepackage{multicol}
+\usepackage{wrapfig}
+
+% Use blue theme for the presentation
+\setbeamercolor{frametitle}{fg=blue}
+\setbeamercolor{title}{fg=blue}
+\setbeamercolor{structure}{fg=blue}
+
+\newcommand{\circumeq}{\mathrel{\widehat{=}}}
+\newcommand\scalemath[2]{\scalebox{#1}{\mbox{\ensuremath{\displaystyle #2}}}}
+
+% Define affiliations
+\newcommand{\affiliation}[2]{#1\textsuperscript{\textcolor{blue}{#2}}}
+
+\title{\textcolor{blue}{Introduction to mathematics for \emph{altx}}}
+\subtitle{\textcolor{blue}{Wigner Summer Camp \\ Data and Compute Intensive Sciences Research Group}}
+\author{\textcolor{blue}{Balázs, Paszkál, Vince, Levente, Bence, Antal \\ Éva, Hajni}}
+
+\date{\textcolor{blue}{6--10 July 2026}}
+
+
+% Redefine footline to show only the slide number on the bottom left in blue
+\setbeamertemplate{footline}
+{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=.1\paperwidth,ht=2.25ex,dp=1ex,left]{page number in head/foot}%
+    \hspace{1em} \textcolor{blue}{\insertframenumber}%
+  \end{beamercolorbox}}%Wigner Summer Camp
+
+  \vskip0pt%
+}
+
+% Current section
+\AtBeginSection[ ]
+{
+\begin{frame}{Outline}
+    \tableofcontents[currentsection]
+\end{frame}
+}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+  \begin{columns}
+    \centering
+    \column{0.3\textwidth}
+    %\includegraphics[width=0.7\textwidth]{img/logo.png}
+    \column{0.3\textwidth}
+    \centering
+    \includegraphics[width=0.8\textwidth]{../img/logo.png}
+    \column{0.3\textwidth}
+    %\includegraphics[width=0.7\textwidth]{img/logo.png}
+    \centering
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Contents}
+    \tableofcontents
+\end{frame}
+
+\section{Vectors}
+\begin{frame}{What is a Vector?}
+  \begin{itemize}
+    \item \textbf{Mathematician's view:} A set that satisfies the 8 axioms.
+    \item \textbf{Physicist's view:} An arrow in space with direction and magnitude.
+    \item \textbf{Computer Scientist's view:} A 1D array or list of numbers.
+    \item \textbf{Notation:}
+    \begin{equation}
+    \vec{v} = \begin{bmatrix} 3 \\ -1 \\ 2 \end{bmatrix}, \quad
+    \mathbf{w} = \langle 4, 0, -5 \rangle, \quad
+    \vec{u} = (1, 2, 3).
+    \end{equation}
+    \begin{itemize}
+      \item Boldface: \(\mathbf{v}\) (common in CS and mathematical books).
+      \item Arrow: \(\vec{v}\) (common in physics).
+      \item Angled brackets or parentheses.
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Example vectors}
+    \begin{example}[Vectors]
+        \begin{equation}
+        \vec{a} = \begin{bmatrix} 1 \\ 0 \end{bmatrix}, \quad
+        \vec{b} = \begin{bmatrix} 1 \\ 1 \end{bmatrix}, \quad
+        \vec{c} = \begin{bmatrix} -3 \\ 2 \\ 5 \end{bmatrix}.
+        \end{equation}
+    \end{example}
+    \begin{example}[Common vectors]
+        \begin{equation}
+            \vec{i} = \begin{bmatrix} 1 \\ 0 \end{bmatrix}, \quad
+            \vec{j} = \begin{bmatrix} 0 \\ 1 \end{bmatrix}, \quad
+            \vec{0} = \begin{bmatrix} 0 \\ 0 \end{bmatrix}.
+        \end{equation}
+    \end{example}
+\end{frame}
+
+\begin{frame}{What is the Dot Product?}
+  \begin{itemize}
+    \item The dot product of two vectors $\vec{a}$ and $\vec{b}$ is:
+    \begin{equation}
+    \vec{a} \cdot \vec{b} = a_1 b_1 + a_2 b_2 + \dots + a_n b_n.
+    \end{equation}
+    \item It can be shown that:
+    \begin{equation}
+        \vec{a} \cdot \vec{b} = ||\vec{a}||\cdot||\vec{b}||\cos(\angle\left(\vec{a},\vec{b}\right)).
+    \end{equation}
+    \begin{example}[Dot product]    
+        \begin{equation}
+        \begin{bmatrix} 2 \\ 3 \end{bmatrix} \cdot \begin{bmatrix} 4 \\ -1 \end{bmatrix} = 2\cdot4 + 3\cdot(-1) = 8 - 3 = 5.
+        \end{equation}
+    \end{example}
+  \end{itemize}
+\end{frame}
+
+\section{Dot product}
+\begin{frame}{Dot Product – Practice Exercises}
+  \begin{itemize}
+    \item Calculate the dot product of the following vector pairs:
+    \begin{enumerate}
+      \item $\begin{bmatrix} 1 \\ -2 \\ 3 \end{bmatrix} \cdot \begin{bmatrix} 4 \\ 0 \\ -1 \end{bmatrix}.$
+      \item $\begin{bmatrix} 2 \\ 5 \end{bmatrix} \cdot \begin{bmatrix} -1 \\ 1 \end{bmatrix}.$
+    \end{enumerate}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Dot Product – Solutions}
+  \begin{itemize}
+    \item \textbf{Solution to (a):}
+    \[
+    1 \cdot 4 + (-2) \cdot 0 + 3 \cdot (-1) = 4 + 0 - 3 = \boxed{1}.
+    \]
+    \item \textbf{Solution to (b):}
+    \[
+    2 \cdot (-1) + 5 \cdot 1 = -2 + 5 = \boxed{3}.
+    \]
+    \item Interpretation:
+    \begin{itemize}
+      \item (a) Zero \(\Rightarrow\) the vectors are perpendicular.
+      \item (b) Positive \(\Rightarrow\) angle between the vectors is acute.
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{What is a Matrix?}
+  \begin{itemize}
+    \item A 2D array of numbers arranged in rows and columns:
+    \begin{equation}
+    A = \begin{bmatrix} 1 & 2 & 3 \\ 4 & 5 & 6 \end{bmatrix},
+    \end{equation}
+    where \(A\) is a \(2\cross3\) matrix.
+    \item Types:
+    \begin{itemize}
+      \item \textbf{Square:} same number of rows and columns (e.g., $2\times2$, $3\times3$). Mathematicians like them.
+      \item \textbf{Non-square:} different number of rows and columns (e.g., $2\times3$, $3\times2$).
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\section{Matrices}
+\begin{frame}{Vector-Matrix Multiplication}
+  \begin{itemize}
+    \item Each row of the matrix is dotted with the vector:
+    \begin{equation}
+    A = \begin{bmatrix} 1 & 2 \\ 3 & 4 \\ 5 & 6 \end{bmatrix}, \quad \vec{v} = \begin{bmatrix} 2 \\ 1 \end{bmatrix}.
+    \end{equation}
+    \item Multiplication:
+    \begin{equation}
+    A\vec{v} = \begin{bmatrix}
+    1\cdot2 + 2\cdot1 \\
+    3\cdot2 + 4\cdot1 \\
+    5\cdot2 + 6\cdot1
+    \end{bmatrix} = \begin{bmatrix} 4 \\ 10 \\ 16 \end{bmatrix}.
+    \end{equation}
+  \end{itemize}
+\end{frame}
+
+\section{Vector-Matrix Multiplication}
+\begin{frame}{Vector-Matrix Multiplication – Exercises}
+  \begin{itemize}
+    \item Multiply the vector $\vec{v}$ with matrix $M$ in the following examples:
+    \begin{enumerate}
+      \item General case (\(\vec{v}M\)):
+      \begin{equation}
+      \vec{v} = \begin{bmatrix} 1 & 2 \end{bmatrix},\quad
+      M = \begin{bmatrix} 3 & 0 & 1 \\ 1 & 4 & 2 \end{bmatrix}.
+      \end{equation}
+      \item Interesting effect (\(M_1\vec{v}\) and \(M_2\vec{v}\)):
+      \begin{equation}
+      \vec{v} = \begin{bmatrix} 1 \\ 1 \end{bmatrix},\quad
+      M_1 = \begin{bmatrix} 2 & 0 \\ 0 & 2 \end{bmatrix}, \quad
+      M_2 = \begin{bmatrix} -2 & -2 \\ -2 & -2 \end{bmatrix}.
+      \end{equation}
+      \item Even more interesting effect (\(M_3\vec{v}\) and \(M_4\vec{v}\)):
+      \begin{equation}
+      \vec{v} = \begin{bmatrix} 1 \\ 1 \end{bmatrix},\quad
+      M_3 = \begin{bmatrix} 1 & -1 \\ 2 & -2 \end{bmatrix}, \quad
+      M_4 = \begin{bmatrix} 5 & -5 \\ -3 & 3 \end{bmatrix}.
+      \end{equation}
+    \end{enumerate}
+    \item Try to interpret the geometric meaning of each result.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Vector-Matrix Multiplication – Solutions}
+  \begin{enumerate}
+    \item General case (\(\vec{v}M\)):
+    \begin{equation}
+    \vec{v} \cdot M = \begin{bmatrix} 1 & 2 \end{bmatrix} \cdot
+    \begin{bmatrix} 3 & 0 & 1 \\ 1 & 4 & 2 \end{bmatrix}
+    = \begin{bmatrix} 5 & 8 & 5 \end{bmatrix}.
+    \end{equation}
+    \item Stretching cases (\(M_1\vec{v}\) and \(M_2\vec{v}\)):
+    \begin{equation}
+    \vec{v} \cdot M_1 = \begin{bmatrix} 2 \\ 2 \end{bmatrix}=2\vec{v}, \quad
+    \vec{v} \cdot M_2 = \begin{bmatrix} -4 \\ -4 \end{bmatrix} = -4\vec{v}.
+    \end{equation}
+    \item Nearly null output (\(M_3\vec{v}\) and \(M_4\vec{v}\)):
+    \begin{equation}
+    \vec{v} \cdot M_3 = \begin{bmatrix} 0 \\ 0 \end{bmatrix}=0\vec{v}, \quad
+    \vec{v} \cdot M_4 = \begin{bmatrix} 0 \\ 0 \end{bmatrix}=0\vec{v}.
+    \end{equation}
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}{Matrices as linear transformations}
+
+\begin{itemize}
+    \item Each matrix denotes a transformation $\vec{v} \mapsto M\vec{v}$. It's always linear.
+    \item It can be proven that all linear transformations can be described with a matrix.
+    
+\end{itemize}
+    
+\end{frame}
+
+\begin{frame}{Transformation examples + exercise}
+  \begin{itemize}
+    \item Stretching: 
+    %\begin{equation}
+    $\begin{bmatrix} 2 & 0 \\ 0 & 2 \end{bmatrix}.$ %\vec{v} = %\text{doubles length}
+    %\end{equation}
+    \item Rotation:
+    %\begin{equation}
+    %\text{Rotation by } 90^\circ: 
+    $\begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix}.$
+    %\end{equation}
+    \item Reflection:
+    %\begin{equation}
+    %\text{Reflection over x-axis: }
+    $\begin{bmatrix} 1 & 0 \\ 0 & -1 \end{bmatrix}.$
+    %\end{equation}
+    \item Projection (flattening onto a line or plane) $\begin{bmatrix} 1 & 0 \\ 0 & 0 \end{bmatrix}.$
+  \end{itemize}
+
+  Exercise: after these transformation, where do vectors:
+  \begin{equation}
+      \begin{bmatrix} 1 \\ 0 \end{bmatrix}, \begin{bmatrix} 0 \\ 1 \end{bmatrix} \text{, and }\begin{bmatrix} 1 \\ 1 \end{bmatrix}. 
+  \end{equation}
+  transformed to?
+\end{frame}
+
+\begin{frame}{Transformation Examples -- Solution 1}
+  The stretching matrix \(S = \begin{bmatrix} 2 & 0 \\ 0 & 2 \end{bmatrix}\) scales every vector by a factor of \(2\).
+  \begin{itemize}
+    \item For \(\vec{e}_1 = \begin{bmatrix} 1 \\ 0 \end{bmatrix}\):
+    \begin{equation}
+      S\vec{e}_1 = \begin{bmatrix} 2 & 0 \\ 0 & 2 \end{bmatrix}\begin{bmatrix} 1 \\ 0 \end{bmatrix} = \begin{bmatrix} 2 \\ 0 \end{bmatrix} = 2\vec{e}_1.
+    \end{equation}
+    \item For \(\vec{e}_2 = \begin{bmatrix} 0 \\ 1 \end{bmatrix}\):
+    \begin{equation}
+      S\vec{e}_2 = \begin{bmatrix} 2 & 0 \\ 0 & 2 \end{bmatrix}\begin{bmatrix} 0 \\ 1 \end{bmatrix} = \begin{bmatrix} 0 \\ 2 \end{bmatrix} = 2\vec{e}_2.
+    \end{equation}
+    \item For \(\vec{d} = \begin{bmatrix} 1 \\ 1 \end{bmatrix}\):
+    \begin{equation}
+      S\vec{d} = \begin{bmatrix} 2 & 0 \\ 0 & 2 \end{bmatrix}\begin{bmatrix} 1 \\ 1 \end{bmatrix} = \begin{bmatrix} 2 \\ 2 \end{bmatrix} = 2\vec{d}.
+    \end{equation}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Transformation Examples -- Solution 2}
+  The rotation matrix \(R = \begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix}\) rotates every vector by \(90^\circ\) counterclockwise.
+  \begin{itemize}
+    \item For \(\vec{e}_1 = \begin{bmatrix} 1 \\ 0 \end{bmatrix}\):
+    \begin{equation}
+      R\vec{e}_1 = \begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix}\begin{bmatrix} 1 \\ 0 \end{bmatrix} = \begin{bmatrix} 0 \\ 1 \end{bmatrix} = \vec{e}_2.
+    \end{equation}
+    \item For \(\vec{e}_2 = \begin{bmatrix} 0 \\ 1 \end{bmatrix}\):
+    \begin{equation}
+      R\vec{e}_2 = \begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix}\begin{bmatrix} 0 \\ 1 \end{bmatrix} = \begin{bmatrix} -1 \\ 0 \end{bmatrix} = -\vec{e}_1.
+    \end{equation}
+    \item For \(\vec{d} = \begin{bmatrix} 1 \\ 1 \end{bmatrix}\):
+    \begin{equation}
+      R\vec{d} = \begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix}\begin{bmatrix} 1 \\ 1 \end{bmatrix} = \begin{bmatrix} -1 \\ 1 \end{bmatrix}.
+    \end{equation}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Transformation Examples -- Solution 3}
+  The reflection matrix \(F = \begin{bmatrix} 1 & 0 \\ 0 & -1 \end{bmatrix}\) flips the sign of the \(y\)-component.
+  \begin{itemize}
+    \item For \(\vec{e}_1 = \begin{bmatrix} 1 \\ 0 \end{bmatrix}\):
+    \begin{equation}
+      F\vec{e}_1 = \begin{bmatrix} 1 & 0 \\ 0 & -1 \end{bmatrix}\begin{bmatrix} 1 \\ 0 \end{bmatrix} = \begin{bmatrix} 1 \\ 0 \end{bmatrix} = \vec{e}_1.
+    \end{equation}
+    \item For \(\vec{e}_2 = \begin{bmatrix} 0 \\ 1 \end{bmatrix}\):
+    \begin{equation}
+      F\vec{e}_2 = \begin{bmatrix} 1 & 0 \\ 0 & -1 \end{bmatrix}\begin{bmatrix} 0 \\ 1 \end{bmatrix} = \begin{bmatrix} 0 \\ -1 \end{bmatrix} = -\vec{e}_2.
+    \end{equation}
+    \item For \(\vec{d} = \begin{bmatrix} 1 \\ 1 \end{bmatrix}\):
+    \begin{equation}
+      F\vec{d} = \begin{bmatrix} 1 & 0 \\ 0 & -1 \end{bmatrix}\begin{bmatrix} 1 \\ 1 \end{bmatrix} = \begin{bmatrix} 1 \\ -1 \end{bmatrix}.
+    \end{equation}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Transformation Examples -- Solution 4}
+  The projection matrix \(P = \begin{bmatrix} 1 & 0 \\ 0 & 0 \end{bmatrix}\) sets the \(y\)-component to zero.
+  \begin{itemize}
+    \item For \(\vec{e}_1 = \begin{bmatrix} 1 \\ 0 \end{bmatrix}\):
+    \begin{equation}
+      P\vec{e}_1 = \begin{bmatrix} 1 & 0 \\ 0 & 0 \end{bmatrix}\begin{bmatrix} 1 \\ 0 \end{bmatrix} = \begin{bmatrix} 1 \\ 0 \end{bmatrix} = \vec{e}_1.
+    \end{equation}
+    \item For \(\vec{e}_2 = \begin{bmatrix} 0 \\ 1 \end{bmatrix}\):
+    \begin{equation}
+      P\vec{e}_2 = \begin{bmatrix} 1 & 0 \\ 0 & 0 \end{bmatrix}\begin{bmatrix} 0 \\ 1 \end{bmatrix} = \begin{bmatrix} 0 \\ 0 \end{bmatrix} = \vec{0}.
+    \end{equation}
+    \item For \(\vec{d} = \begin{bmatrix} 1 \\ 1 \end{bmatrix}\):
+    \begin{equation}
+      P\vec{d} = \begin{bmatrix} 1 & 0 \\ 0 & 0 \end{bmatrix}\begin{bmatrix} 1 \\ 1 \end{bmatrix} = \begin{bmatrix} 1 \\ 0 \end{bmatrix} = \vec{e}_1.
+    \end{equation}
+  \end{itemize}
+\end{frame}
+
+\section{Matrix-Matrix Multiplication}
+\begin{frame}{Matrix-Matrix Multiplication}
+  Procedure is the same as the Vector-Matrix multiplication. If an \(n\cross m\) matrix is multiplied by an \(m\cross k\), the result is an \(n\cross k\) matrix.
+  \begin{itemize}
+  	\item The number of columns in the first matrix must be equal to the number of rows in the second matrix.
+  \end{itemize}
+  \begin{equation} A = \begin{bmatrix} a_{11} & a_{12} \\ a_{21} & a_{22} \end{bmatrix}, \quad B = \begin{bmatrix} b_{11} & b_{12} \\ b_{21} & b_{22} \end{bmatrix} \end{equation}
+
+  \begin{equation} A\cdot B =  \begin{bmatrix} {a_{11} \cdot b_{11} + a_{12} \cdot b_{21}} & {a_{11} \cdot b_{12} + a_{12} \cdot b_{22}} \\ {a_{21} \cdot b_{11} + a_{22} \cdot b_{21}} & {a_{21} \cdot b_{12} + a_{22} \cdot b_{22}} \end{bmatrix} \end{equation}
+
+  \begin{example}
+	\begin{equation}
+		A = \begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix}, \quad B = \begin{bmatrix} 2 & 0 \\ 1 & 2 \end{bmatrix}
+		\Rightarrow A\cdot B = \begin{bmatrix} 4 & 4 \\ 10 & 8 \end{bmatrix}
+	\end{equation}
+\end{example}
+\end{frame}
+
+\begin{frame}{Other examples}
+  \begin{example}
+    \begin{equation}
+      A = \begin{bmatrix} 1 & 2 & 3 \\ 4 & 5 & 6 \end{bmatrix}, B = \begin{bmatrix} 1 & 0 \\ 0 & 1 \\ 1 & 1 \end{bmatrix}
+      \Rightarrow A\cdot B = \begin{bmatrix} 4 & 5 \\ 10 & 11 \end{bmatrix}
+    \end{equation}
+  \end{example}
+  \begin{example}
+    \begin{equation}
+      A = \begin{bmatrix} 8 & 4 & 11 & 5 \\ 4 & 4 & 21 & 6 \\ 6 & 9 & 11 & 8 \end{bmatrix}, B = \begin{bmatrix} 3 & 2 \\ 4 & 6 \\ 1 & 4 \\ 7 & 2 \end{bmatrix}
+      \Rightarrow A\cdot B = \begin{bmatrix} 86 & 94 \\ 91 & 128 \\ 121 & 126\end{bmatrix}
+    \end{equation}
+  \end{example}
+\end{frame}
+
+\section{Eigenvalues and Eigenvectors}
+\begin{frame}{Eigenvalues and Eigenvectors}
+  \begin{itemize}
+    \item Notice that 
+    \begin{equation}
+        \begin{bmatrix} 2 & 0 \\ 0 & 2 \end{bmatrix}\begin{bmatrix} 1 \\ 1 \end{bmatrix} = 2\begin{bmatrix} 1 \\ 1 \end{bmatrix}. 
+    \end{equation}
+    \item Generally for a square matrix \(A\) if
+    \begin{equation}
+        A\vec{v} = \lambda \vec{v},
+    \end{equation}
+    then:
+    \begin{itemize}
+      \item $\vec{v}$ is an eigenvector and
+      \item scalar $\lambda$ is the corresponding eigenvalue.
+    \end{itemize}
+    \item These vectors don't change direction when multiplied by $A$.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Eigenvalues and Eigenvectors – Properties}
+  \begin{itemize}
+    \item If $A \vec{v} = \lambda \vec{v}$, then $\vec{v}$ is an eigenvector of $A$ with eigenvalue $\lambda$.
+    \item Eigenvectors are defined up to a scalar: if $\vec{v}$ is an eigenvector, so is $c\vec{v}$ for any $c \neq 0$.
+    \item The set of all eigenvectors corresponding to a single eigenvalue forms a vector subspace.
+    \item A square matrix of size $n \times n$ has at most $n$ eigenvalues (including complex ones and multiplicities).
+    \item If all eigenvalues of a matrix are positive, the matrix is positive definite.
+    \item Diagonal matrices (matrices where for all $a_{ij}=0$ where $i\neq j$) have their diagonal elements as eigenvalues, and the standard basis vectors as eigenvectors.
+    \item The eigenvalues of a complex Hermitian or real symmetric matrix are real.
+  \end{itemize}
+\end{frame}
+
+
+
+\begin{frame}[fragile]{Eigenvalues with PyTorch}
+  \begin{itemize}
+    \item \texttt{torch.linalg.eigh()} computes eigenvalues and orthonormal eigenvectors of a real symmetric matrix.
+    \item Documentation: \href{https://pytorch.org/docs/stable/generated/torch.linalg.eigh.html}{\texttt{torch.linalg.eigh}}.
+    \item It returns a tuple \texttt{(eigenvalues, eigenvectors)}, where:
+    \begin{itemize}
+      \item \texttt{eigenvalues} is a 1D tensor sorted in ascending order,
+      \item each column of \texttt{eigenvectors} is the corresponding unit-length eigenvector.
+    \end{itemize}
+  \end{itemize}
+  \begin{lstlisting}
+import torch
+
+A = torch.tensor([[2., 1.],
+                  [1., 2.]])
+eigenvalues, eigenvectors = torch.linalg.eigh(A)
+# eigenvalues:  tensor([1., 3.])
+# eigenvectors: tensor([[-0.7071,  0.7071],
+#                       [ 0.7071,  0.7071]])
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Scaling Eigenvectors to Integer Form}
+  \begin{itemize}
+    \item \texttt{torch.linalg.eigh()} always returns \emph{unit} eigenvectors, i.e.\ eigenvectors with norm \(1\).
+    \item The integer eigenvectors of \(A = \begin{bmatrix}2 & 1 \\ 1 & 2\end{bmatrix}\) are \(\begin{bmatrix}1 \\ -1\end{bmatrix}\) and \(\begin{bmatrix}1 \\ 1\end{bmatrix}\), each with norm \(\sqrt{2}\).
+    \item Multiply the unit eigenvectors by \(\sqrt{2}\) to recover the integer form.
+  \end{itemize}
+  \begin{lstlisting}
+integer_eigvecs = eigenvectors * np.sqrt(2)
+# tensor([[-1.,  1.],
+#         [ 1.,  1.]])  (each column is one eigenvector)
+  \end{lstlisting}
+  \begin{itemize}
+    \item In general, to recover an integer eigenvector \(\vec{w}\), multiply the corresponding unit eigenvector by \(\|\vec{w}\|\).
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{PyTorch Eigendecomposition -- Exercise}
+  Use \texttt{torch.linalg.eigh()} to find the eigenvalues and eigenvectors of
+  \begin{equation}
+    A = \begin{bmatrix} 3 & 1 \\ 1 & 3 \end{bmatrix}.
+  \end{equation}
+  \begin{itemize}
+    \item What are the eigenvalues?
+    \item Scale the returned unit eigenvectors to their integer form using the technique from the previous slide.
+    \item What are the integer eigenvectors?
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{PyTorch Eigendecomposition -- Solution (1/2)}
+  \begin{lstlisting}
+import torch
+
+A = torch.tensor([[3., 1.],
+                  [1., 3.]])
+eigenvalues, eigenvectors = torch.linalg.eigh(A)
+# eigenvalues:  tensor([2., 4.])
+# eigenvectors: tensor([[-0.7071,  0.7071],
+#                       [ 0.7071,  0.7071]])
+
+integer_eigvecs = eigenvectors * np.sqrt(2)
+# tensor([[-1.,  1.],
+#         [ 1.,  1.]])
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}{PyTorch Eigendecomposition -- Solution (2/2)}
+  \begin{itemize}
+    \item The eigenvalues are \(\lambda_1 = 2\) and \(\lambda_2 = 4\).
+    \item The integer eigenvectors, obtained by multiplying the unit eigenvectors by \(\sqrt{2}\), are:
+    \begin{equation}
+      \vec{v}_1 = \begin{bmatrix} -1 \\ 1 \end{bmatrix} \text{ for } \lambda_1 = 2, \qquad
+      \vec{v}_2 = \begin{bmatrix} 1 \\ 1 \end{bmatrix} \text{ for } \lambda_2 = 4.
+    \end{equation}
+    \item Verification of the eigenvalue equation \(A\vec{v} = \lambda\vec{v}\):
+    \begin{equation}
+      \begin{bmatrix} 3 & 1 \\ 1 & 3 \end{bmatrix}\begin{bmatrix} -1 \\ 1 \end{bmatrix}
+      = \begin{bmatrix} -2 \\ 2 \end{bmatrix} = 2\begin{bmatrix} -1 \\ 1 \end{bmatrix}, \quad
+      \begin{bmatrix} 3 & 1 \\ 1 & 3 \end{bmatrix}\begin{bmatrix} 1 \\ 1 \end{bmatrix}
+      = \begin{bmatrix} 4 \\ 4 \end{bmatrix} = 4\begin{bmatrix} 1 \\ 1 \end{bmatrix}.
+    \end{equation}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Revision}
+In this presentation you learned about:
+    \begin{itemize}
+        \item Vectors.
+        \item Matrices.
+        \item Dot products.
+        \item Vector-Matrix and Matrix-Matrix multiplication.
+        \item Eigendecomposition.
+        \item Computing eigenvalues and eigenvectors with PyTorch.
+    \end{itemize}
+
+\end{frame}
+
+\end{document}

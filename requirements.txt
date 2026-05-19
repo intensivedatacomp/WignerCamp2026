@@ -1,0 +1,12 @@
+jupyter
+numpy
+matplotlib
+pandas
+scipy
+torch
+torchvision
+torchaudio
+pytest
+pre-commit
+pillow
+optuna

@@ -11,7 +11,7 @@ if(BUILD_DOCS)
     find_program(BIBTEX_EXECUTABLE bibtex REQUIRED)
 
     file(GLOB TEX_FILES CONFIGURE_DEPENDS "*.tex")
-    set(GENERATED_EXTS aux bbl blg log out toc lof lot snm nav vrb)
+    set(GENERATED_EXTS aux bbl blg log out toc lof lot snm nav vrb fls aux fdb_latexmk)
 
     foreach(TEX_FILE ${TEX_FILES})
         get_filename_component(BASENAME ${TEX_FILE} NAME_WE)

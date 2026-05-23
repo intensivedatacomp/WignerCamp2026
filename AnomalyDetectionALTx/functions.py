@@ -49,7 +49,7 @@ def extract_symmetric_laws(x: torch.Tensor) -> torch.Tensor:
 
     Parameters
     ----------
-    x : torch.Tensor
+    x : torch.Tensor or list[float]
         1D tensor of shape `(n,)` with `n >= 3`.
 
     Returns
@@ -63,6 +63,9 @@ def extract_symmetric_laws(x: torch.Tensor) -> torch.Tensor:
     ValueError
         If the input tensor is not 1D or has fewer than 3 elements.
     """
+    if type(x) is list:
+        x = torch.tensor(x, dtype=torch.float32)
+    
     if x.ndim != 1 or x.shape[0] < 3:
         raise ValueError("Input must be a 1D tensor with at least 3 elements.")
     
@@ -100,6 +103,9 @@ def embed_as_pairs(x: torch.Tensor) -> torch.Tensor:
     ValueError
         If the input tensor is not 1D or has fewer than 2 elements.
     """
+    if type(x) is list:
+        x = torch.tensor(x, dtype=torch.float32)
+    
     if x.ndim != 1 or x.shape[0] < 2:
         raise ValueError("Input must be a 1D tensor with at least 2 elements.")
     

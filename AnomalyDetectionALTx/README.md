@@ -18,10 +18,10 @@ This folder contains a simple, self-contained example that illustrates how the *
   - `extract_symmetric_laws`: extract shapelet vectors (laws)
   - `embed_as_pairs`: perform 2D time-delay embedding
 
-- [🎤 `ALT.tex`](./ALT.tex)  
+- [🎤 `altx.tex`](./altx.tex)  
   The LaTeX Beamer source file of the presentation that mirrors the notebook content in slide format.
 
-- [📑 `ALT.pdf`](./ALT.pdf)  
+- [📑 `altx.pdf`](./altx.pdf)  
   The compiled version of the LaTeX presentation. Useful for quick reviews or showing slides.
 
 ## 🧠 About ALT
@@ -39,17 +39,13 @@ The method requires only a few hyperparameters:
 ## 📚 References
 
 - **ALT Preprint**  
-  *Marcell T. Kurbucz, Balázs Hajós, Balázs P. Halmos, Vince Á. Molnár, Antal Jakovác*.  
-  *Adaptive Law-Based Transformation (ALT): A Lightweight Feature Representation for Time Series Classification.*  
-  arXiv preprint: [arXiv:2501.09217](https://arxiv.org/abs/2501.09217) (2025).
+Kurbucz, M.T., Hajós, B., Halmos, B.P., Molnár, V.Á., Jakovác A. Adaptive law-based feature representation for time series classification. *Sci Rep* **15** 41775 (2025). [https://doi.org/10.1038/s41598-025-25667-0](https://doi.org/10.1038/s41598-025-25667-0)
 
 - **ALT Software Package**  
-  *Balázs P. Halmos, Balázs Hajós, Vince Á. Molnár, Marcell T. Kurbucz, Antal Jakovác*.  
-  *ALT: A Python Package for Lightweight Feature Representation in Time Series Classification.*  
-  arXiv preprint: [arXiv:2504.12841](https://arxiv.org/abs/2504.12841) (2025).
+Balázs Paszkál Halmos, Balázs Hajós, Vince Áron Molnár, Marcell Tamás Kurbucz, Antal Jakovác, `altx`: a python package for adaptive law-based transformation in time series classification, *Mach. Learn.: Sci. Technol.* **7** 015034 (2026) [https://doi.org/10.1088/2632-2153/ae3e4f](https://doi.org/10.1088/2632-2153/ae3e4f)
 
 - **ALT Source Code**  
-  GitHub repository: [github.com/Datacompintensive/ALT](https://github.com/Datacompintensive/ALT)
+  GitHub repository: [github.com/dcintlab/altx](https://github.com/dcintlab/altx)
 
 ## 🚀 Try it Online
 

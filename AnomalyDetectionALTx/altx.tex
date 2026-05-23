@@ -42,15 +42,12 @@
   \vskip0pt%
 }
 
-\AtBeginSection[]{
-  \begin{frame}
-  \vfill
-  \centering
-  \begin{beamercolorbox}[sep=8pt,center,shadow=true,rounded=true]{title}
-    \usebeamerfont{title}\insertsectionhead\par%
-  \end{beamercolorbox}
-  \vfill
-  \end{frame}
+% Current section
+\AtBeginSection[ ]
+{
+\begin{frame}{Outline}
+    \tableofcontents[currentsection]
+\end{frame}
 }
 
 \begin{document}
@@ -94,6 +91,22 @@
   We now apply \emph{altx} to classify the test instance, i.e., determine to which class \( x \) belongs.
 \end{frame}
 
+\begin{frame}{Goal of \emph{altx}}
+  Evaluate how much the data belongs to one class (\textbf{closer to 0, more similar!})
+  \begin{table}
+    \begin{tabular}{c|c|c}
+      Data & Class a & Class b \\ \hline
+      \(x_0^{(a)}\) & 0.2 & 3 \\
+      \(x_1^{(a)}\) & 0.03 & 5 \\
+      \(x_2^{(a)}\) & 0.1 & 7 \\
+      \(x_3^{(b)}\) & 4 & 0.1 \\
+      \(x_4^{(b)}\) & 6 & 0.15 \\
+      \(x_5^{(b)}\) & 2 & 0.3 \\
+      \(x^{?}\) & 0.00035 & 0.029
+    \end{tabular}
+  \end{table}
+\end{frame}
+
 \section{The detailed calculation}
 
 \begin{frame}{Step 1: Extracting the Laws}
@@ -111,7 +124,7 @@
     \begin{bmatrix} 2 & 3 \\ 3 & 5 \end{bmatrix}.
   \end{equation}
 
-  From those, the laws are the eigenvectors corresponding to the smallest absolute eigenvalues:
+  From those, the laws\footnote{eigenvectors corresponding to the smallest absolute eigenvalues} vectors which gives close to 0 when multiplying the embedded matrices, are:
   \begin{equation}
     \begin{bmatrix} -0.8507 \\ 0.5257 \end{bmatrix}, \quad
     \begin{bmatrix} -0.8507 \\ 0.5257 \end{bmatrix}, \quad
@@ -143,23 +156,41 @@
 \begin{frame}{Step 3: Projection by Laws}
   Multiplying with class \textbf{a} laws:
   \begin{equation}
-    F_a = E L_a = \begin{bmatrix} -0.1241 & -0.1241 & -0.1241 \\ 0.0767 & 0.0767 & 0.0767 \\ -0.0474 & -0.0474 & -0.0474 \\ 0.0293 & 0.0293 & 0.0293 \end{bmatrix}.
+    F_a = E L_a = \begin{bmatrix} -0.0344 & -0.0344 & -0.0344 \\ 0.0132 & 0.0132 & 0.0132 \\ -0.0050 & -0.0050 & -0.0050 \\ 0.0019 & 0.0019 & 0.0019 \end{bmatrix}.
   \end{equation}
 
   Multiplying with class \textbf{b} laws:
   \begin{equation}
-    F_b = E L_b = \begin{bmatrix} -1.0448 & -0.2623 & -0.5635 \\ -1.4224 & -0.1471 & -0.6363 \\ -2.4672 & -0.4094 & -1.1997 \\ -3.8895 & -0.5565 & -1.8360 \end{bmatrix}.
+    F_b = E L_b = \begin{bmatrix} -0.2898 & -0.0727 & -0.1563 \\ -0.2439 & -0.0252 & -0.1091 \\ -0.2615 & -0.0434 & -0.1272 \\ -0.2548 & -0.0365 & -0.1203 \end{bmatrix}.
   \end{equation}
 \end{frame}
 
 \begin{frame}{Step 4: Feature Calculation}
   Using the mean of all squared values:
   \begin{itemize}
-    \item Class \textbf{a}: \( \text{mean} = 0.0061 \).
-    \item Class \textbf{b}: \( \text{mean} = 3.5359 \).
+    \item Class \textbf{a}: \( \text{mean} = 0.00035 \).
+    \item Class \textbf{b}: \( \text{mean} = 0.029 \).
   \end{itemize}
 
   \textbf{Conclusion:} The test instance is closer to class \textbf{a}.
+\end{frame}
+
+\begin{frame}{Exercise}
+  Using \emph{presentation\_calculation.ipynb} notebook calculate to which class does 
+  \begin{equation}
+    x = [3, -1, 5, 3, 13]
+  \end{equation}
+  belongs.
+\end{frame}
+
+\begin{frame}{Exercise -- solution}
+  Using \emph{presentation\_calculation.ipynb} notebook calculate to which class does 
+  \begin{equation}
+    x = [3, -1, 5, 3, 13]
+  \end{equation}
+  belongs.
+
+  Class a score: 0.43, class b score: 0.42 \(\Rightarrow\) it belongs to \textbf{class b}.
 \end{frame}
 
 \section{The Parameters \( r, l, k \)}

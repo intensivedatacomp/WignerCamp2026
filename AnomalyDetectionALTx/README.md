@@ -1,4 +1,4 @@
-# ALT Presentation Example
+# `ALTx` introduction
 
 This folder contains a simple, self-contained example that illustrates how the **Adaptive Law-based Transformation (ALT)** method works using a toy dataset. The example is presented in both **notebook** and **presentation** formats and walks through the full ALT pipeline: from generating synthetic time series to classifying an unknown test instance using extracted linear laws.
 

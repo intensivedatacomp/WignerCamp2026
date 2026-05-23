@@ -1,0 +1,202 @@
+\documentclass{beamer}
+\usefonttheme{serif} % default family is serif
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{colortbl}
+\usepackage{multirow,tabularx}
+\usepackage{tikz}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=blue,      
+    urlcolor=blue,
+    pdftitle={Linear algebra},
+    pdfpagemode=FullScreen,
+    }
+\usepackage{physics}
+\usepackage{siunitx}
+\usepackage{listings}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage[font=small,skip=2pt]{caption}
+\setlength{\belowcaptionskip}{-10pt}
+\definecolor{blue}{rgb}{0.0234375, 0.11328125, 0.609375}
+\usepackage{multicol}
+\usepackage{wrapfig}
+\setbeamercolor{frametitle}{fg=blue}
+\setbeamercolor{title}{fg=blue}
+\setbeamercolor{structure}{fg=blue}
+
+\title{\textcolor{blue}{Adaptive Law-Based Transformation \emph{altx}}}
+\subtitle{\textcolor{blue}{Wigner Summer Camp \\ Data and Compute Intensive Sciences Research Group}}
+\author{\textcolor{blue}{Balázs, Paszkál, Vince, Levente, Bence, Antal \\ Éva, Hajni}}
+\date{\textcolor{blue}{6-10 July 2026}}
+
+\setbeamertemplate{footline}{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=.1\paperwidth,ht=2.25ex,dp=1ex,left]{page number in head/foot}%
+    \hspace{1em} \textcolor{blue}{\insertframenumber}%
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+
+\AtBeginSection[]{
+  \begin{frame}
+  \vfill
+  \centering
+  \begin{beamercolorbox}[sep=8pt,center,shadow=true,rounded=true]{title}
+    \usebeamerfont{title}\insertsectionhead\par%
+  \end{beamercolorbox}
+  \vfill
+  \end{frame}
+}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+  \begin{columns}
+    \column{0.3\textwidth}
+    \column{0.3\textwidth}
+    \centering
+    \includegraphics[width=0.8\textwidth]{../img/logo.png}
+    \column{0.3\textwidth}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Table of Contents}
+  \tableofcontents
+\end{frame}
+
+\section{Dataset}
+
+\begin{frame}{Dataset}
+  Consider the following dataset:
+  \begin{itemize}
+    \item Train instance from class \textbf{a}: \( a = [1, 1, 2, 3, 5] \).
+    \item Train instance from class \textbf{b}: \( b = [2, 1, 5, 7, 17] \).
+    \item Test instance from an unknown class: \( x = [2, 3, 5, 8, 13] \).
+  \end{itemize}
+  
+  We now apply ALT to classify the test instance, i.e., determine to which class \( x \) belongs.
+\end{frame}
+
+\section{The detailed calculation}
+
+\begin{frame}{Step 1: Extracting the Laws}
+  We define parameters \( r = 3, \; l = 2, \; k = 1 \). {\color{gray}(Their meaning will be discussed later.)}
+
+  From \( a = [1, 1, 2, 3, 5] \) we extract the following segments of length \( r = 3 \):
+  \begin{equation}
+    [1, 1, 2], \; [1, 2, 3], \; [2, 3, 5].
+  \end{equation}
+
+  Then we embed them to \( l \times l = 2 \times 2 \) matrices:
+  \begin{equation}
+    \begin{bmatrix} 1 & 1 \\ 1 & 2 \end{bmatrix}, \quad
+    \begin{bmatrix} 1 & 2 \\ 2 & 3 \end{bmatrix}, \quad
+    \begin{bmatrix} 2 & 3 \\ 3 & 5 \end{bmatrix}.
+  \end{equation}
+
+  From those, the laws are the eigenvectors corresponding to the smallest absolute eigenvalues:
+  \begin{equation}
+    \begin{bmatrix} -0.8507 \\ 0.5257 \end{bmatrix}, \quad
+    \begin{bmatrix} -0.8507 \\ 0.5257 \end{bmatrix}, \quad
+    \begin{bmatrix} -0.8507 \\ 0.5257 \end{bmatrix}.
+  \end{equation}
+\end{frame}
+
+\begin{frame}{Step 1: Extracting the Laws (continued)}
+  We combine the results into one matrix and repeat the process for all training instances (separately for each class).
+
+  From class \textbf{a}, we obtain laws:
+  \begin{equation}
+    L_a = \begin{bmatrix} -0.8507 & -0.8507 & -0.8507 \\ 0.5257 & 0.5257 & 0.5257 \end{bmatrix}.
+  \end{equation}
+
+  From class \textbf{b}, we obtain laws:
+  \begin{equation}
+    L_b = \begin{bmatrix} -0.9571 & -0.8702 & -0.9085 \\ 0.2898 & 0.4927 & 0.4179 \end{bmatrix}.
+  \end{equation}
+\end{frame}
+
+\begin{frame}{Step 2: Embedding the Test Instance}
+  The test instance \( x = [2, 3, 5, 8, 13] \) is embedded as:
+  \begin{equation}
+    E = \begin{bmatrix} 2 & 3 \\ 3 & 5 \\ 5 & 8 \\ 8 & 13 \end{bmatrix}.
+  \end{equation}
+\end{frame}
+
+\begin{frame}{Step 3: Projection by Laws}
+  Multiplying with class \textbf{a} laws:
+  \begin{equation}
+    F_a = E L_a = \begin{bmatrix} -0.1241 & -0.1241 & -0.1241 \\ 0.0767 & 0.0767 & 0.0767 \\ -0.0474 & -0.0474 & -0.0474 \\ 0.0293 & 0.0293 & 0.0293 \end{bmatrix}.
+  \end{equation}
+
+  Multiplying with class \textbf{b} laws:
+  \begin{equation}
+    F_b = E L_b = \begin{bmatrix} -1.0448 & -0.2623 & -0.5635 \\ -1.4224 & -0.1471 & -0.6363 \\ -2.4672 & -0.4094 & -1.1997 \\ -3.8895 & -0.5565 & -1.8360 \end{bmatrix}.
+  \end{equation}
+\end{frame}
+
+\begin{frame}{Step 4: Feature Calculation}
+  Using the mean of all squared values:
+  \begin{itemize}
+    \item Class \textbf{a}: \( \text{mean} = 0.0061 \).
+    \item Class \textbf{b}: \( \text{mean} = 3.5359 \).
+  \end{itemize}
+
+  \textbf{Conclusion:} The test instance is closer to class \textbf{a}.
+\end{frame}
+
+\section{The Parameters \( r, l, k \)}
+
+\begin{frame}{Meaning of Parameters \( r, l, k \)}
+  \begin{itemize}
+    \item \( r \): Length of the original sequence window used for feature extraction.
+    \item \( l \): Embedding size, defines a symmetric \( l \times l \) matrix.
+    \item \( 2l - 1 \): Number of equally spaced elements sampled from the window of length \( r \).
+    \item \( k \): Step size (stride) used for shifting the window over the time series.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Example \(r, l, k\) values}
+    Consider the following instance: \(x' = [2, 1, 5, 7, 17, 31, 65, 127, 257, 511]\).
+    
+    Let \(r=5, l= 2, \) and \(k=1\). Then \(2l-1=3\) and
+    \vspace{10px}
+    
+    \(x'_1 = [\boxed{\boxed{2}, 1, \boxed{5}, 7, \boxed{17}}, 31, 65, 127, 257, 511].\)
+    \(x'_2 = [2, \boxed{\boxed{1}, 5, \boxed{7}, 17, \boxed{31}}, 65, 127, 257, 511].\)
+    \(x'_2 = [2, 1, \boxed{\boxed{5}, 7, \boxed{17}, 31, \boxed{65}}, 127, 257, 511].\)
+    \(x'_3 = [2, 1, 5, \boxed{\boxed{7}, 17, \boxed{31}, 65, \boxed{127}}, 257, 511].\)
+    \(x'_4 = [2, 1, 5, 7, \boxed{\boxed{17}, 31, \boxed{65}, 127, \boxed{257}}, 511].\)
+    \(x'_5 = [2, 1, 5, 7, 17, \boxed{\boxed{31}, 65, \boxed{127}, 257, \boxed{511}}].\)
+    
+\end{frame}
+
+\begin{frame}{Example \(r, l, k\) values}
+    Consider the following instance: \(x'' = [2, 1, 5, 7, 17, 31, 65, 127, 257, 511]\).
+    
+    Let \(r=7, l= 2, \) and \(k=2\). Then \(2l-1=3\) and
+    \vspace{10px}
+    
+    \(x''_1 = [\boxed{\boxed{2}, 1, 5, \boxed{7}, 17, 31, \boxed{65}}, 127, 257, 511].\)
+    \(x''_2 = [2, 1, \boxed{\boxed{5}, 7, 17, \boxed{31}, 65, 127, \boxed{257}}, 511].\)
+
+    
+\end{frame}
+
+\begin{frame}{Summary of ALT Method}
+  \begin{itemize}
+    \item Extract subsequences and embed into symmetric matrices.
+    \item Compute eigenvectors of smallest absolute eigenvalues — these are the laws.
+    \item Multiply embedded test instances with class-specific laws.
+    \item Compute summary statistics (e.g., mean of squared values).
+    \item Classify by choosing the class that minimizes the statistic.
+  \end{itemize}
+\end{frame}
+
+\end{document}

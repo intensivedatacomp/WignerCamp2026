@@ -10,3 +10,4 @@ pytest
 pre-commit
 pillow
 optuna
+aeon

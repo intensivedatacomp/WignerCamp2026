@@ -15,7 +15,7 @@ call plug#end()
 " General
 " ---------------------------------
 " Highlighting when search
-:set incsearch
+set incsearch
 
 " ---------------------------------
 " Fugitive

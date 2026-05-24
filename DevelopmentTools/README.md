@@ -36,18 +36,38 @@ Ideal for users who are new to command-line environments.
 
 ### 📝 [Vim.md](Vim.md)
 
-A short guide to **using the Vim editor**, including:
+A beginner's introduction to **the Vim editor**, covering the most important concepts with many examples:
 
-- Creating and saving files
-- Vim modes (normal, insert, visual, etc.)
-- Copying, pasting, deleting text (in Vim and with system clipboard)
-- Moving the cursor efficiently
-- Showing line numbers
-- Undo/redo, search and replace
-- Opening a terminal inside Vim with `:vert term`
-- Practical examples showing why Vim is efficient
+- Why Vim and how to think about it
+- The modal system: Normal, Insert, and Command-Line modes
+- Opening, saving, and quitting
+- Moving around efficiently
+- Editing: deleting, changing, copy and paste
+- Undo and redo
+- Search and basic search/replace
+- Visual mode for selecting text
+- Common beginner mistakes and how to avoid them
 
-Useful for users who want to learn efficient text editing in the terminal.
+Start here if you have never used Vim before.
+
+---
+
+### 📝 [Vim_intermediate.md](Vim_intermediate.md)
+
+A deeper guide to **Vim's more powerful features**, for users who are already comfortable with the basics:
+
+- Text objects (`ciw`, `da"`, `yi(`, …)
+- The dot command — repeat last change
+- Operators and motions as a composable language
+- Macros — recording and replaying command sequences
+- Basic regular expressions in Vim
+- The global command `:g`
+- Advanced search and replace with back-references
+- Registers (named clipboards)
+- Working with splits, tabs, and multiple buffers
+- A useful `~/.vimrc` starter configuration
+
+Can be skipped for beginner users.
 
 ---
 
@@ -90,4 +110,5 @@ You can also open these files with:
 ```bash
 less TerminalBasics.md
 vim Vim.md
+vim Vim_intermediate.md
 ```

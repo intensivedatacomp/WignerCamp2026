@@ -1,4 +1,5 @@
 jupyter
+jupytext
 numpy
 matplotlib
 pandas

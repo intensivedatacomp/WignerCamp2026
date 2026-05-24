@@ -96,7 +96,8 @@ sudo docker run -it --rm \
   -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix \
   python:3.14-cpu-no-root-latex
 ```
-
+> [!NOTE]
+> In order to display matplotlib plots executing `xhost +local:docker` is also needed.
 
 ### 🔧 Compiling LaTeX Documents and jupyter notebook presentations
 
@@ -113,9 +114,9 @@ cd -
 
 This will:
 
-- Compile all `.tex` files found in the subdirectories,
-- Automatically handle references (BibTeX if needed),
-- Clean up all temporary files including: `.aux`, `.log`, `.toc`, `.out`, `.bbl`, `.blg`, `.lof`, `.lot`, `.snm`, `.nav`, `.vrb`.
+- Compile all `.tex` files found in the subdirectories.
+- Automatically handle references (BibTeX if needed).
+- Clean up all temporary files including: `.aux`, `.log`, `.toc`, `.out`, `.bbl`, `.blg`, `.lof`, `.lot`, `.snm`, `.nav`, `.vrb`, `.fls`, `.aux`, `.fdb_latexmk`.
 - Compile the jupyter notebooks (whose name ends with `_presentation.ipynb`) to HTML presentations.
 
 ---

@@ -97,7 +97,7 @@ sudo docker run -it --rm \
   python:3.14-cpu-no-root-latex
 ```
 > [!NOTE]
-> In order to display matplotlib plots executing `xhost +local:docker` is also needed.
+> In order to display matplotlib plots executing `xhost +local:docker` on the host is also needed.
 
 ### 🔧 Compiling LaTeX Documents and jupyter notebook presentations
 

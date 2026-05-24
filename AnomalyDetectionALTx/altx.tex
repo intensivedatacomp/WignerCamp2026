@@ -176,7 +176,7 @@
 \end{frame}
 
 \begin{frame}{Exercise}
-  Using \emph{presentation\_calculation.ipynb} notebook calculate to which class does 
+  Using \emph{altx\_intro.ipynb} notebook calculate to which class does 
   \begin{equation}
     x = [3, -1, 5, 3, 13]
   \end{equation}
@@ -184,7 +184,7 @@
 \end{frame}
 
 \begin{frame}{Exercise -- solution}
-  Using \emph{presentation\_calculation.ipynb} notebook calculate to which class does 
+  Using \emph{altx\_intro.ipynb} notebook calculate to which class does 
   \begin{equation}
     x = [3, -1, 5, 3, 13]
   \end{equation}
@@ -267,6 +267,103 @@
   \end{itemize}
 \end{frame}
 
+\section{Anomaly Detection}
+
+\begin{frame}{Anomaly Detection as a Special Case of Classification}
+  Anomaly detection is classification with \textbf{one class}: the normal class.
+  \begin{itemize}
+    \item Laws are extracted from \textbf{normal} data only.
+    \item Instead of one scalar per class, we compute one score \textbf{per embedded window}, giving a score \emph{vector}.
+    \item \textbf{Peaks} in the score vector mark the anomaly locations.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Step 1: Laws from Normal Data}
+  Normal data: \(a = [1, 1, 2, 3, 5, 8, 13]\), parameters \(r=3,\; l=2,\; k=1\).
+  \begin{equation}
+    L = \begin{bmatrix}
+      -0.8507 & -0.8507 & -0.8507 & -0.8507 & -0.8507 \\
+       0.5257 &  0.5257 &  0.5257 &  0.5257 &  0.5257
+    \end{bmatrix}.
+  \end{equation}
+  All five laws are identical because every window follows the same Fibonacci rule.
+\end{frame}
+
+\begin{frame}{Step 2: Embedding the Test Instance}
+  Test instance (anomalies at positions 0 and 3): \(x = [6, 1, 2, 8, 5, 8, 13]\).
+  \begin{equation}
+    E = \begin{bmatrix}
+      6 & 1 \\ 1 & 2 \\ 2 & 8 \\ 8 & 5 \\ 5 & 8 \\ 8 & 13
+    \end{bmatrix}.
+  \end{equation}
+  Row \(j\) is the pair \((x_j,\; x_{j+1})\).
+\end{frame}
+
+\begin{frame}{Step 3: Projection}
+  \begin{equation}
+    F = E \cdot L = {\footnotesize\begin{bmatrix}
+      -0.753 & -0.753 & -0.753 & -0.753 & -0.753 \\
+       0.090 &  0.090 &  0.090 &  0.090 &  0.090 \\
+       0.304 &  0.304 &  0.304 &  0.304 &  0.304 \\
+      -0.443 & -0.443 & -0.443 & -0.443 & -0.443 \\
+      -0.005 & -0.005 & -0.005 & -0.005 & -0.005 \\
+       0.002 &  0.002 &  0.002 &  0.002 &  0.002
+    \end{bmatrix}}.
+  \end{equation}
+  Rows 0 and 3 have the largest absolute values.
+\end{frame}
+
+\begin{frame}{Step 4: Anomaly Scores}
+  Average \(F^2\) over the laws (columns), keeping one score per row:
+  \begin{equation}
+    s_j = \text{mean}_m\!\left(F_{jm}^2\right).
+  \end{equation}
+  \begin{equation}
+    s = [\underbrace{0.567}_{\text{anomaly}},\; 0.008,\; 0.092,\; \underbrace{0.196}_{\text{anomaly}},\; 0.000,\; 0.000].
+  \end{equation}
+  With threshold \(\tau = 0.15\): peaks at indices 0 and 3 are flagged as anomalous.
+
+  The mean can be replaced by a \textbf{percentile} (e.g.\ 95th) for robustness.
+\end{frame}
+
+\begin{frame}{Index Mapping: Score Index to Original Position}
+  The score vector has \(N - l + 1\) elements. Score \(s_j\) is computed from window
+  \begin{equation}
+    E_j = [x_j,\; x_{j+1},\; \dots,\; x_{j+l-1}],
+  \end{equation}
+  so a peak at index \(j\) indicates an anomaly at original position \(j\).
+
+  Notebook example (\(l = 2\)):
+  \begin{itemize}
+    \item \(s_0 = 0.567 > \tau \;\Rightarrow\) anomaly at position \(0\). \checkmark
+    \item \(s_3 = 0.196 > \tau \;\Rightarrow\) anomaly at position \(3\). \checkmark
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Exercise: Index Mapping}
+  \emph{altx} is applied to a time series of length \(N = 10\) with \(l = 3\).
+
+  \vspace{0.5em}
+  \textbf{Part (a).} How many elements does the anomaly score vector \(s\) have?
+
+  \vspace{0.5em}
+  \textbf{Part (b).} The score vector has peaks at indices \(j = 1\) and \(j = 6\).
+  What are the corresponding anomaly positions in \(x\)?
+\end{frame}
+
+\begin{frame}{Exercise: Index Mapping -- Solutions}
+  \textbf{Part (a).}
+  \begin{equation}
+    N - l + 1 = 10 - 3 + 1 = 8.
+  \end{equation}
+
+  \textbf{Part (b).} A peak at index \(j\) indicates an anomaly at position \(j\):
+  \begin{itemize}
+    \item Peak at \(j = 1 \;\Rightarrow\) anomaly at position 1.
+    \item Peak at \(j = 6 \;\Rightarrow\) anomaly at position 6.
+  \end{itemize}
+\end{frame}
+
 \begin{frame}{Summary of ALT Method}
   \begin{itemize}
     \item Extract subsequences and embed into symmetric matrices.
@@ -274,6 +371,7 @@
     \item Multiply embedded test instances with class-specific laws.
     \item Compute summary statistics (e.g., mean of squared values).
     \item Classify by choosing the class that minimizes the statistic.
+    \item By only taking statistic over the laws, the peaks represent anomalies.
   \end{itemize}
 \end{frame}
 

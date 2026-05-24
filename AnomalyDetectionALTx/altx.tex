@@ -321,9 +321,12 @@
   \begin{equation}
     s = [\underbrace{0.567}_{\text{anomaly}},\; 0.008,\; 0.092,\; \underbrace{0.196}_{\text{anomaly}},\; 0.000,\; 0.000].
   \end{equation}
-  With threshold \(\tau = 0.15\): peaks at indices 0 and 3 are flagged as anomalous.
-
-  The mean can be replaced by a \textbf{percentile} (e.g.\ 95th) for robustness.
+  Threshold \(\tau = 0.15\): gives anomalies (peaks) at 0 and 3.
+  \begin{figure}
+    \centering
+    \includegraphics[width=0.5\textwidth]{../img/anomaly_detection_example}
+  \end{figure}
+  The mean can be replaced by a \textbf{percentile} (e.g.\ 5\(^\mathrm{th}\)) for robustness.
 \end{frame}
 
 \begin{frame}{Index Mapping: Score Index to Original Position}

@@ -334,6 +334,18 @@ docker run hello-world
 
 Add the following section to your setup guide:
 
+### Building docker image for the Summer School
+You can get a prepared docker image by, see [github/halmosb/docker-builder](https://github.com/halmosb/docker-builder):
+```bash
+cd ../..
+git clone git@github.com:halmosb/docker-builder.git
+cd docker-builder
+git checkout v0.3.4
+pip install -e .
+docker-builder --no-root --latex
+sudo docker build -f generated/Dockerfile.3.14.cpu -t python:3.14-v0.3.4-cpu-no-root-latex .
+cd ../WignerCamp2026
+```
 ---
 
 # 8. CMake (Build System Generator)

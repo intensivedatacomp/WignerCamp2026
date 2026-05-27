@@ -76,17 +76,6 @@ To build the LaTeX documents with `CMake`, you need to have `cmake`, `pdflatex`,
 
 ### 🔧 Using Docker image to compile latex
 
-You can get a prepared docker image by, see [github/halmosb/docker-builder](https://github.com/halmosb/docker-builder):
-```bash
-cd ..
-git clone git@github.com:halmosb/docker-builder.git
-cd docker-builder
-git checkout v0.3.3
-pip install -e .
-docker-builder --no-root --latex
-sudo docker build -f generated/Dockerfile.3.14.cpu -t python:3.14-cpu-no-root-latex .
-cd ../WignerCamp2026
-```
 
 You can run the docker image with:
 ```bash
@@ -94,7 +83,7 @@ sudo docker run -it --rm \
   -v $(pwd):/workspace \
   --user root \
   -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix \
-  python:3.14-cpu-no-root-latex
+  python:3.14-v0.3.4-cpu-no-root-latex
 ```
 > [!NOTE]
 > In order to display matplotlib plots executing `xhost +local:docker` on the host is also needed.

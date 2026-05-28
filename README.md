@@ -29,8 +29,9 @@ cd WignerCamp2026
 You should get familiar with the folders in this repository in the following order:
 
 #### General introduction
-- [DevelopmentTools](DevelopmentTools): Basic introduction to linux terminal, vim, and git.
-- [BasicProgramming](BasicProgramming): python, numpy, pandas, matplotlib, torch.
+- [GeneralDevelopmentTools](GeneralDevelopmentTools): Basic introduction to linux terminal, vim, and git.
+- [GeneralBasicProgramming](GeneralBasicProgramming): python, numpy, pandas, matplotlib, torch.
+- [GeneralTestsAndDocumentation](GeneralTestsAndDocumentation): pytest and documenting code.
 
 #### Edge detection materials
 - Introduction to the project for the summer school.

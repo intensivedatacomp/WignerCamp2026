@@ -20,7 +20,7 @@ First the development environment has to be set up for the Summer School, you ca
 You can clone this repository using:
 
 ```bash
-git clone git@github.com:dcintlab/WignerCamp2026.git
+git clone --recurse-submodules git@github.com:dcintlab/WignerCamp2026.git
 cd WignerCamp2026
 ```
 

@@ -1,0 +1,3 @@
+[submodule "AnomalyDetectionDataset"]
+	path = AnomalyDetectionDataset
+	url = git@github.com:dcintlab/artificial-dataset.git

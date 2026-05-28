@@ -120,3 +120,51 @@ Developed by members of the **Wigner Data and Compute Intensive Sciences Group**
 ## 📜 License
 
 Materials in this repository are provided for **educational purposes**.
+
+---
+
+## 🔗 Working with the Submodule (`AnomalyDetectionDataset`)
+
+This repository includes [`AnomalyDetectionDataset`](AnomalyDetectionDataset) as a Git submodule pointing to [dcintlab/artificial-dataset](https://github.com/dcintlab/artificial-dataset).
+
+### Initial setup
+
+Clone the repo with the submodule already initialized:
+```bash
+git clone --recurse-submodules git@github.com:dcintlab/WignerCamp2026.git
+```
+
+If you already cloned without it:
+```bash
+git submodule update --init --recursive
+```
+
+### Pull the latest version of the submodule
+
+```bash
+git submodule update --remote AnomalyDetectionDataset
+git add AnomalyDetectionDataset
+git commit -m "Update AnomalyDetectionDataset submodule"
+```
+
+### Make changes inside the submodule
+
+```bash
+cd AnomalyDetectionDataset
+git checkout main          # submodules start in detached HEAD — always check out a branch first
+# ... make changes ...
+git add .
+git commit -m "Your message"
+git push
+cd ..
+# Record the new commit in the parent repo:
+git add AnomalyDetectionDataset
+git commit -m "Update AnomalyDetectionDataset submodule"
+```
+
+### Update your local submodule after someone else advanced it
+
+```bash
+git pull
+git submodule update --recursive
+```

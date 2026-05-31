@@ -17,7 +17,7 @@
 \setbeamercolor{title}{fg=blue}
 \setbeamercolor{structure}{fg=blue}
 \setbeamertemplate{navigation symbols}{}
-\title{Mathematical Foundations of Time Series Classification}
+\title{Evaluating accuracy of anomaly detection}
 \subtitle{Wigner Summer Camp \\ Data and Compute Intensive Sciences Research Group}
 \author{\textcolor{blue}{Balázs, Paszkál, Vince, Levente, Bence, Antal \\ Éva, Hajni}}
 \date{\textcolor{blue}{6--10 July 2026}}
@@ -42,6 +42,13 @@
 
   \vskip0pt%
 }
+% Current section
+\AtBeginSection[ ]
+{
+\begin{frame}{Outline}
+    \tableofcontents[currentsection]
+\end{frame}
+}
 
 \begin{document}
 
@@ -63,7 +70,11 @@
   \end{columns}
 \end{frame}
 
+\begin{frame}{Contents}
+    \tableofcontents
+\end{frame}
 
+\section{Confusion matrix}
 \begin{frame}{The Confusion Matrix}
   \begin{table}[h]
     \centering
@@ -169,6 +180,7 @@
   \end{itemize}
 \end{frame}
 
+\section{Illustrative examples}
 \begin{frame}{Case 1: Imbalanced Dataset}
   \textbf{Confusion Matrix:}
   \begin{table}[h]

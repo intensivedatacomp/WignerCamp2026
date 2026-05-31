@@ -1,0 +1,159 @@
+\documentclass{beamer}
+\usefonttheme{serif}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{colortbl}
+\usepackage{multirow,tabularx}
+\usepackage{tikz}
+\usepackage{hyperref}
+\usepackage{physics}
+\usepackage{siunitx}
+\usepackage{multicol}
+\usepackage{wrapfig}
+\usepackage{amsmath}
+\usepackage{amsthm}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=blue,
+    urlcolor=blue,
+    pdftitle={goodFeaturesToTrack},
+    pdfpagemode=FullScreen,
+}
+
+% ---------------- COLORS ----------------
+\definecolor{blue}{rgb}{0.023, 0.113, 0.609}
+\setbeamercolor{frametitle}{fg=blue}
+\setbeamercolor{title}{fg=blue}
+\setbeamercolor{structure}{fg=blue}
+
+% ---------------- LISTINGS ----------------
+\usepackage{listings}
+
+\lstdefinelanguage{python}{
+    morekeywords={if, else, for, while, def, return, import, print, in,
+                  True, False, None, try, except, class},
+    morecomment=[l]{\#},
+    morestring=[b]",
+    morestring=[b]'
+}
+
+\lstset{
+    language=python,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue}\bfseries,
+    commentstyle=\color{gray},
+    stringstyle=\color{red},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    frame=single,
+    breaklines=true,
+    backgroundcolor=\color{gray!10}
+}
+
+% ---------------- TITLE ----------------
+\title{\textcolor{blue}{Feature Detection in Computer Vision}}
+\subtitle{\textcolor{blue}{Wigner Summer Camp \\ Data and Compute Intensive Sciences Research Group}}
+\author{\textcolor{blue}{Balázs, Paszkál, Vince, Levente, Bence, Antal \\ Éva, Hajni}}
+\date{\textcolor{blue}{6--10 June 2026}}
+
+% ---------------- FOOTLINE ----------------
+\setbeamertemplate{footline}{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=.1\paperwidth,ht=2.25ex,dp=1ex,left]{page number}%
+    \hspace{1em}\textcolor{blue}{\insertframenumber}
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+
+% ---------------- DOCUMENT ----------------
+\begin{document}
+
+% TITLE
+\begin{frame}
+    \titlepage
+\end{frame}
+
+% ---------------- INTRO ----------------
+\begin{frame}{What is feature detection?}
+    \begin{itemize}
+        \item Detects important points in images
+        \item Finds stable structures (corners, edges)
+        \item Used for tracking and motion estimation
+    \end{itemize}
+\end{frame}
+
+% ---------------- METHOD ----------------
+\begin{frame}{goodFeaturesToTrack}
+    \begin{itemize}
+        \item Detects strong corner-like points
+        \item Based on intensity changes in both directions
+        \item Selects stable points for tracking
+    \end{itemize}
+
+    \vspace{0.3cm}
+
+    Output: set of $(x, y)$ coordinates
+\end{frame}
+
+% ---------------- THEORY ----------------
+\begin{frame}{Corner intuition}
+    A good feature has strong variation in both directions:
+
+    \begin{equation}
+        \lambda_1, \lambda_2 \gg 0
+    \end{equation}
+
+    \begin{itemize}
+        \item $\lambda_1, \lambda_2$ = eigenvalues of gradient matrix
+        \item Large values → strong corner
+        \item Flat regions → not selected
+    \end{itemize}
+\end{frame}
+
+% ---------------- OPEN CV CODE ----------------
+\begin{frame}[fragile]{OpenCV implementation}
+    \begin{lstlisting}
+import cv2
+
+img = cv2.imread("frame.png")
+gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+corners = cv2.goodFeaturesToTrack(
+    gray,
+    maxCorners=100,
+    qualityLevel=0.01,
+    minDistance=10
+)
+
+for c in corners:
+    x, y = c.ravel()
+    cv2.circle(img, (int(x), int(y)), 3, (0,255,0), -1)
+\end{lstlisting}
+\end{frame}
+
+% ---------------- PARAMETERS ----------------
+\begin{frame}{Parameters}
+    \begin{itemize}
+        \item \textbf{maxCorners} – max number of detected points
+        \item \textbf{qualityLevel} – threshold for acceptance
+        \item \textbf{minDistance} – minimum spacing between points
+        \item \textbf{blockSize} – neighborhood size
+    \end{itemize}
+\end{frame}
+
+% ---------------- APPLICATIONS ----------------
+\begin{frame}{Applications}
+    \begin{itemize}
+        \item Optical flow tracking (Lucas-Kanade)
+        \item Camera stabilization
+        \item Robotics perception
+        \item Video analysis
+    \end{itemize}
+\end{frame}
+
+
+
+\end{document}

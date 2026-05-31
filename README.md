@@ -40,7 +40,7 @@ You should get familiar with the folders in this repository in the following ord
 
 #### Anomaly detection
 - Introduction to the project for the summer school.
-- [AnomalyDetectionMathematics](AnomalyDetectionMathematics): matrix multiplication, eigendecomposition.
+- [AnomalyDetectionMathematics](AnomalyDetectionMathematics): matrix multiplication, eigendecomposition, accuracy.
 - [AnomalyDetectionALTx](AnomalyDetectionALTx): Introduction to `altx`.
 - [AnomalyDetectionSignalProcessing](AnomalyDetectionSignalProcessing): finding peaks and bayesian hyperparameter optimization.
 - [AnoamlyDetectionDataset](https://github.com/dcintlab/artificial-dataset): generating a synthetic dataset.

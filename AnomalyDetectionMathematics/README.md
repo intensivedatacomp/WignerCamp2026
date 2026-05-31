@@ -16,7 +16,7 @@ AnomalyDetectionMathematics/
     └── test_linalg_task.py     # pytest test suite
 ```
 
-## Presentation
+## Presentations
 
 **Source:** [linear_algebra.tex](linear_algebra.tex) | **Compiled PDF:** [linear_algebra.pdf](linear_algebra.pdf)
 
@@ -29,6 +29,16 @@ The presentation introduces the linear algebra concepts needed for anomaly detec
 - **Matrix-matrix multiplication** — general formula and worked examples.
 - **Eigenvalues and eigenvectors** — definition, key properties, and the eigenvalue equation.
 - **Eigendecomposition with PyTorch** — using `torch.linalg.eigh` for real symmetric matrices, scaling unit eigenvectors to integer form, exercise with solution.
+
+**Source:** [accuracy.tex](accuracy.tex) | **Compiled PDF:** [accuracy.pdf](accuracy.pdf)
+
+Presentation which describes the evaluation of accuracy of classification and anomaly detection. It covers the following topics:
+
+- **Confusion matrix** — matrix of the result of a classification.
+- **Accuracy** — Proportion of all correct predictions.
+- **Precision** — TP/(TP + FP): Fraction of predicted positives that are true positives.
+- **Recall** — TP/(TP + FN): Fraction of actual positives that are correctly identified.
+- **F1-score** — Harmonic mean of precision and recall.
 
 ### Compiling the PDF
 

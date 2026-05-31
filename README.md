@@ -40,9 +40,10 @@ You should get familiar with the folders in this repository in the following ord
 
 #### Anomaly detection
 - Introduction to the project for the summer school.
-- [AnomalyDetectionMathematics](AnomalyDetectionMathematics): matrix multiplication, eigendecomposition.
+- [AnomalyDetectionMathematics](AnomalyDetectionMathematics): matrix multiplication, eigendecomposition, accuracy.
 - [AnomalyDetectionALTx](AnomalyDetectionALTx): Introduction to `altx`.
 - [AnomalyDetectionSignalProcessing](AnomalyDetectionSignalProcessing): finding peaks and bayesian hyperparameter optimization.
+- [AnoamlyDetectionDataset](https://github.com/dcintlab/artificial-dataset): generating a synthetic dataset.
 - Anomaly detection with autoencoders. (?)
 
 ---
@@ -125,7 +126,7 @@ Materials in this repository are provided for **educational purposes**.
 
 ## 🔗 Working with the Submodule (`AnomalyDetectionDataset`)
 
-This repository includes [`AnomalyDetectionDataset`](AnomalyDetectionDataset) as a Git submodule pointing to [dcintlab/artificial-dataset](https://github.com/dcintlab/artificial-dataset).
+This repository includes AnomalyDetectionDataset directory as a Git submodule pointing to [dcintlab/artificial-dataset](https://github.com/dcintlab/artificial-dataset).
 
 ### Initial setup
 

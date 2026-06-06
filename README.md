@@ -44,7 +44,6 @@ You should get familiar with the folders in this repository in the following ord
 - [AnomalyDetectionALTx](AnomalyDetectionALTx): Introduction to `altx`.
 - [AnomalyDetectionSignalProcessing](AnomalyDetectionSignalProcessing): finding peaks and bayesian hyperparameter optimization.
 - [AnoamlyDetectionDataset](https://github.com/dcintlab/artificial-dataset): generating a synthetic dataset.
-- Anomaly detection with autoencoders. (?)
 
 ---
 

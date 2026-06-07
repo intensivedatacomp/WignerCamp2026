@@ -13,7 +13,7 @@ This year 2 different projects are offered to students:
 
 ---
 
-## 📦 Setup + cloning repository
+## 📦 Setup + cloning repositories
 
 First the development environment has to be set up for the Summer School, you can find instructions to do that at [EnvironmentSetup.md](DevelopmentTools/EnvironmentSetup.md).
 
@@ -24,7 +24,9 @@ git clone --recurse-submodules git@github.com:dcintlab/WignerCamp2026.git
 cd WignerCamp2026
 ```
 
-### Contents
+
+
+## Contents
 
 You should get familiar with the folders in this repository in the following order:
 
@@ -37,13 +39,17 @@ You should get familiar with the folders in this repository in the following ord
 - Introduction to the project for the summer school.
 - [EdgeDetectionConvolution](EdgeDetectionConvolution): introduction to convolution.
 - Introduction to the method.
+- External repositories:
+    - [github/dcintlab/image-processing](https://github.com/dcintlab/image-processing): Implementation of the edge detection method. TODO: finish repo!!!
 
 #### Anomaly detection
 - Introduction to the project for the summer school.
 - [AnomalyDetectionMathematics](AnomalyDetectionMathematics): matrix multiplication, eigendecomposition, accuracy.
 - [AnomalyDetectionALTx](AnomalyDetectionALTx): Introduction to `altx`.
 - [AnomalyDetectionSignalProcessing](AnomalyDetectionSignalProcessing): finding peaks and bayesian hyperparameter optimization.
-- [AnoamlyDetectionDataset](https://github.com/dcintlab/artificial-dataset): generating a synthetic dataset.
+- External repositories:
+    - [github/dcintlab/artificial-dataset](https://github.com/dcintlab/artificial-dataset): Artificial dataset generation
+    - [github/halmosb/altx](https://github.com/halmosb/altx): `altx`: Adaptive Law-Based Transformation
 
 ---
 
@@ -120,51 +126,3 @@ Developed by members of the **Wigner Data and Compute Intensive Sciences Group**
 ## 📜 License
 
 Materials in this repository are provided for **educational purposes**.
-
----
-
-## 🔗 Working with the Submodule (`AnomalyDetectionDataset`)
-
-This repository includes AnomalyDetectionDataset directory as a Git submodule pointing to [dcintlab/artificial-dataset](https://github.com/dcintlab/artificial-dataset).
-
-### Initial setup
-
-Clone the repo with the submodule already initialized:
-```bash
-git clone --recurse-submodules git@github.com:dcintlab/WignerCamp2026.git
-```
-
-If you already cloned without it:
-```bash
-git submodule update --init --recursive
-```
-
-### Pull the latest version of the submodule
-
-```bash
-git submodule update --remote AnomalyDetectionDataset
-git add AnomalyDetectionDataset
-git commit -m "Update AnomalyDetectionDataset submodule"
-```
-
-### Make changes inside the submodule
-
-```bash
-cd AnomalyDetectionDataset
-git checkout main          # submodules start in detached HEAD — always check out a branch first
-# ... make changes ...
-git add .
-git commit -m "Your message"
-git push
-cd ..
-# Record the new commit in the parent repo:
-git add AnomalyDetectionDataset
-git commit -m "Update AnomalyDetectionDataset submodule"
-```
-
-### Update your local submodule after someone else advanced it
-
-```bash
-git pull
-git submodule update --recursive
-```

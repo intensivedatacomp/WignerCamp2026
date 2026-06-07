@@ -34,12 +34,18 @@ You can clone this repository using:
 git clone git@github.com:dcintlab/WignerCamp2026.git
 cd WignerCamp2026
 pip install -r requirements.txt
+cd ..
 ```
 
 ### Edge detection additional repos
 For the edge detection project, some additional repositories are also needed.
 ```bash
 git clone git@github.com:dcintlab/image-processing.git
+```
+
+For both projects, the change directory to this repository:
+```bash
+cd WignerCamp2026
 ```
 
 ### Anomaly detection
@@ -59,6 +65,11 @@ git clone git@github.com:halmosb/altx.git altx-fork
 cd altx-fork
 pip install -e .[examples,docs]
 cd ..
+```
+
+For both projects, the change directory to this repository:
+```bash
+cd WignerCamp2026
 ```
 
 ---

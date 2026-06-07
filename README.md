@@ -87,6 +87,7 @@ You should get familiar with the folders in this repository in the following ord
 - Introduction to the project for the summer school.
 - [EdgeDetectionConvolution](EdgeDetectionConvolution): introduction to convolution.
 - Introduction to the method.
+- [GoodFeaturesToTrack](GoodFeaturesToTrack): `cv2.GoodFeaturesToTrack` method for finding corners.
 - External repositories:
     - [github/dcintlab/image-processing](https://github.com/dcintlab/image-processing): Implementation of the edge detection method. TODO: finish repo!!!
 
@@ -96,8 +97,8 @@ You should get familiar with the folders in this repository in the following ord
 - [AnomalyDetectionALTx](AnomalyDetectionALTx): Introduction to `altx`.
 - [AnomalyDetectionSignalProcessing](AnomalyDetectionSignalProcessing): finding peaks and bayesian hyperparameter optimization.
 - External repositories:
-    - [github/dcintlab/artificial-dataset](https://github.com/dcintlab/artificial-dataset): Artificial dataset generation
-    - [github/halmosb/altx](https://github.com/halmosb/altx): `altx`: Adaptive Law-Based Transformation
+    - [github/dcintlab/artificial-dataset](https://github.com/dcintlab/artificial-dataset): Artificial dataset generation.
+    - [github/halmosb/altx](https://github.com/halmosb/altx): `altx`: Adaptive Law-Based Transformation.
 
 ---
 

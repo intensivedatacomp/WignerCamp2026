@@ -13,6 +13,17 @@ This year 2 different projects are offered to students:
 
 ---
 
+## 🐍 Creating the Conda Environment
+
+To run the Python scripts, create a new Conda environment named `WignerCampEnv`:
+
+```bash
+conda create -n WignerCampEnv python=3.14 -y
+conda activate WignerCampEnv
+```
+
+---
+
 ## 📦 Setup + cloning repositories
 
 First the development environment has to be set up for the Summer School, you can find instructions to do that at [EnvironmentSetup.md](DevelopmentTools/EnvironmentSetup.md).
@@ -22,6 +33,7 @@ You can clone this repository using:
 ```bash
 git clone git@github.com:dcintlab/WignerCamp2026.git
 cd WignerCamp2026
+pip install -r requirements.txt
 ```
 
 ### Edge detection additional repos
@@ -49,6 +61,7 @@ pip install -e .[examples,docs]
 cd ..
 ```
 
+---
 
 ## 📋 Contents
 
@@ -81,22 +94,6 @@ You should get familiar with the folders in this repository in the following ord
 
 TODO: Update table
 
----
-
-## 🐍 Creating the Conda Environment
-
-To run the Python scripts, create a new Conda environment named `WignerCampEnv`:
-
-```bash
-conda create -n WignerCampEnv python=3.14 -y
-conda activate WignerCampEnv
-```
-
-Then install the required packages:
-
-```bash
-pip install -r requirements.txt
-```
 
 ---
 
@@ -149,4 +146,4 @@ Developed by members of the **Wigner Data and Compute Intensive Sciences Group**
 
 ## 📜 License
 
-Materials in this repository are provided for **educational purposes**.
+Materials in this repository are provided for **educational purposes** and it is licensed under [GPLv3 license](LICENSE).

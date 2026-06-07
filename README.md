@@ -7,7 +7,7 @@ This year 2 different projects are offered to students:
     - Using a special convolution the relevant edges can be found on an image.
     - At the camp there will be several opportunities: applying the method to a video, investigating scale dependence of the method, or applying it to live video from a robot.
 - Anomaly detection:
-    - The research groups's novel method [altx](https://github.com/dcintlab/altx) has been demonstrated as effective in time-series data classification, now we would like to apply it to anomaly detection.
+    - The research groups's novel method [altx](https://github.com/halmosb/altx) has been demonstrated as effective in time-series data classification, now we would like to apply it to anomaly detection.
     - The special focus will be on classical signal processing methods which are able to find peaks in the data.
     - Also classical hyperparameter optimizations such as bayesian hyperparameter optimization will be used to optimize the hyperparameters of the method.
 
@@ -20,29 +20,53 @@ First the development environment has to be set up for the Summer School, you ca
 You can clone this repository using:
 
 ```bash
-git clone --recurse-submodules git@github.com:dcintlab/WignerCamp2026.git
+git clone git@github.com:dcintlab/WignerCamp2026.git
 cd WignerCamp2026
 ```
 
+### Edge detection additional repos
+For the edge detection project, some additional repositories are also needed.
+```bash
+git clone git@github.com:dcintlab/image-processing.git
+```
+
+### Anomaly detection
+For the anomaly detection project, some additional repositories are also needed.
+
+For generating the artificial dataset:
+```bash
+git clone git@github.com:dcintlab/artificial-dataset.git
+cd artificial-dataset
+pip install -e .[dev,docs]
+cd ..
+```
+
+For using `altx`:
+```bash
+git clone git@github.com:halmosb/altx.git altx-fork
+cd altx-fork
+pip install -e .[examples,docs]
+cd ..
+```
 
 
-## Contents
+## 📋 Contents
 
 You should get familiar with the folders in this repository in the following order:
 
-#### General introduction
+### General introduction
 - [GeneralDevelopmentTools](GeneralDevelopmentTools): Basic introduction to linux terminal, vim, and git.
 - [GeneralBasicProgramming](GeneralBasicProgramming): python, numpy, pandas, matplotlib, torch.
 - [GeneralTestsAndDocumentation](GeneralTestsAndDocumentation): pytest and documenting code.
 
-#### Edge detection materials
+### Edge detection materials
 - Introduction to the project for the summer school.
 - [EdgeDetectionConvolution](EdgeDetectionConvolution): introduction to convolution.
 - Introduction to the method.
 - External repositories:
     - [github/dcintlab/image-processing](https://github.com/dcintlab/image-processing): Implementation of the edge detection method. TODO: finish repo!!!
 
-#### Anomaly detection
+### Anomaly detection
 - Introduction to the project for the summer school.
 - [AnomalyDetectionMathematics](AnomalyDetectionMathematics): matrix multiplication, eigendecomposition, accuracy.
 - [AnomalyDetectionALTx](AnomalyDetectionALTx): Introduction to `altx`.

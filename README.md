@@ -90,6 +90,7 @@ You should get familiar with the folders in this repository in the following ord
 - [GoodFeaturesToTrack](GoodFeaturesToTrack): `cv2.GoodFeaturesToTrack` method for finding corners.
 - External repositories:
     - [github/dcintlab/image-processing](https://github.com/dcintlab/image-processing): Implementation of the edge detection method. TODO: finish repo!!!
+    - [github/halmosb/Wigner-Robot](https://github.com/halmosb/Wigner-Robot): Code for controlling the robot.
 
 ### Anomaly detection
 - Introduction to the project for the summer school.

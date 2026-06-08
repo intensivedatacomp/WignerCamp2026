@@ -1,4 +1,4 @@
-# WignerCamp2026
+# Wigner Camp 2026
 
 This repository contains the educational materials for the **2026 Wigner Summer Camp** organized by the **Data and Compute Intensive Sciences Research Group** at the Wigner Research Centre for Physics.
 

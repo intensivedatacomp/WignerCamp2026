@@ -48,7 +48,7 @@ cat ~/.ssh/id_ed25519.pub
 To **clone** an existing repository:
 
 ```bash
-git clone git@github.com:dcintlab/WignerCamp2026.git
+git clone git@github.com:intensivedatacomp/WignerCamp2026.git
 ```
 
 To **create** a new repository locally:

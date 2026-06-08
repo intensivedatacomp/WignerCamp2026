@@ -31,7 +31,7 @@ First the development environment has to be set up for the Summer School, you ca
 You can clone this repository using:
 
 ```bash
-git clone git@github.com:dcintlab/WignerCamp2026.git
+git clone git@github.com:intensivedatacomp/WignerCamp2026.git
 cd WignerCamp2026
 pip install -r requirements.txt
 cd ..
@@ -40,7 +40,7 @@ cd ..
 ### Edge detection additional repos
 For the edge detection project, some additional repositories are also needed.
 ```bash
-git clone git@github.com:dcintlab/image-processing.git
+git clone git@github.com:intensivedatacomp/image-processing.git
 ```
 
 For both projects, the change directory to this repository:
@@ -53,7 +53,7 @@ For the anomaly detection project, some additional repositories are also needed.
 
 For generating the artificial dataset:
 ```bash
-git clone git@github.com:dcintlab/artificial-dataset.git
+git clone git@github.com:intensivedatacomp/artificial-dataset.git
 cd artificial-dataset
 pip install -e .[dev,docs]
 cd ..

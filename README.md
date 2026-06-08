@@ -26,7 +26,7 @@ conda activate WignerCampEnv
 
 ## 📦 Setup + cloning repositories
 
-First the development environment has to be set up for the Summer School, you can find instructions to do that at [EnvironmentSetup.md](DevelopmentTools/EnvironmentSetup.md).
+First the development environment has to be set up for the Summer School, you can find instructions to do that at [EnvironmentSetup.md](GeneralDevelopmentTools/EnvironmentSetup.md).
 
 You can clone this repository using:
 

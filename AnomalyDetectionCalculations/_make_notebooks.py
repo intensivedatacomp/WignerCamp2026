@@ -438,7 +438,7 @@ unrelated detections. A few samples is typical.""")
 
     # --------- Exercise 3
     md("""\
-### Exercise 3
+### Exercise 3 (optional)
 
 **Part A — by hand.** With true peaks at indices `10, 50, 90` (the `true_mask`
 above) and predicted indices `np.array([8, 12, 48, 95])`, work out `TP`, `FP`,
@@ -553,7 +553,7 @@ print(f"Custom scorer: best score = {opt_custom.best_score_:.3f}, "
 
     # --------- Exercise 4
     md("""\
-### Exercise 4
+### Exercise 4 (optional)
 
 1. Fit one optimizer with `scorer="precision"` and one with `scorer="recall"`
    (both `n_trials=100`, `tolerance=2`, `seed=0`). Plot both results with

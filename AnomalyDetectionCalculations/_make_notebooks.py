@@ -19,18 +19,29 @@ from nbformat.v4 import new_notebook, new_markdown_cell, new_code_cell
 # Reusable cell contents
 # --------------------------------------------------------------------------- #
 
-COLAB_SETUP = """\
+# Raw URL of the class on the public GitHub repo (always the latest `main`).
+RAW_CLASS_URL = (
+    "https://raw.githubusercontent.com/intensivedatacomp/WignerCamp2026/"
+    "main/AnomalyDetectionCalculations/optimized_find_peaks.py"
+)
+
+COLAB_SETUP = f"""\
 try:
     from google.colab import drive
     IN_COLAB = True
     drive.mount('/content/drive/')
-    %cd /content/drive/My\\ Drive/Colab\\ Notebooks/WignerCamp2026/AnomalyDetectionCalculations
+    # Your working copy on Google Drive.
+    !mkdir -p "/content/drive/My Drive/WignerCamp2026/AnomalyDetection"
+    %cd /content/drive/My\\ Drive/WignerCamp2026/AnomalyDetection
     !pip install optuna --quiet
+    # Make the OptimizedFindPeaks class importable: grab the latest version
+    # straight from GitHub into the working directory.
+    !wget -q -O optimized_find_peaks.py {RAW_CLASS_URL}
 except:
     IN_COLAB = False
     %load_ext autoreload
     %autoreload 2
-print(f'Running on {"Google colab" if IN_COLAB else "Local computer"}')"""
+print(f'Running on {{"Google colab" if IN_COLAB else "Local computer"}}')"""
 
 IMPORTS = """\
 import numpy as np
@@ -102,8 +113,21 @@ def build(solution: bool) -> nbf.NotebookNode:
     code = lambda s: cells.append(new_code_cell(s))
 
     kind = "Solutions" if solution else "Tutorial"
+    nb_name = (
+        "optimized_find_peaks_solution.ipynb"
+        if solution
+        else "optimized_find_peaks_tutorial.ipynb"
+    )
+    colab_url = (
+        "https://colab.research.google.com/github/intensivedatacomp/"
+        f"WignerCamp2026/blob/main/AnomalyDetectionCalculations/{nb_name}"
+    )
 
     # ---------------------------------------------------------------- Title
+    md(
+        f"[![Open In Colab](https://colab.research.google.com/assets/"
+        f"colab-badge.svg)]({colab_url})"
+    )
     md(f"""\
 # `OptimizedFindPeaks` — {kind}
 

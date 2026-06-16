@@ -84,7 +84,7 @@ You should get familiar with the folders in this repository in the following ord
 - [GeneralTestsAndDocumentation](GeneralTestsAndDocumentation): pytest and documenting code.
 
 ### Edge detection materials
-- Introduction to the project for the summer school.
+- [IntroductionToImageProcessing](IntroductionToImageProcessing) for the summer school.
 - [EdgeDetectionConvolution](EdgeDetectionConvolution): introduction to convolution.
 - Introduction to the method.
 - [GoodFeaturesToTrack](GoodFeaturesToTrack): `cv2.GoodFeaturesToTrack` method for finding corners.

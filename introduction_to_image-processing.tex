@@ -1,0 +1,200 @@
+\documentclass{beamer}
+\usefonttheme{serif} % default family is serif
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{colortbl}
+\usepackage{multirow,tabularx}
+\usepackage{tikz}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=blue,      
+    urlcolor=blue,
+    pdftitle={Linear algebra},
+    pdfpagemode=FullScreen,
+    }
+\usepackage{physics}
+\usepackage{siunitx}
+\usepackage{listings}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage[font=small,skip=2pt]{caption}
+\setlength{\belowcaptionskip}{-10pt}
+\definecolor{blue}{rgb}{0.0234375, 0.11328125, 0.609375}
+\usepackage{multicol}
+\usepackage{wrapfig}
+\setbeamercolor{frametitle}{fg=blue}
+\setbeamercolor{title}{fg=blue}
+\setbeamercolor{structure}{fg=blue}
+
+\title{\textcolor{blue}{Introduction to image processing}}
+\subtitle{\textcolor{blue}{Wigner Summer Camp \\ Data and Compute Intensive Sciences Research Group}}
+\author{\textcolor{blue}{Balázs, Paszkál, Vince, Levente, Bence, Antal \\ Éva, Hajni}}
+\date{\textcolor{blue}{6-10 July 2026}}
+
+\setbeamertemplate{footline}{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=.1\paperwidth,ht=2.25ex,dp=1ex,left]{page number in head/foot}%
+    \hspace{1em} \textcolor{blue}{\insertframenumber}%
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+
+% Current section
+\AtBeginSection[ ]
+{
+\begin{frame}{Outline}
+    \tableofcontents[currentsection]
+\end{frame}
+}
+
+\begin{document}
+
+\begin{frame}
+    \titlepage
+    \begin{columns}
+        \column{0.3\textwidth}
+        \column{0.3\textwidth}
+        \centering
+        \includegraphics[width=0.8\textwidth]{img/logo.png}
+        \column{0.3\textwidth}
+    \end{columns}
+\end{frame}
+
+
+\begin{frame}{Imagine This...}
+    \begin{itemize}
+        \item A self-driving car approaches a pedestrian crossing.
+        \item A warehouse robot must avoid obstacles.
+        \item A drone flies through a forest.
+    \end{itemize}
+
+    \vspace{0.5cm}
+
+    How do these machines know where objects are?
+    They need to \textbf{see} and \textbf{understand} their environment.
+\end{frame}
+
+
+\begin{frame}{Can Computers Really See?}
+
+    A camera only captures millions of numbers.
+
+    \begin{center}
+        Image = Matrix of Pixels
+    \end{center}
+
+    For a computer:
+
+    \begin{itemize}
+        \item A person is not a person.
+        \item A road is not a road.
+        \item A wall is not a wall.
+    \end{itemize}
+
+    Everything starts as numbers.
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{The Challenge}
+
+    Humans instantly recognize:
+
+    \begin{itemize}
+        \item Roads
+        \item Faces
+        \item Buildings
+        \item Obstacles
+    \end{itemize}
+
+    Computers must learn how to find useful information inside an image.
+
+    This is where \textbf{Computer Vision} begins.
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{What Is an Edge?}
+
+    An edge is a place where brightness changes suddenly.
+
+    \vspace{0.5cm}
+
+    Examples:
+
+    \begin{itemize}
+        \item Border of a road
+        \item Corner of a building
+        \item Outline of a person
+        \item Edge of a traffic sign
+    \end{itemize}
+
+    Edges often describe the shape of objects.
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Why Is Edge Detection Important?}
+
+    Without edge detection:
+
+    \begin{itemize}
+        \item Too much information
+        \item Difficult to identify objects
+    \end{itemize}
+
+    With edge detection:
+
+    \begin{itemize}
+        \item Important structures become visible
+        \item Less data to process
+        \item Faster algorithms
+    \end{itemize}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Original Image vs Edge Image}
+
+    Insert example images here:
+
+    \begin{center}
+        Original Image $\rightarrow$ Edge Detection
+    \end{center}
+
+    \vspace{0.3cm}
+
+    Notice how most unnecessary information disappears while important structures remain.
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Applications}
+
+    Edge detection is used in:
+
+    \begin{itemize}
+        \item Self-driving cars
+        \item Medical imaging
+        \item Robotics
+        \item Security systems
+        \item Satellite image analysis
+        \item Industrial quality control
+    \end{itemize}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{What We Work On}
+
+    Our projects include:
+
+    \begin{itemize}
+        \item Image processing
+        \item Robot vision
+        \item Object tracking
+        \item Camera stabilization
+        \item Neural networks
+        \item Autonomous systems
+    \end{itemize}
+
+    All of these start with understanding images.
+\end{frame}
+\end{document}

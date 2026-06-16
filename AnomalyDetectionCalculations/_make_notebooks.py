@@ -200,6 +200,8 @@ plot_result(signal, true_peaks, found_peaks, f"Tuned find_peaks (F1 = {opt.best_
     md("""\
 The tuned parameters are reusable on any signal of the same kind:""")
     code("""\
+from optimized_find_peaks import _f1_components
+
 kwargs = opt.find_peaks_kwargs()
 print("Reusable kwargs:", kwargs)
 
@@ -207,7 +209,17 @@ print("Reusable kwargs:", kwargs)
 new_signal, new_true = make_anomaly_signal(seed=99)
 peaks_new, _ = find_peaks(new_signal, **kwargs)
 print(f"On a new signal the same kwargs find {peaks_new.size} peaks "
-      f"(true anomalies: {new_true.size}).")""")
+      f"(true anomalies: {new_true.size}).")
+
+new_mask = np.zeros(new_signal.size, dtype=bool)
+new_mask[new_true] = True
+new_tp, new_fp, new_fn = _f1_components(new_mask, peaks_new, tolerance=2)
+
+new_precision = new_tp / (new_tp + new_fp) if (new_tp + new_fp) else 0.0
+new_recall    = new_tp / (new_tp + new_fn) if (new_tp + new_fn) else 0.0
+new_f1        = 2 * new_tp / (2 * new_tp + new_fp + new_fn) if (2 * new_tp + new_fp + new_fn) else 0.0
+         
+plot_result(new_signal, new_true, peaks_new, f"Tuned find_peaks (F1 = {new_f1:.3f})")""")
 
     # --------- Exercise 1
     md("""\

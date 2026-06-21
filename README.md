@@ -84,19 +84,21 @@ You should get familiar with the folders in this repository in the following ord
 - [GeneralTestsAndDocumentation](GeneralTestsAndDocumentation): pytest and documenting code.
 
 ### Edge detection materials
-- [IntroductionToImageProcessing](IntroductionToImageProcessing) for the summer school.
+- [IntroductionToImageProcessing](IntroductionToImageProcessing): introduction to the edge detection method for the summer school.
 - [EdgeDetectionConvolution](EdgeDetectionConvolution): introduction to convolution.
-- Introduction to the method.
+- [IntroductionToImageProcessingPackage](IntroductionToImageProcessingPackage): overview of the `image-processing` package implementing the method.
 - [GoodFeaturesToTrack](GoodFeaturesToTrack): `cv2.GoodFeaturesToTrack` method for finding corners.
+- [RobotSoftware](RobotSoftware): client/server control software for running the method on the robot's live video.
 - External repositories:
-    - [github/intensivedatacomp/image-processing](https://github.com/intensivedatacomp/image-processing): Implementation of the edge detection method. TODO: finish repo!!!
+    - [github/intensivedatacomp/image-processing](https://github.com/intensivedatacomp/image-processing): Implementation of the edge detection method.
     - [github/halmosb/Wigner-Robot](https://github.com/halmosb/Wigner-Robot): Code for controlling the robot.
 
 ### Anomaly detection
-- Introduction to the project for the summer school.
+- [AnomalyDetectionIntroduction](AnomalyDetectionIntroduction): introduction to the project for the summer school.
 - [AnomalyDetectionMathematics](AnomalyDetectionMathematics): matrix multiplication, eigendecomposition, accuracy.
 - [AnomalyDetectionALTx](AnomalyDetectionALTx): Introduction to `altx`.
 - [AnomalyDetectionSignalProcessing](AnomalyDetectionSignalProcessing): finding peaks and bayesian hyperparameter optimization.
+- [AnomalyDetectionCalculations](AnomalyDetectionCalculations): tuning `find_peaks` with Optuna to detect anomalies.
 - External repositories:
     - [github/intensivedatacomp/artificial-dataset](https://github.com/intensivedatacomp/artificial-dataset): Artificial dataset generation.
     - [github/halmosb/altx](https://github.com/halmosb/altx): `altx`: Adaptive Law-Based Transformation.

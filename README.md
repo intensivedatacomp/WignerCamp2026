@@ -137,7 +137,7 @@ The camp runs **6–10 July 2026**. Each half-hour slot is one row. The two proj
   <tr>
     <td>9:00–9:30</td>
     <td colspan="2">Opening Ceremony</td>
-    <td colspan="2">Revision Exercises</td>
+    <td colspan="2">Revision of Day 1</td>
     <td colspan="2" rowspan="7">Working on the chosen topic</td>
     <td colspan="2" rowspan="7">Working on the chosen topic</td>
     <td colspan="2" rowspan="4">Creating Presentation</td>
@@ -146,7 +146,7 @@ The camp runs **6–10 July 2026**. Each half-hour slot is one row. The two proj
     <td>9:30–10:00</td>
     <td colspan="2">Introduction to the projects<br><a href="IntroductionToImageProcessing">Edge Detection intro</a> · <a href="AnomalyDetectionIntroduction">Anomaly Detection intro</a></td>
     <td rowspan="6"><a href="IntroductionToImageProcessingPackage">Image Processing package</a><br><i>(<a href="https://github.com/intensivedatacomp/image-processing">image-processing</a> repo)</i></td>
-    <td rowspan="6"><a href="AnomalyDetectionALTx">ALTx introduction</a><br><i>(<a href="https://github.com/halmosb/altx">altx</a> repo)</i></td>
+    <td rowspan="6"><a href="AnomalyDetectionSignalProcessing">Signal Processing</a><br><i>(<a href="https://github.com/intensivedatacomp/artificial-dataset">artificial-dataset</a> &amp; find_peaks &amp; Optuna)</i></td>
   </tr>
   <tr>
     <td>10:00–10:30</td>
@@ -178,9 +178,9 @@ The camp runs **6–10 July 2026**. Each half-hour slot is one row. The two proj
   <tr>
     <td>13:30–14:00</td>
     <td rowspan="3"><a href="EdgeDetectionConvolution">Convolution</a><br><i>(presentation)</i></td>
-    <td rowspan="3"><a href="AnomalyDetectionMathematics">Mathematics</a><br><i>(presentations)</i></td>
+    <td rowspan="2"><a href="AnomalyDetectionMathematics">Mathematics</a><br><i>(presentations)</i></td>
     <td rowspan="3"><a href="GoodFeaturesToTrack">Good Features To Track</a></td>
-    <td rowspan="3"><a href="AnomalyDetectionSignalProcessing">Signal Processing</a><br><i>(<a href="https://github.com/intensivedatacomp/artificial-dataset">artificial-dataset</a> &amp; find_peaks &amp; Optuna)</i></td>
+    <td rowspan="7"><a href="AnomalyDetectionCalculations">Calculations</a><br><i>(tuning find_peaks with Optuna)</i></td>
     <td colspan="2" rowspan="7">Working on the chosen topic</td>
     <td colspan="2" rowspan="7">Working on the chosen topic</td>
     <td colspan="2" rowspan="7">Closing &amp; presentation</td>
@@ -190,16 +190,16 @@ The camp runs **6–10 July 2026**. Each half-hour slot is one row. The two proj
   </tr>
   <tr>
     <td>14:30–15:00</td>
+    <td rowspan="2"><a href="AnomalyDetectionMathematics/mathematics_exercise">mathematics exercise</a></td>
   </tr>
   <tr>
     <td>15:00–15:30</td>
     <td rowspan="4"><a href="EdgeDetectionConvolution/conv2d_exercise">conv2d exercise</a></td>
-    <td rowspan="4"><a href="AnomalyDetectionMathematics/mathematics_exercise">mathematics exercise</a></td>
     <td rowspan="4"><a href="RobotSoftware">Robot Software</a></td>
-    <td rowspan="4"><a href="AnomalyDetectionCalculations">Calculations</a><br><i>(tuning find_peaks with Optuna)</i></td>
   </tr>
   <tr>
     <td>15:30–16:00</td>
+    <td rowspan="3"><a href="AnomalyDetectionALTx">ALTx introduction</a><br><i>(<a href="https://github.com/halmosb/altx">altx</a> repo)</i></td>
   </tr>
   <tr>
     <td>16:00–16:30</td>

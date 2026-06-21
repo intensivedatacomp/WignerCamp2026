@@ -56,7 +56,7 @@ For both projects, the change directory to this repository:
 cd WignerCamp2026
 ```
 
-### Anomaly detection
+### Anomaly detection materials
 For the anomaly detection project, some additional repositories are also needed.
 
 For generating the artificial dataset, [github/intensivedatacomp/artificial-dataset](https://github.com/intensivedatacomp/artificial-dataset):

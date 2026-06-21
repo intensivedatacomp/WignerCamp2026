@@ -146,7 +146,7 @@ The camp runs **6–10 July 2026**. Each half-hour slot is one row. The two proj
     <td>9:30–10:00</td>
     <td colspan="2">Introduction to the projects<br><a href="IntroductionToImageProcessing">Edge Detection intro</a> · <a href="AnomalyDetectionIntroduction">Anomaly Detection intro</a></td>
     <td rowspan="6"><a href="IntroductionToImageProcessingPackage">Image Processing package</a><br><i>(<a href="https://github.com/intensivedatacomp/image-processing">image-processing</a> repo)</i></td>
-    <td rowspan="6"><a href="AnomalyDetectionALTx">ALTx introduction</a><br><i>(<a href="https://github.com/intensivedatacomp/artificial-dataset">artificial-dataset</a> &amp; <a href="https://github.com/halmosb/altx">altx</a> repos)</i></td>
+    <td rowspan="6"><a href="AnomalyDetectionALTx">ALTx introduction</a><br><i>(<a href="https://github.com/halmosb/altx">altx</a> repo)</i></td>
   </tr>
   <tr>
     <td>10:00–10:30</td>
@@ -180,7 +180,7 @@ The camp runs **6–10 July 2026**. Each half-hour slot is one row. The two proj
     <td rowspan="3"><a href="EdgeDetectionConvolution">Convolution</a><br><i>(presentation)</i></td>
     <td rowspan="3"><a href="AnomalyDetectionMathematics">Mathematics</a><br><i>(presentations)</i></td>
     <td rowspan="3"><a href="GoodFeaturesToTrack">Good Features To Track</a></td>
-    <td rowspan="3"><a href="AnomalyDetectionSignalProcessing">Signal Processing</a><br><i>(find_peaks &amp; Optuna)</i></td>
+    <td rowspan="3"><a href="AnomalyDetectionSignalProcessing">Signal Processing</a><br><i>(<a href="https://github.com/intensivedatacomp/artificial-dataset">artificial-dataset</a> &amp; find_peaks &amp; Optuna)</i></td>
     <td colspan="2" rowspan="7">Working on the chosen topic</td>
     <td colspan="2" rowspan="7">Working on the chosen topic</td>
     <td colspan="2" rowspan="7">Closing &amp; presentation</td>

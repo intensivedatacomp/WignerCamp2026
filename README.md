@@ -20,7 +20,6 @@ To run the Python scripts, create a new Conda environment named `WignerCampEnv`:
 ```bash
 conda create -n WignerCampEnv python=3.14 -y
 conda activate WignerCampEnv
-pip install -r requirements.txt
 ```
 
 ---
@@ -39,9 +38,17 @@ cd ..
 ```
 
 ### Edge detection additional repos
-For the edge detection project, some additional repositories are also needed.
+For the edge detection project, the [github/intensivedatacomp/image-processing/](https://github.com/intensivedatacomp/image-processing/).
 ```bash
 git clone git@github.com:intensivedatacomp/image-processing.git
+cd image-processing
+pip install -e .[dev,docs]
+cd ..
+```
+
+For controlling the robot [github/halmosb/Wigner-Robot](https://github.com/halmosb/Wigner-Robot):
+```bash
+git clone git@github.com:halmosb/Wigner-Robot.git
 ```
 
 For both projects, the change directory to this repository:
@@ -52,7 +59,7 @@ cd WignerCamp2026
 ### Anomaly detection
 For the anomaly detection project, some additional repositories are also needed.
 
-For generating the artificial dataset:
+For generating the artificial dataset, [github/intensivedatacomp/artificial-dataset](https://github.com/intensivedatacomp/artificial-dataset):
 ```bash
 git clone git@github.com:intensivedatacomp/artificial-dataset.git
 cd artificial-dataset
@@ -60,7 +67,7 @@ pip install -e .[dev,docs]
 cd ..
 ```
 
-For using `altx`:
+For using `altx`, [github/halmosb/altx](https://github.com/halmosb/altx):
 ```bash
 git clone git@github.com:halmosb/altx.git altx-fork
 cd altx-fork

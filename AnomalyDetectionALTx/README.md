@@ -4,6 +4,16 @@ This folder contains self-contained examples that illustrate how the **Adaptive 
 
 ## 📄 Contents
 
+- [📑 `altx.pdf`](./altx.pdf)  
+  The compiled version of the LaTeX presentation. Useful for quick reviews or showing slides.
+> [!IMPORTANT]
+> This is meant to be presented at the whiteboard, not as a presentation. (The slides are just a cheat-sheet for the presentation.)
+
+- [ `altx_intro.ipynb`](./altx_intro.ipynb)  
+  A companion notebook used alongside the presentation for hands-on exercises.
+
+## 📄 Additional contents (for generating the exercises)
+
 - [📓 `presentation_calculation.ipynb`](./presentation_calculation.ipynb)  
   A Jupyter notebook that demonstrates the steps of ALT for **classification** with executable code and explanations:
   - Sequence generation using linear recursion
@@ -12,8 +22,6 @@ This folder contains self-contained examples that illustrate how the **Adaptive 
   - Feature computation and classification  
   → Perfect for interactive exploration or educational use.
 
-- [📓 `altx_intro.ipynb`](./altx_intro.ipynb)  
-  A companion notebook used alongside the presentation for hands-on exercises.
 
 - [📓 `altx_anomaly.ipynb`](./altx_anomaly.ipynb)  
   A Jupyter notebook demonstrating ALT for **anomaly detection**:
@@ -31,8 +39,6 @@ This folder contains self-contained examples that illustrate how the **Adaptive 
 - [🎤 `altx.tex`](./altx.tex)  
   The LaTeX Beamer source file of the presentation. Covers classification, the parameters \(r, l, k\), and a dedicated **anomaly detection** section with numerical examples and exercises.
 
-- [📑 `altx.pdf`](./altx.pdf)  
-  The compiled version of the LaTeX presentation. Useful for quick reviews or showing slides.
 
 ## 🧠 About ALT
 
@@ -57,4 +63,4 @@ Kurbucz, M.T., Hajós, B., Halmos, B.P., Molnár, V.Á., Jakovác A. Adaptive la
 Balázs Paszkál Halmos, Balázs Hajós, Vince Áron Molnár, Marcell Tamás Kurbucz, Antal Jakovác, `altx`: a python package for adaptive law-based transformation in time series classification, *Mach. Learn.: Sci. Technol.* **7** 015034 (2026) [https://doi.org/10.1088/2632-2153/ae3e4f](https://doi.org/10.1088/2632-2153/ae3e4f)
 
 - **ALT Source Code**  
-  GitHub repository: [github.com/dcintlab/altx](https://github.com/dcintlab/altx)
+  GitHub repository: [github.com/halmosb/altx](https://github.com/halmosb/altx)

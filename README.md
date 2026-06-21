@@ -107,8 +107,102 @@ You should get familiar with the folders in this repository in the following ord
 
 ## ⏰ Recommended timeline
 
-TODO: Update table
+The camp runs **6–10 July 2026**. Each half-hour slot is one row. The two project tracks — **Edge Detection** and **Anomaly Detection** — share the morning of Day 1 (opening, project introductions and the general programming introduction), then split into separate groups from after the first lunch. The recommended scheduling below covers all track-specific materials by the **end of Day 2**; Days 3–4 are dedicated to project work, and Day 5 to preparing and giving the closing presentations. Lunch is **12:30–13:30** every day.
 
+<table>
+  <tr>
+    <th rowspan="2">Time</th>
+    <th colspan="2">Day 1<br>Mon 6 Jul</th>
+    <th colspan="2">Day 2<br>Tue 7 Jul</th>
+    <th colspan="2">Day 3<br>Wed 8 Jul</th>
+    <th colspan="2">Day 4<br>Thu 9 Jul</th>
+    <th colspan="2">Day 5<br>Fri 10 Jul</th>
+  </tr>
+  <tr>
+    <th>Edge Detection</th><th>Anomaly Detection</th>
+    <th>Edge Detection</th><th>Anomaly Detection</th>
+    <th>Edge Detection</th><th>Anomaly Detection</th>
+    <th>Edge Detection</th><th>Anomaly Detection</th>
+    <th>Edge Detection</th><th>Anomaly Detection</th>
+  </tr>
+
+  <tr>
+    <td>9:00–9:30</td>
+    <td colspan="2">Opening Ceremony</td>
+    <td colspan="2">Revision Exercises</td>
+    <td colspan="2" rowspan="7">Working on the chosen topic</td>
+    <td colspan="2" rowspan="7">Working on the chosen topic</td>
+    <td colspan="2" rowspan="4">Creating Presentation</td>
+  </tr>
+  <tr>
+    <td>9:30–10:00</td>
+    <td colspan="2">Introduction to the projects<br><a href="IntroductionToImageProcessing">Edge Detection intro</a> · <a href="AnomalyDetectionIntroduction">Anomaly Detection intro</a></td>
+    <td rowspan="6"><a href="IntroductionToImageProcessingPackage">Image Processing package</a><br><i>(<a href="https://github.com/intensivedatacomp/image-processing">image-processing</a> repo)</i></td>
+    <td rowspan="6"><a href="AnomalyDetectionALTx">ALTx introduction</a><br><i>(<a href="https://github.com/intensivedatacomp/artificial-dataset">artificial-dataset</a> &amp; <a href="https://github.com/halmosb/altx">altx</a> repos)</i></td>
+  </tr>
+  <tr>
+    <td>10:00–10:30</td>
+    <td colspan="2" rowspan="5">General introduction<br><a href="GeneralDevelopmentTools/EnvironmentSetup.md">EnvironmentSetup.md</a> · <a href="GeneralDevelopmentTools">DevelopmentTools</a> · <a href="GeneralBasicProgramming">BasicProgramming</a><br><i>(optional: <a href="GeneralTestsAndDocumentation">TestsAndDocumentation</a>)</i></td>
+  </tr>
+  <tr>
+    <td>10:30–11:00</td>
+  </tr>
+  <tr>
+    <td>11:00–11:30</td>
+    <td colspan="2" rowspan="2">Finalizing Presentation</td>
+  </tr>
+  <tr>
+    <td>11:30–12:00</td>
+  </tr>
+  <tr>
+    <td>12:00–12:30</td>
+    <td colspan="2">Practice Presentation</td>
+  </tr>
+
+  <tr>
+    <td>12:30–13:00</td>
+    <td colspan="10" rowspan="2">Lunch</td>
+  </tr>
+  <tr>
+    <td>13:00–13:30</td>
+  </tr>
+
+  <tr>
+    <td>13:30–14:00</td>
+    <td rowspan="3"><a href="EdgeDetectionConvolution">Convolution</a><br><i>(presentation)</i></td>
+    <td rowspan="3"><a href="AnomalyDetectionMathematics">Linear Algebra</a><br><i>(presentations)</i></td>
+    <td rowspan="3"><a href="GoodFeaturesToTrack">Good Features To Track</a></td>
+    <td rowspan="3"><a href="AnomalyDetectionSignalProcessing">Signal Processing</a><br><i>(find_peaks &amp; Optuna)</i></td>
+    <td colspan="2" rowspan="7">Working on the chosen topic</td>
+    <td colspan="2" rowspan="7">Working on the chosen topic</td>
+    <td colspan="2" rowspan="7">Closing &amp; presentation</td>
+  </tr>
+  <tr>
+    <td>14:00–14:30</td>
+  </tr>
+  <tr>
+    <td>14:30–15:00</td>
+  </tr>
+  <tr>
+    <td>15:00–15:30</td>
+    <td rowspan="4"><a href="EdgeDetectionConvolution/conv2d_exercise">conv2d exercise</a></td>
+    <td rowspan="4"><a href="AnomalyDetectionMathematics/mathematics_exercise">mathematics exercise</a></td>
+    <td rowspan="4"><a href="RobotSoftware">Robot Software</a></td>
+    <td rowspan="4"><a href="AnomalyDetectionCalculations">Calculations</a><br><i>(tuning find_peaks with Optuna)</i></td>
+  </tr>
+  <tr>
+    <td>15:30–16:00</td>
+  </tr>
+  <tr>
+    <td>16:00–16:30</td>
+  </tr>
+  <tr>
+    <td>16:30–17:00</td>
+  </tr>
+</table>
+
+> [!NOTE]
+> The exact times for the non-project activities on Days 3–4 (e.g. visiting the nuclear reactor) are not fixed yet; those slots are shown as project work for now.
 
 ---
 

@@ -93,16 +93,6 @@ Description of more advanced concepts of **git**. This can be skipped for beginn
 - Reachability
 - Tags
 
-### 📝 [setup_git_exercises.py](setup_git_exercises.py)
-
-Python script to generate git repositories for the examples in [Git_intermediate.md](Git_intermediate.md).
-
-Can be run with:
-```bash
-python setup_git_exercises.py
-```
-
-
 ## ✅ Extra
 
 You can also open these files with:

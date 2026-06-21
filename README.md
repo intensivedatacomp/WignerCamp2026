@@ -20,6 +20,7 @@ To run the Python scripts, create a new Conda environment named `WignerCampEnv`:
 ```bash
 conda create -n WignerCampEnv python=3.14 -y
 conda activate WignerCampEnv
+pip install -r requirements.txt
 ```
 
 ---

@@ -1,15 +1,28 @@
-jupyter
-jupytext
-numpy
-matplotlib
-pandas
-scipy
-torch
-torchvision
-torchaudio
-pytest
-pre-commit
-pillow
-optuna
-aeon
-opencv-python
+# Notebooks & presentations
+jupyter>=1.1.1            # Interactive notebooks used throughout the camp materials
+jupytext>=1.19.3         # Pairs notebooks with plain-text scripts; drives notebook builds
+
+# Scientific computing
+numpy>=2.4.6             # Array math; backbone of nearly every exercise
+matplotlib>=3.11.0       # Plotting signals, images and results
+pandas>=3.0.3            # Tabular data handling
+scipy>=1.18.0            # Signal processing (e.g. find_peaks) and linear algebra
+
+# Deep learning (kept as a matched trio: torch 2.11 / torchvision 0.26 / torchaudio 2.11)
+torch>=2.11.0            # PyTorch core; CNNs and the dataset generators
+torchvision>=0.26.0      # Image transforms and vision utilities for PyTorch
+torchaudio>=2.11.0       # Audio/signal utilities for PyTorch
+
+# Testing & code quality
+pytest>=9.1.1            # Test runner for all the exercise suites
+pre-commit>=4.6.0        # Runs lint/format hooks before commits (submodule)
+black>=26.5.1            # Code formatter (line length 88)
+ruff>=0.15.18            # Fast linter
+mypy>=2.1.0              # Static type checker (strict mode in the submodule)
+
+# Imaging & vision
+pillow>=12.2.0           # Image loading/saving for edge-detection exercises
+opencv-python>=4.13.0.92 # Feature tracking and computer-vision notebooks
+
+# Hyperparameter optimization
+optuna>=4.9.0            # Tuning ALT / signal-processing hyperparameters

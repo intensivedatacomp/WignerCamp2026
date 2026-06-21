@@ -202,7 +202,7 @@ The camp runs **6–10 July 2026**. Each half-hour slot is one row. The two proj
 </table>
 
 > [!NOTE]
-> The exact times for the non-project activities on Days 3–4 (e.g. visiting the nuclear reactor) are not fixed yet; those slots are shown as project work for now.
+> The exact times for the non-project activities on Days 3–4 (e.g. visiting particle accelerators) are not fixed yet; those slots are shown as project work for now.
 
 ---
 

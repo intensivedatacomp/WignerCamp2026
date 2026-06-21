@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.14)
 project(WigneCamp2025)
 
 add_subdirectory(GeneralBasicProgramming)
+add_subdirectory(AnomalyDetectionIntroduction)
 add_subdirectory(EdgeDetectionConvolution)
 add_subdirectory(AnomalyDetectionMathematics)
 add_subdirectory(AnomalyDetectionSignalProcessing)

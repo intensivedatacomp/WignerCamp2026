@@ -178,7 +178,7 @@ The camp runs **6–10 July 2026**. Each half-hour slot is one row. The two proj
   <tr>
     <td>13:30–14:00</td>
     <td rowspan="3"><a href="EdgeDetectionConvolution">Convolution</a><br><i>(presentation)</i></td>
-    <td rowspan="3"><a href="AnomalyDetectionMathematics">Linear Algebra</a><br><i>(presentations)</i></td>
+    <td rowspan="3"><a href="AnomalyDetectionMathematics">Mathematics</a><br><i>(presentations)</i></td>
     <td rowspan="3"><a href="GoodFeaturesToTrack">Good Features To Track</a></td>
     <td rowspan="3"><a href="AnomalyDetectionSignalProcessing">Signal Processing</a><br><i>(find_peaks &amp; Optuna)</i></td>
     <td colspan="2" rowspan="7">Working on the chosen topic</td>

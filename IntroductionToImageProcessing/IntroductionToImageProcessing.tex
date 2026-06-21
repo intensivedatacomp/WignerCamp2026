@@ -1,200 +1,426 @@
 \documentclass{beamer}
-\usefonttheme{serif} % default family is serif
+
+\usefonttheme{serif}
+
 \usepackage{graphicx}
 \usepackage{xcolor}
-\usepackage{colortbl}
-\usepackage{multirow,tabularx}
 \usepackage{tikz}
+\usepackage{amsmath}
+\usepackage{physics}
+\usepackage{siunitx}
 \usepackage{hyperref}
+\usepackage{listings}
+
+\usetikzlibrary{positioning, arrows.meta}
+
 \hypersetup{
     colorlinks=true,
     linkcolor=blue,
-    filecolor=blue,      
-    urlcolor=blue,
-    pdftitle={Linear algebra},
-    pdfpagemode=FullScreen,
-    }
-\usepackage{physics}
-\usepackage{siunitx}
-\usepackage{listings}
-\usepackage{amsthm}
-\usepackage{amsmath}
-\usepackage[font=small,skip=2pt]{caption}
-\setlength{\belowcaptionskip}{-10pt}
-\definecolor{blue}{rgb}{0.0234375, 0.11328125, 0.609375}
-\usepackage{multicol}
-\usepackage{wrapfig}
+    urlcolor=blue
+}
+
+\definecolor{blue}{rgb}{0.0234375,0.11328125,0.609375}
+
 \setbeamercolor{frametitle}{fg=blue}
 \setbeamercolor{title}{fg=blue}
 \setbeamercolor{structure}{fg=blue}
 
-\title{\textcolor{blue}{Introduction to image processing}}
-\subtitle{\textcolor{blue}{Wigner Summer Camp \\ Data and Compute Intensive Sciences Research Group}}
-\author{\textcolor{blue}{Balázs, Paszkál, Vince, Levente, Bence, Antal \\ Éva, Hajni}}
+
+\title{\textcolor{blue}{Robust Edge Detection for Robot Vision}}
+
+\subtitle{
+\textcolor{blue}{
+Image Processing Project\\
+Data and Compute Intensive Sciences Research Group
+}
+}
+
+\author{
+Balázs, Paszkál, Vince, Levente, Bence, Antal\\
+Éva, Hajni
+}
+
 \date{\textcolor{blue}{6-10 July 2026}}
 
+
 \setbeamertemplate{footline}{
-  \leavevmode%
-  \hbox{%
-  \begin{beamercolorbox}[wd=.1\paperwidth,ht=2.25ex,dp=1ex,left]{page number in head/foot}%
-    \hspace{1em} \textcolor{blue}{\insertframenumber}%
-  \end{beamercolorbox}}%
-  \vskip0pt%
+\leavevmode%
+\hbox{
+\begin{beamercolorbox}[wd=.1\paperwidth,ht=2.25ex,dp=1ex,left]{page number in head/foot}
+\hspace{1em}\textcolor{blue}{\insertframenumber}
+\end{beamercolorbox}}
+\vskip0pt
 }
 
-% Current section
-\AtBeginSection[ ]
+
+\AtBeginSection[]
 {
 \begin{frame}{Outline}
-    \tableofcontents[currentsection]
+\tableofcontents[currentsection]
 \end{frame}
 }
+
 
 \begin{document}
 
+
+%------------------------------------------------
+
 \begin{frame}
+
     \titlepage
-    \begin{columns}
-        \column{0.3\textwidth}
-        \column{0.3\textwidth}
-        \centering
-        \includegraphics[width=0.8\textwidth]{img/logo.png}
-        \column{0.3\textwidth}
-    \end{columns}
-\end{frame}
-
-
-\begin{frame}{Imagine This...}
-    \begin{itemize}
-        \item A self-driving car approaches a pedestrian crossing.
-        \item A warehouse robot must avoid obstacles.
-        \item A drone flies through a forest.
-    \end{itemize}
-
-    \vspace{0.5cm}
-
-    How do these machines know where objects are?
-    They need to \textbf{see} and \textbf{understand} their environment.
-\end{frame}
-
-
-\begin{frame}{Can Computers Really See?}
-
-    A camera only captures millions of numbers.
 
     \begin{center}
-        Image = Matrix of Pixels
+        \includegraphics[width=0.25\textwidth]{img/logo.png}
     \end{center}
 
-    For a computer:
-
-    \begin{itemize}
-        \item A person is not a person.
-        \item A road is not a road.
-        \item A wall is not a wall.
-    \end{itemize}
-
-    Everything starts as numbers.
 \end{frame}
 
-%------------------------------------------------
-\begin{frame}{The Challenge}
-
-    Humans instantly recognize:
-
-    \begin{itemize}
-        \item Roads
-        \item Faces
-        \item Buildings
-        \item Obstacles
-    \end{itemize}
-
-    Computers must learn how to find useful information inside an image.
-
-    This is where \textbf{Computer Vision} begins.
-\end{frame}
 
 %------------------------------------------------
-\begin{frame}{What Is an Edge?}
 
-    An edge is a place where brightness changes suddenly.
+\section{Motivation}
 
-    \vspace{0.5cm}
 
-    Examples:
+\begin{frame}{Why Do Machines Need Vision?}
 
-    \begin{itemize}
-        \item Border of a road
-        \item Corner of a building
-        \item Outline of a person
-        \item Edge of a traffic sign
-    \end{itemize}
-
-    Edges often describe the shape of objects.
-\end{frame}
-
-%------------------------------------------------
-\begin{frame}{Why Is Edge Detection Important?}
-
-    Without edge detection:
+    Modern robots need to understand their environment.
 
     \begin{itemize}
-        \item Too much information
-        \item Difficult to identify objects
+        \item Autonomous vehicles
+        \item Warehouse robots
+        \item Drones
+        \item Industrial systems
     \end{itemize}
-
-    With edge detection:
-
-    \begin{itemize}
-        \item Important structures become visible
-        \item Less data to process
-        \item Faster algorithms
-    \end{itemize}
-\end{frame}
-
-%------------------------------------------------
-\begin{frame}{Original Image vs Edge Image}
-
-    Insert example images here:
-
-    \begin{center}
-        Original Image $\rightarrow$ Edge Detection
-    \end{center}
 
     \vspace{0.3cm}
 
-    Notice how most unnecessary information disappears while important structures remain.
+    A camera only provides pixels.
+
+    \textbf{How can we extract useful information from images?}
+
 \end{frame}
 
+
+
 %------------------------------------------------
+
+
+\begin{frame}{From Image to Information}
+
+    \begin{columns}
+
+        \column{0.5\textwidth}
+
+        \includegraphics[width=\textwidth]{img/result_original.png}
+
+
+        \column{0.5\textwidth}
+
+        \begin{itemize}
+
+            \item Raw image contains millions of values
+
+            \item Important structures are hidden
+
+            \item We search for:
+                  \begin{itemize}
+                      \item edges
+                      \item shapes
+                      \item movement
+                  \end{itemize}
+
+        \end{itemize}
+
+    \end{columns}
+
+\end{frame}
+
+
+
+%------------------------------------------------
+
+\section{The Problem}
+
+
+\begin{frame}{Classical Edge Detection}
+
+
+    One common method is the Canny edge detector.
+
+    \vspace{0.4cm}
+
+
+    \begin{center}
+
+        \begin{tikzpicture}[
+                node distance=0.7cm,
+                every node/.style={
+                        draw,
+                        rounded corners,
+                        minimum width=1.4cm,
+                        minimum height=0.7cm,
+                        align=center
+                    }
+            ]
+
+
+            \node (a) {Image};
+            \node (b) [right=of a] {Blur};
+            \node (c) [right=of b] {Gradient};
+            \node (d) [right=of c] {Threshold};
+            \node (e) [right=of d] {Edges};
+
+
+            \draw[-{Latex}, thick] (a)--(b);
+            \draw[-{Latex}, thick] (b)--(c);
+            \draw[-{Latex}, thick] (c)--(d);
+            \draw[-{Latex}, thick] (d)--(e);
+
+
+        \end{tikzpicture}
+
+    \end{center}
+
+
+\end{frame}
+
+
+
+%------------------------------------------------
+
+
+\begin{frame}{The Limitation}
+
+
+    Classical methods can be unstable.
+
+    \vspace{0.4cm}
+
+
+    \begin{columns}
+
+
+        \column{0.5\textwidth}
+
+        \includegraphics[width=\textwidth]{img/too_many_edges.png}
+
+        Too many edges
+
+
+        \column{0.5\textwidth}
+
+        \includegraphics[width=\textwidth]{img/missing_edges.png}
+
+        Missing edges
+
+
+    \end{columns}
+
+
+\end{frame}
+
+
+
+%------------------------------------------------
+
+
+\begin{frame}{Our Goal}
+
+
+    We want a method that:
+
+    \begin{itemize}
+
+        \item Detects important structures
+
+        \item Ignores noise
+
+        \item Works with real camera input
+
+        \item Is robust in changing conditions
+
+    \end{itemize}
+
+
+\end{frame}
+
+
+
+%------------------------------------------------
+
+\section{Our Method}
+
+
+\begin{frame}{Convolution Based Approach}
+
+
+    Images can be processed using convolution kernels.
+
+
+    \[
+        \begin{bmatrix}
+            -1 & -1 & -1 \\
+            0  & 0  & 0  \\
+            1  & 1  & 1
+        \end{bmatrix}
+    \]
+
+
+    The kernel scans the image and detects patterns.
+
+
+\end{frame}
+
+
+
+%------------------------------------------------
+
+
+\begin{frame}{How Convolution Works}
+
+
+    \begin{center}
+
+        \begin{tikzpicture}
+
+            \node[draw] (a) at (0,0) {Image};
+
+            \node[draw] (b) at (3,0) {Kernel};
+
+            \node[draw] (c) at (6,0) {Feature Map};
+
+
+            \draw[-{Latex}] (a)--(b);
+            \draw[-{Latex}] (b)--(c);
+
+        \end{tikzpicture}
+
+    \end{center}
+
+
+    The result highlights important information.
+
+\end{frame}
+
+
+
+%------------------------------------------------
+
+\section{Results}
+
+
+\begin{frame}{Example Results}
+
+
+    \begin{columns}
+
+
+        \column{0.33\textwidth}
+
+        \includegraphics[width=\textwidth]{img/result_original.png}
+
+        Original
+
+
+        \column{0.33\textwidth}
+
+        \includegraphics[width=\textwidth]{img/result_canny.png}
+
+        Canny
+
+
+        \column{0.33\textwidth}
+
+        \includegraphics[width=\textwidth]{img/result_method.png}
+
+        Our method
+
+
+    \end{columns}
+
+
+\end{frame}
+
+
+
+%------------------------------------------------
+
+
 \begin{frame}{Applications}
 
-    Edge detection is used in:
+
+    Applications:
 
     \begin{itemize}
-        \item Self-driving cars
-        \item Medical imaging
-        \item Robotics
-        \item Security systems
-        \item Satellite image analysis
-        \item Industrial quality control
+
+        \item Robot vision
+
+        \item Video stabilization
+
+        \item Distance measurement
+
+        \item Object tracking
+
+        \item Autonomous systems
+
     \end{itemize}
+
+
 \end{frame}
+
+
 
 %------------------------------------------------
-\begin{frame}{What We Work On}
 
-    Our projects include:
+\section{Summer Camp Project}
 
-    \begin{itemize}
-        \item Image processing
-        \item Robot vision
-        \item Object tracking
-        \item Camera stabilization
-        \item Neural networks
-        \item Autonomous systems
-    \end{itemize}
 
-    All of these start with understanding images.
+\begin{frame}{What We Do During The Camp}
+
+
+    \begin{enumerate}
+
+        \item Introduction to image processing
+
+        \item Understanding convolution methods
+
+        \item Implementing edge detection
+
+        \item Applying methods to robot camera
+
+        \item Video stabilization experiments
+
+        \item Evaluation of results
+
+
+    \end{enumerate}
+
+
 \end{frame}
+
+
+
+%------------------------------------------------
+
+
+\begin{frame}{Final Goal}
+
+
+    Build a system that can:
+
+
+    \begin{center}
+
+        \textbf{See → Understand → React}
+
+    \end{center}
+
+
+    using real camera data.
+
+
+\end{frame}
+
+
 \end{document}

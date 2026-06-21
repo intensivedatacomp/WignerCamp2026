@@ -63,7 +63,7 @@ For using `altx`:
 ```bash
 git clone git@github.com:halmosb/altx.git altx-fork
 cd altx-fork
-pip install -e .[examples,docs]
+pip install -e .[docs]
 cd ..
 ```
 

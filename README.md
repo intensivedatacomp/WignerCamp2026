@@ -31,7 +31,7 @@ First the development environment has to be set up for the Summer School, you ca
 You can clone this repository using:
 
 ```bash
-git clone git@github.com:intensivedatacomp/WignerCamp2026.git
+git clone https://github.com/intensivedatacomp/WignerCamp2026.git
 cd WignerCamp2026
 pip install -r requirements.txt
 cd ..
@@ -40,7 +40,7 @@ cd ..
 ### Edge detection additional repos
 For the edge detection project, the [github/intensivedatacomp/image-processing/](https://github.com/intensivedatacomp/image-processing/).
 ```bash
-git clone git@github.com:intensivedatacomp/image-processing.git
+git clone https://github.com/intensivedatacomp/image-processing.git
 cd image-processing
 pip install -e .[dev,docs]
 cd ..
@@ -48,7 +48,7 @@ cd ..
 
 For controlling the robot [github/halmosb/Wigner-Robot](https://github.com/halmosb/Wigner-Robot):
 ```bash
-git clone git@github.com:halmosb/Wigner-Robot.git
+git clone https://github.com/halmosb/Wigner-Robot.git
 ```
 
 For both projects, the change directory to this repository:
@@ -61,7 +61,7 @@ For the anomaly detection project, some additional repositories are also needed.
 
 For generating the artificial dataset, [github/intensivedatacomp/artificial-dataset](https://github.com/intensivedatacomp/artificial-dataset):
 ```bash
-git clone git@github.com:intensivedatacomp/artificial-dataset.git
+git clone https://github.com/intensivedatacomp/artificial-dataset.git
 cd artificial-dataset
 pip install -e .[dev,docs]
 cd ..
@@ -69,7 +69,7 @@ cd ..
 
 For using `altx`, [github/halmosb/altx](https://github.com/halmosb/altx):
 ```bash
-git clone git@github.com:halmosb/altx.git altx-fork
+git clone https://github.com/halmosb/altx.git altx-fork
 cd altx-fork
 pip install -e .[docs]
 cd ..

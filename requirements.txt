@@ -1,6 +1,7 @@
 # Notebooks & presentations
 jupyter>=1.1.1            # Interactive notebooks used throughout the camp materials
 jupytext>=1.19.3         # Pairs notebooks with plain-text scripts; drives notebook builds
+ipykernel>=7.3.0         # enables jupyter notebook to run python
 
 # Scientific computing
 numpy>=2.4.6             # Array math; backbone of nearly every exercise
